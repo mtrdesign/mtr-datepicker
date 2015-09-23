@@ -1,0 +1,63 @@
+/**
+ * Main Variables
+ */
+.mtr-datepicker {
+  background: #ecf0f1;
+}
+.mtr-datepicker .mtr-input-slider {
+  width: 50px;
+  height: 100px;
+  overflow: hidden;
+  margin: 10px;
+  position: relative;
+  float: left;
+  text-align: center;
+  vertical-align: middle;
+  /** The navigatators of the input */
+  /** The input field and values are stored here */
+}
+.mtr-datepicker .mtr-input-slider .arrow {
+  background: #3498db;
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+}
+.mtr-datepicker .mtr-input-slider .content {
+  overflow: auto;
+  height: 40px;
+}
+.mtr-datepicker .mtr-input-slider .content .input {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+.mtr-datepicker .mtr-input-slider .content .values .default-value-holder,
+.mtr-datepicker .mtr-input-slider .content .values .default-value {
+  height: 40px;
+  line-height: 40px;
+}
+.mtr-datepicker .mtr-input-slider .content .values .default-value.has-name,
+.mtr-datepicker .mtr-input-slider .content .values .default-value-name {
+  position: relative;
+  height: 20px;
+  line-height: 20px;
+}
+.mtr-datepicker .mtr-input-slider .content::-webkit-scrollbar {
+  display: none;
+}
+.mtr-datepicker .mtr-input-radio {
+  margin: 50px;
+  position: relative;
+  float: left;
+}
+.mtr-datepicker .mtr-row {
+  position: relative;
+  float: left;
+}
+.mtr-datepicker .mtr-clearfix {
+  clear: both;
+}

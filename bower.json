@@ -1,0 +1,16 @@
+{
+  "name": "mtr-datepicker",
+  "version": "0.0.0",
+  "authors": [
+    "Valentin Kirilov <val.kirilov@gmail.com>"
+  ],
+  "description": "A simple datepicker",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

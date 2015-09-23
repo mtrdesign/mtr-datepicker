@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Datepicker - MTR Design</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom styles for this template -->
+  	<link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.min.css" />
+		<link rel="stylesheet" type="text/css" href="styles/css/demo.css" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+          <a class="blog-nav-item active" href="#">Home</a>
+          <a class="blog-nav-item" href="#">About</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="blog-header">
+        <h1 class="blog-title">MTR Datepicker</h1>
+        <p class="lead blog-description">The pure JavaScript ultimate datepicker</p>
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-8 blog-main">
+
+          <div class="blog-post">
+            <h2 class="blog-post-title">Demo</h2>
+
+        		<div id="demo"></div>
+            <hr />
+
+            <h3>Export Formats</h3>	
+            <div id="demo-result"></div>
+
+          </div><!-- /.blog-post -->
+
+           <div class="blog-post">
+            <h2 class="blog-post-title">Documentation</h2>
+
+            <p class="alert alert-info">
+          		Documentation is still not available. If you have any questions look at the code or submit an issue.
+            </p>
+
+          </div><!-- /.blog-post -->
+
+        </div><!-- /.blog-main -->
+
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          <div class="sidebar-module sidebar-module-inset">
+            <h4>About</h4>
+            <p>This page is under dev.</p>
+          </div>
+          <!--
+          <div class="sidebar-module">
+            <h4>Archives</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">March 2014</a></li>
+              <li><a href="#">February 2014</a></li>
+              <li><a href="#">January 2014</a></li>
+              <li><a href="#">December 2013</a></li>
+              <li><a href="#">November 2013</a></li>
+              <li><a href="#">October 2013</a></li>
+              <li><a href="#">September 2013</a></li>
+              <li><a href="#">August 2013</a></li>
+              <li><a href="#">July 2013</a></li>
+              <li><a href="#">June 2013</a></li>
+              <li><a href="#">May 2013</a></li>
+              <li><a href="#">April 2013</a></li>
+            </ol>
+          </div>
+          <div class="sidebar-module">
+            <h4>Elsewhere</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">GitHub</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">Facebook</a></li>
+            </ol>
+          </div>
+          -->
+        </div><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+    <footer class="blog-footer">
+      <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- <script type="text/javascript" src="dist/mtr-datepicker.min.js"></script> -->
+		<script type="text/javascript" src="scripts/mtr-datepicker.js"></script>
+		<script type="text/javascript">
+
+		var datepicker1;
+
+		$(document).ready(function() {
+
+				datepicker1 = new MtrDatepicker({
+					target: "demo",
+				});
+
+				// datepicker1.onChange('hour', function() {
+				// 	console.log('onChange:hour');
+				// 	console.log(datepicker1.toString());
+				// });
+
+				// datepicker1.onChange('time', function() {
+				// 	console.log('onChange:time');
+				// 	console.log(datepicker1.toString());
+				// });
+
+				// datepicker1.onChange('date', function() {
+				// 	console.log('onChange:date');
+				// 	console.log(datepicker1.toString());
+				// });
+
+				var demoResult = $('#demo-result');
+
+				function datepickerChange() {
+					var result = datepicker1.toString() + '<br /><br />' + 
+						datepicker1.toDateString() + '<br />' +
+						datepicker1.toLocaleDateString() + '<br /><br />' +
+						
+						datepicker1.toTimeString() + '<br />' +
+						datepicker1.toLocaleTimeString() + '<br />';
+
+					demoResult.html(result);
+				}
+
+				datepickerChange();
+
+				datepicker1.onChange('all', function() {
+					datepickerChange();
+				});
+			});
+			  
+		</script>
+  </body>
+</html>

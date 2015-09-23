@@ -1,0 +1,86 @@
+
+/**
+ * Main Variables
+ */
+
+@input-slider-width: 50px;
+@input-slider-height: 100px;
+@input-slider-arrow-height: 30px;
+
+@input-slider-content-height: @input-slider-height - (2 * @input-slider-arrow-height);
+
+.mtr-datepicker {
+	background: #ecf0f1;
+
+	.mtr-input-slider {
+		width: @input-slider-width;
+		height: @input-slider-height;
+		overflow: hidden;
+		margin: 10px;
+		position: relative;
+		float: left;
+
+		text-align: center;
+		vertical-align: middle;
+
+		/** The navigatators of the input */
+		.arrow {
+			background: #3498db;
+			height: @input-slider-arrow-height;
+			line-height: @input-slider-arrow-height;
+			cursor: pointer;
+		}
+
+		/** The input field and values are stored here */
+		.content {
+			overflow: auto;
+			height: @input-slider-content-height;
+
+			.input {
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				border: none;
+				height: @input-slider-content-height;
+				line-height: @input-slider-content-height;
+				text-align: center;
+			}
+
+			.values {
+
+				.default-value-holder,
+				.default-value {
+					height: @input-slider-content-height;
+					line-height: @input-slider-content-height;
+				}
+
+				.default-value.has-name,
+				.default-value-name {
+					position: relative;
+
+					height: @input-slider-content-height / 2;
+					line-height: @input-slider-content-height / 2;
+				}
+			}
+		}
+
+		.content::-webkit-scrollbar {
+			display: none;
+		}
+	}
+
+	.mtr-input-radio {
+		margin: 50px;
+		position: relative;
+		float: left;
+	}
+
+	.mtr-row {
+		position: relative;
+		float: left;
+	}
+
+	.mtr-clearfix {
+		clear: both;
+	}
+}
