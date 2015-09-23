@@ -368,6 +368,7 @@ function MtrDatepicker(inputConfig) {
 
 					if (validateValue(elementConfig.name, newValue) === false) {
 						inputValue.value = inputValue.getAttribute('data-old-value');
+						inputValue.focus();
 						return;
 					}
 
@@ -635,14 +636,14 @@ function MtrDatepicker(inputConfig) {
 		var currentHours = values.date.getHours(); 
 		var currentHoursCalculates = getHours(); 
 		
-		var currentIsAm = values.ampm;
+		var currentIsAm = getIsAm();
 
 		if (currentIsAm !== setAmPm) {
-			if (setAmPm == true && currentHours > 12 ) { // Set AM
+			if (setAmPm == true && currentHours >= 12 ) { // Set AM
 				currentHours -= 12;
 				values.timestamp = values.date.setHours(currentHours);
 			}
-			else if (setAmPm == false && currentHours <= 12) { // Set PM
+			else if (setAmPm == false && currentHours < 12) { // Set PM
 				currentHours += 12;
 				values.timestamp = values.date.setHours(currentHours);
 			}
