@@ -661,7 +661,9 @@ function MtrDatepicker(inputConfig) {
 	};
 
 	var getIsAm = function() {
-		return values.date.toLocaleTimeString().indexOf('AM') > -1 ? 1 : 0;
+		var currentHours = values.date.getHours();
+		return (currentHours >= 0 && currentHours <= 11) ? true : false; 
+		//return values.date.toLocaleTimeString().indexOf('AM') > -1 ? 1 : 0;
 		//return values.ampm;
 	};
 
