@@ -93,6 +93,12 @@ function MtrDatepicker(inputConfig) {
 		'afterChange': clone(defaultChangeEventsCategories)
 	};
 
+	// Keep the wheel scroll in a timeout
+	var wheelTimeout = null;
+
+	// Keep the arrow click in a timeout
+	var arrowTimeout = {};
+
 	var init = function(inputConfig) {
 
 		setConfig(inputConfig);
@@ -240,64 +246,23 @@ function MtrDatepicker(inputConfig) {
 		function createUpArrow() {
 			var divArrowUp = createElement('div');
 			divArrowUp.className = 'arrow up';
-			divArrowUp.innerHTML = 'Up';
+			divArrowUp.innerHTML = '<span></span>';
 
 			// Attach event listener
-			divArrowUp.addEventListener('click', function(e) {
+			divArrowUp.addEventListener('click', function() {
 				// Prevent blur event
 				var input = qSelect(inputValue, '.input');
 				addClass(inputValue, 'arrow-click');
-				setTimeout(function() {	removeClass(inputValue, 'arrow-click'); }, 1000);
+				addClass(divContent, 'active');
 
-				// Change the value with the prev one
-				var name = elementConfig.name
-				var currentValue;
-			
-				switch(name) {
-					case 'hours': currentValue = getHours(); break;
-					case 'minutes': currentValue = getMinutes(); break;
-					case 'dates': currentValue = getDate(); break;
-					case 'months': currentValue = getMonth(); break;
-					case 'years': currentValue = getYear(); break;
+				if (arrowTimeout[elementConfig.name]) {
+					window.clearTimeout(arrowTimeout[elementConfig.name]);
 				}
 
-				var indexInArray = config.defaultValues[name].indexOf(currentValue);
-				indexInArray--;
-
-				if (indexInArray < 0) {
-					indexInArray = config.defaultValues[name].length - 1;
-				}
-
-				switch(name) {
-					//case 'hours': setHours(config.defaultValues[name][indexInArray]); break;
-					 case 'hours': 
-					 	// Check is we have to make a transform of the hour
-					 	var newHour = config.defaultValues[name][indexInArray];
-					 	if (getIsPm() && newHour !== 12) {
-					 		newHour += 12;
-					 	}
-					 	setHours(newHour); 
-					 	break;
-					case 'minutes': setMinutes(config.defaultValues[name][indexInArray]); break;
-					case 'dates': setDate(config.defaultValues[name][indexInArray]); break;
-					case 'months': setMonth(config.defaultValues[name][indexInArray]); break;
-					case 'years': setYear(config.defaultValues[name][indexInArray]); break;
-				};
-			}, false);
-
-			return divArrowUp;
-		}
-
-		function createDownArrow() {
-			var divArrowDown = createElement('div');
-			divArrowDown.className = 'arrow down';
-			divArrowDown.innerHTML = 'Down';
-
-			divArrowDown.addEventListener('click', function() {
-				// Prevent blur event
-				var input = qSelect(inputValue, '.input');
-				addClass(inputValue, 'arrow-click');
-				setTimeout(function() {	removeClass(inputValue, 'arrow-click'); }, 1000);
+				arrowTimeout[elementConfig.name] = setTimeout(function() {	
+					removeClass(inputValue, 'arrow-click'); 
+					removeClass(divContent, 'active');
+				}, 1000);
 
 				// Change the value with the next one
 				var name = elementConfig.name;
@@ -333,6 +298,65 @@ function MtrDatepicker(inputConfig) {
 					case 'months': setMonth(config.defaultValues[name][indexInArray]); break;
 					case 'years': setYear(config.defaultValues[name][indexInArray]); break;
 				}
+			}, false);
+
+			return divArrowUp;
+		}
+
+		function createDownArrow() {
+			var divArrowDown = createElement('div');
+			divArrowDown.className = 'arrow down';
+			divArrowDown.innerHTML = '<span></span>';
+
+			divArrowDown.addEventListener('click', function(e) {
+				// Prevent blur event
+				var input = qSelect(inputValue, '.input');
+				addClass(inputValue, 'arrow-click');
+				addClass(divContent, 'active');
+
+				if (arrowTimeout[elementConfig.name]) {
+					window.clearTimeout(arrowTimeout[elementConfig.name]);
+				}
+
+				arrowTimeout[elementConfig.name] = setTimeout(function() {	
+					removeClass(inputValue, 'arrow-click'); 
+					removeClass(divContent, 'active');
+				}, 1000);
+
+				// Change the value with the prev one
+				var name = elementConfig.name
+				var currentValue;
+			
+				switch(name) {
+					case 'hours': currentValue = getHours(); break;
+					case 'minutes': currentValue = getMinutes(); break;
+					case 'dates': currentValue = getDate(); break;
+					case 'months': currentValue = getMonth(); break;
+					case 'years': currentValue = getYear(); break;
+				}
+
+				var indexInArray = config.defaultValues[name].indexOf(currentValue);
+				indexInArray--;
+
+				if (indexInArray < 0) {
+					indexInArray = config.defaultValues[name].length - 1;
+				}
+
+				switch(name) {
+					//case 'hours': setHours(config.defaultValues[name][indexInArray]); break;
+					 case 'hours': 
+					 	// Check is we have to make a transform of the hour
+					 	var newHour = config.defaultValues[name][indexInArray];
+					 	if (getIsPm() && newHour !== 12) {
+					 		newHour += 12;
+					 	}
+					 	setHours(newHour); 
+					 	break;
+					case 'minutes': setMinutes(config.defaultValues[name][indexInArray]); break;
+					case 'dates': setDate(config.defaultValues[name][indexInArray]); break;
+					case 'months': setMonth(config.defaultValues[name][indexInArray]); break;
+					case 'years': setYear(config.defaultValues[name][indexInArray]); break;
+				};
 			}, false);
 
 			return divArrowDown;
@@ -425,16 +449,19 @@ function MtrDatepicker(inputConfig) {
 			var divHolder = document.createElement('div');
 			var label = document.createElement('label');
 			var input = document.createElement('input');
+			var elementId = config.targetElement + '-radio-' + radioName + '-' + labelValue;
 
-			label.innerHTML = labelValue;
+			label.innerHTML = '<span class="value">'+labelValue+'</span><span class="radio"></span>';
+			label.setAttribute('for', elementId);
 
 			input.className = 'input ';
 			input.type = 'radio';
 			input.name = radioName;
+			input.id = elementId
 			input.value = radioValue;
 
+			divHolder.appendChild(input);
 			divHolder.appendChild(label);
-			label.appendChild(input);
 
 			// Attach event listeners
 			input.addEventListener('change', function() {
@@ -503,6 +530,12 @@ function MtrDatepicker(inputConfig) {
 		}, false);
 
 		divValues.addEventListener('wheel', function(e) {
+			e.preventDefault();
+
+			if (wheelTimeout) {
+				return false;
+			}
+
 			// If the user is using the mouse wheel the values should be changed
 			var target = e.target;
 			var parent = target.parentElement.parentElement.parentElement.parentElement; // value -> values -> content -> input slider
@@ -516,8 +549,11 @@ function MtrDatepicker(inputConfig) {
 				arrow = qSelect(parent, '.arrow.down');
 			}
 
+			wheelTimeout = setTimeout(function() {
+				clearWheelTimeout();
+			}, 100);
+
 			arrow.click();
-			e.preventDefault();
 			return false;
 		}, false);
 
@@ -573,6 +609,10 @@ function MtrDatepicker(inputConfig) {
 		value = parseInt(value);
 		return config.defaultValues[type].indexOf(value) > -1 ? true : false;
 	};
+
+	var clearWheelTimeout = function() {
+		wheelTimeout = null;
+	}
 
 	/*****************************************************************************
 	 * A lot of getters and setters now

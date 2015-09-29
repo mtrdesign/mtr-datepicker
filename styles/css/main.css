@@ -1,14 +1,25 @@
 /**
  * Main Variables
  */
-.mtr-datepicker {
-  background: #ecf0f1;
+/**
+ * Mixins
+ */
+/**
+ * Styles
+ */
+.mtr-datepicker * {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .mtr-datepicker .mtr-input-slider {
   width: 50px;
-  height: 100px;
+  height: 75px;
   overflow: hidden;
-  margin: 10px;
+  margin: 14px 6px;
   position: relative;
   float: left;
   text-align: center;
@@ -17,40 +28,62 @@
   /** The input field and values are stored here */
 }
 .mtr-datepicker .mtr-input-slider .arrow {
-  background: #3498db;
-  height: 30px;
-  line-height: 30px;
+  height: 15px;
+  line-height: 15px;
   cursor: pointer;
+}
+.mtr-datepicker .mtr-input-slider .arrow span {
+  display: block;
+  margin: 0 auto;
 }
 .mtr-datepicker .mtr-input-slider .content {
   overflow: auto;
-  height: 40px;
+  height: 45px;
 }
 .mtr-datepicker .mtr-input-slider .content .input {
   width: 100%;
   margin: 0;
   padding: 0;
   border: none;
-  height: 40px;
-  line-height: 40px;
+  height: 45px;
+  line-height: 45px;
   text-align: center;
+}
+.mtr-datepicker .mtr-input-slider .content input {
+  border: none;
 }
 .mtr-datepicker .mtr-input-slider .content .values .default-value-holder,
 .mtr-datepicker .mtr-input-slider .content .values .default-value {
-  height: 40px;
-  line-height: 40px;
+  height: 45px;
+  line-height: 45px;
+  font-size: 15px;
+  font-size: 1.5rem;
 }
 .mtr-datepicker .mtr-input-slider .content .values .default-value.has-name,
 .mtr-datepicker .mtr-input-slider .content .values .default-value-name {
   position: relative;
-  height: 20px;
-  line-height: 20px;
+  height: 22.5px;
+  line-height: 22.5px;
+}
+.mtr-datepicker .mtr-input-slider .content .values .default-value-name {
+  font-size: 10px;
+  font-size: 1rem;
 }
 .mtr-datepicker .mtr-input-slider .content::-webkit-scrollbar {
   display: none;
 }
 .mtr-datepicker .mtr-input-radio {
-  margin: 50px;
+  margin: 14px 10px;
+  padding-top: 15px;
+  position: relative;
+  float: left;
+  font-size: 13px;
+  font-size: 1.3rem;
+}
+.mtr-datepicker .mtr-input-radio label {
+  position: relative;
+}
+.mtr-datepicker .mtr-input-radio label span {
   position: relative;
   float: left;
 }

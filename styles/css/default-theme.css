@@ -1,0 +1,51 @@
+.mtr-datepicker {
+  background: #ffffff;
+}
+.mtr-datepicker .arrow span {
+  background: url("../images/mtr-datepicker-arrows.png");
+  width: 13px;
+  height: 8px;
+}
+.mtr-datepicker .arrow.up span {
+  background-position: top center;
+}
+.mtr-datepicker .arrow.down span {
+  background-position: bottom center;
+  margin-top: 6px;
+}
+.mtr-datepicker .content {
+  background: #bdbcb8;
+  color: #ffffff;
+}
+.mtr-datepicker .content.active,
+.mtr-datepicker .content:hover,
+.mtr-datepicker .content input {
+  background: #ff8612;
+}
+.mtr-datepicker .content .values .default-value.has-name {
+  padding-top: 10px;
+}
+.mtr-datepicker .content .values .default-value-name {
+  padding-top: 2px;
+}
+.mtr-datepicker .mtr-input-radio label {
+  color: #b9b7b7;
+}
+.mtr-datepicker .mtr-input-radio label span.value {
+  width: 20px;
+}
+.mtr-datepicker .mtr-input-radio input[type="radio"] {
+  display: none;
+}
+.mtr-datepicker .mtr-input-radio input[type="radio"] + label span.radio {
+  width: 26px;
+  height: 18px;
+  display: inline-block;
+  background: url("../images/mtr-datepicker-radio.png") no-repeat 0 0;
+  line-height: 18px;
+  margin: 0px;
+  margin-left: 5px;
+}
+.mtr-datepicker .mtr-input-radio input[type="radio"]:checked + label span.radio {
+  background-position: -27px 0px;
+}

@@ -1,0 +1,87 @@
+
+@background: #ffffff;
+
+@content-background: #bdbcb8;
+@content-background-active: #ff8612;
+@content-foreground: #ffffff;
+
+@radio-label-foreground: #b9b7b7;
+
+.mtr-datepicker {
+
+	background: @background;
+
+	.arrow {
+
+		span { 
+			background: url("../images/mtr-datepicker-arrows.png");
+			width: 13px;
+			height: 8px;
+		}
+
+		&.up span {
+			background-position: top center;
+		}
+
+		&.down span {
+			background-position: bottom center;
+			margin-top: 6px;
+		}
+	}
+
+	.content {
+		background: @content-background;
+		color: @content-foreground;
+
+		&.active,
+		&:hover,
+		input {
+			background: @content-background-active;
+		}
+
+		.values {
+			.default-value.has-name,
+			.default-value-name {
+				
+			}
+
+			.default-value.has-name {
+				padding-top: 10px;
+			}
+
+			.default-value-name {
+				padding-top: 2px;
+			}
+		}
+	}
+
+	.mtr-input-radio {
+		label {
+			color: @radio-label-foreground;
+
+			span.value {
+				width: 20px;
+			}
+		}
+
+		input[type="radio"] {
+			display: none;
+		}
+
+		input[type="radio"] + label span.radio {
+			width: 26px;
+			height: 18px;
+		  display: inline-block;
+		  background: url("../images/mtr-datepicker-radio.png") no-repeat 0 0;
+		  line-height: 18px;
+
+		  margin: 0px;
+		  margin-left: 5px;
+		}
+
+		input[type="radio"]:checked + label span.radio {
+  		background-position : -27px 0px;
+		}
+	}
+
+}

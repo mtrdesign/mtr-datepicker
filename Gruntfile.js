@@ -9,6 +9,7 @@ module.exports = function(grunt) {
           },
           files: {
             "styles/css/main.css": "styles/less/main.less",
+            "styles/css/default-theme.css": "styles/less/default-theme.less",
           }
         }
       },
@@ -20,7 +21,8 @@ module.exports = function(grunt) {
         },
         target: {
           files: {
-            'dist/mtr-datepicker.min.css': ['styles/css/main.css']
+            'dist/mtr-datepicker.min.css': ['styles/css/main.css'],
+            'dist/mtr-datepicker.default-theme.min.css': ['styles/css/default-theme.css'],
           }
         }
       },
