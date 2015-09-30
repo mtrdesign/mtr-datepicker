@@ -1232,6 +1232,43 @@ function MtrDatepicker(inputConfig) {
 		return values.date.toUTCString();
 	};
 
+	/**
+	 * Return datetime in specific format
+	 * @param  {[type]} input [description]
+	 * @return {[type]}       [description]
+	 *
+	 * M
+	 * D
+	 * Y
+	 * YY
+	 * YYYY
+	 *
+	 * h
+	 * hh
+	 * m
+	 * a
+	 */
+	var format = function(input) {
+		var currentHours = getHours();
+		var currentMinutes = getMinutes();
+		var currentYear = getYear();
+
+		input = input.replace('M', getMonth()+1);
+		input = input.replace('D', getDate());
+		input = input.replace('YYYY', currentYear);
+		input = input.replace('YY', currentYear.toString().substr(2));
+		input = input.replace('Y', currentYear);
+
+		input = input.replace('hh', currentHours <= 9 ? ('0'+currentHours) : currentHours);
+		input = input.replace('h', currentHours);
+		input = input.replace('mm', currentHours <= 0 ? '0'+(currentMinutes) : currentMinutes);
+		input = input.replace('m', getMinutes());
+		input = input.replace('a', getIsAm() ? 'am' : 'pm');
+		input = input.replace('A', getIsAm() ? 'AM' : 'PM');
+
+		return input;
+	};
+
 	/*****************************************************************************
 	 * PUBLIC API
 	 *
@@ -1288,6 +1325,7 @@ function MtrDatepicker(inputConfig) {
 	this.toString = toString;
 	this.toTimeString = toTimeString;
 	this.toUTCString = toUTCString;
+	this.format = format;
 
 	// Here are some events which the api provides
 	this.onChange = onChange;

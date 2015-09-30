@@ -8,96 +8,99 @@
  * Styles
  */
 .mtr-datepicker * {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  -khtml-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
 }
 .mtr-datepicker .mtr-input-slider {
-  width: 50px;
-  height: 75px;
-  overflow: hidden;
-  margin: 14px 6px;
-  position: relative;
-  float: left;
-  text-align: center;
-  vertical-align: middle;
+  width: 50px !important;
+  height: 75px !important;
+  overflow: hidden !important;
+  margin: 14px 6px !important;
+  position: relative !important;
+  float: left !important;
+  text-align: center !important;
+  vertical-align: middle !important;
   /** The navigatators of the input */
   /** The input field and values are stored here */
 }
 .mtr-datepicker .mtr-input-slider .arrow {
-  height: 15px;
-  line-height: 15px;
-  cursor: pointer;
-  z-index: 0;
-  position: relative;
+  height: 15px !important;
+  line-height: 15px !important;
+  cursor: pointer !important;
+  z-index: 0 !important;
+  position: relative !important;
 }
 .mtr-datepicker .mtr-input-slider .arrow span {
-  display: block;
-  margin: 0 auto;
+  display: block !important;
+  margin: 0 auto !important;
 }
 .mtr-datepicker .mtr-input-slider .content {
-  overflow: hidden;
-  height: 45px;
-  z-index: 1;
-  position: relative;
+  overflow: hidden !important;
+  height: 45px !important;
+  z-index: 1 !important;
+  position: relative !important;
 }
 .mtr-datepicker .mtr-input-slider .content .input {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  border: none;
-  height: 45px;
-  line-height: 45px;
-  text-align: center;
+  width: 100% !important;
+  height: 75px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  height: 45px !important;
+  line-height: 45px !important;
+  text-align: center !important;
 }
 .mtr-datepicker .mtr-input-slider .content input {
-  border: none;
-  height: 45px;
+  border: none !important;
+  height: 45px !important;
+  font-size: 15px !important;
+  font-size: 1.5rem !important;
 }
 .mtr-datepicker .mtr-input-slider .content .values .default-value-holder,
 .mtr-datepicker .mtr-input-slider .content .values .default-value {
-  height: 45px;
-  line-height: 45px;
-  font-size: 15px;
-  font-size: 1.5rem;
+  height: 45px !important;
+  line-height: 45px !important;
+  font-size: 15px !important;
+  font-size: 1.5rem !important;
 }
 .mtr-datepicker .mtr-input-slider .content .values .default-value.has-name,
 .mtr-datepicker .mtr-input-slider .content .values .default-value-name {
-  height: inherit;
-  line-height: 22.5px;
+  height: inherit !important;
+  line-height: 22.5px !important;
 }
 .mtr-datepicker .mtr-input-slider .content .values .default-value.has-name {
-  height: 22.5px;
+  height: 22.5px !important;
 }
 .mtr-datepicker .mtr-input-slider .content .values .default-value-name {
-  font-size: 10px;
-  font-size: 1rem;
+  font-size: 10px !important;
+  font-size: 1rem !important;
 }
 .mtr-datepicker .mtr-input-slider .content::-webkit-scrollbar {
-  display: none;
+  display: none !important;
 }
 .mtr-datepicker .mtr-input-radio {
-  margin: 14px 10px;
-  padding-top: 15px;
-  position: relative;
-  float: left;
-  font-size: 13px;
-  font-size: 1.3rem;
+  margin: 14px 10px !important;
+  padding-top: 15px !important;
+  position: relative !important;
+  float: left !important;
+  font-size: 13px !important;
+  font-size: 1.3rem !important;
 }
 .mtr-datepicker .mtr-input-radio label {
-  position: relative;
+  position: relative !important;
 }
 .mtr-datepicker .mtr-input-radio label span {
-  position: relative;
-  float: left;
+  position: relative !important;
+  float: left !important;
 }
 .mtr-datepicker .mtr-row {
-  position: relative;
-  float: left;
+  position: relative !important;
+  float: left !important;
 }
 .mtr-datepicker .mtr-clearfix {
-  clear: both;
+  clear: both !important;
 }

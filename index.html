@@ -14,8 +14,8 @@
     <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.min.css?rel=1443609353962" />
-  	<link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.default-theme.min.css?rel=1443609353962" />
+    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.min.css?rel=1443625692886" />
+  	<link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.default-theme.min.css?rel=1443625692887" />
 		<link rel="stylesheet" type="text/css" href="styles/css/demo.css" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -125,8 +125,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="libs/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- <script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1443609353963"></script> -->
-		<script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1443609353963"></script>
+    <!-- <script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1443625692887"></script> -->
+		<script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1443625692887"></script>
 		<script type="text/javascript">
 
 		var datepicker1;
@@ -161,7 +161,10 @@
 						
 						datepicker1.toTimeString() + '<br />' +
             datepicker1.getFullTime() + '<br />' +
-						datepicker1.toLocaleTimeString() + '<br />';
+            datepicker1.toLocaleTimeString() + '<br /><br />' +
+            datepicker1.format('M/D/Y h:ma') + '<br />' +
+            datepicker1.format('M/D/YY hh:mma') + '<br />' +
+						datepicker1.format('M/D/YYYY h:mmA') + '<br />';
 
 					demoResult.html(result);
 				}
