@@ -9,6 +9,7 @@
 
 .mtr-datepicker {
 
+	font-family: "Helvetica";
 	background: @background;
 
 	.arrow {
@@ -23,9 +24,12 @@
 			background-position: top center;
 		}
 
-		&.down span {
-			background-position: bottom center;
-			margin-top: 6px;
+		&.down {
+			padding-top: 6px;
+			
+			span {
+				background-position: bottom center;
+			}
 		}
 	}
 
@@ -42,7 +46,7 @@
 		.values {
 			.default-value.has-name,
 			.default-value-name {
-				
+				background: @content-background;
 			}
 
 			.default-value.has-name {

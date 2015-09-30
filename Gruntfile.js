@@ -38,6 +38,25 @@ module.exports = function(grunt) {
         }
       },
 
+      // Append a timestamp to JS and CSS files which are located in 'index.html'
+      cachebreaker: {
+        dev: {
+          options: {
+            match: [
+              // CSS
+              'dist/mtr-datepicker.min.css', 
+              'dist/mtr-datepicker.default-theme.min.css',
+
+              // JS
+              'dist/mtr-datepicker.min.js',
+            ],
+          },
+          files: {
+            src: ['index.html']
+          }
+        }
+      },
+
       watch: {
         options: {
           livereload: true,
@@ -47,7 +66,7 @@ module.exports = function(grunt) {
             livereload: false
           },
           files: ['styles/less/*.less', 'scripts/*.js'],
-          tasks: ['less', 'cssmin', 'uglify', 'notify:watch'],
+          tasks: ['less', 'cssmin', 'uglify', 'notify:watch', 'cachebreaker'],
         },
       },
 
@@ -77,9 +96,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-cache-breaker');
     grunt.loadNpmTasks('grunt-notify');
 
     grunt.task.run('notify_hooks');
     
-    grunt.registerTask('default', ['less', 'cssmin', 'uglify', 'watch']);
+    grunt.registerTask('default', ['less', 'cssmin', 'uglify', 'cachebreaker', 'watch']);
 };

@@ -17,22 +17,26 @@ function MtrDatepicker(inputConfig) {
 		hours: {
 			min: 1,
 			max: 12,
-			step: 1
+			step: 1,
+			maxlength: 2
 		},
 		minutes: {
 			min: 0,
 			max: 55,
-			step: 5
+			step: 5,
+			maxlength: 2
 		},
 		months: {
 			min: 0,
 			max: 11,
-			step: 1
+			step: 1,
+			maxlength: 2
 		},
 		years: {
 			min: 2000,
 			max: 2020,
-			step: 1
+			step: 1,
+			maxlength: 4
 		},
 		animations: true,
 		transitionDelay: 100,
@@ -129,6 +133,12 @@ function MtrDatepicker(inputConfig) {
 		year = year !== undefined ? year : getYear();
 
 		var datesRange = createRangeForDate(month, year);
+		config.dates = {
+			min: datesRange.min,
+			max: datesRange.max,
+			step: datesRange.step,
+			maxlength: 2,
+		};
 		config.defaultValues.dates = datesRange.values;
 		config.defaultValues.datesNames = datesRange.names;
 	};
@@ -365,6 +375,7 @@ function MtrDatepicker(inputConfig) {
 		function createInputValue() {
 			var inputValue = document.createElement('input');
 			inputValue.value = elementConfig.value;
+			inputValue.type = 'text';
 			inputValue.className = 'input ' + elementConfig.name;
 			inputValue.style.display = 'none';
 
@@ -406,7 +417,79 @@ function MtrDatepicker(inputConfig) {
 						case 'years': setYear(newValue); break;
 					};
 				}
-			}, false)
+			}, false);
+
+			// On wheel scroll we should change the value in the input
+			inputValue.addEventListener('wheel', function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				// If the user is using the mouse wheel the values should be changed
+				var target = e.target;
+				var wheelData = e.wheelDeltaY;
+
+				var oldValue = parseInt(inputValue.value),
+						newValue;
+
+				var configMin = config[elementConfig.name].min,
+						configMax = config[elementConfig.name].max,
+						configStep = config[elementConfig.name].step;
+
+				if (elementConfig.name === 'months') {
+					// If we are scrolling the months we should increment the value
+					configMin++;
+					configMax++;
+				}
+
+				if (wheelData > 0) { // Scroll up
+					if (oldValue < configMax) {
+						newValue = oldValue + configStep;
+					}
+					else {
+						newValue = configMin;
+					}
+				}
+				else { // Scroll down
+					if (oldValue > configMin) {
+						newValue = oldValue - configStep;
+					}
+					else {
+						newValue = configMax;
+					}
+				}
+
+				inputValue.value = newValue;
+				return false;
+			}, false);
+
+			// On keybard press we should accept the new value
+			inputValue.addEventListener('keypress', function(e) {
+				var keyCode = e.keyCode || e.which; 
+				var allowed = [9, 13, 27, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57];
+
+				if (allowed.indexOf(keyCode) === -1) {
+					e.preventDefault();
+					return false;
+				}
+
+				switch(keyCode) {
+					case 13: // enter
+					case 27: // escape
+						inputValue.blur();
+						return false;
+
+					case 9: // tab
+						console.log('Tab');
+						break;
+
+					default:
+						if (inputValue.value.length === config[elementConfig.name].maxlength) {
+							e.preventDefault();
+							return false;
+						}
+						break;
+				}
+			}, false);
 			
 			return inputValue;	
 		}
@@ -441,7 +524,7 @@ function MtrDatepicker(inputConfig) {
 		formHolder.appendChild(radioAm);
 		formHolder.appendChild(radioPm);
 
-		formHolder.ampm.value = values.am ? '1' : '0';
+		formHolder.ampm.value = getIsAm() ? '1' : '0';
 
 		element.appendChild(formHolder);
 
@@ -527,10 +610,12 @@ function MtrDatepicker(inputConfig) {
 
 			inputValue.style.display = "block";
 			inputValue.focus();
+
 		}, false);
 
 		divValues.addEventListener('wheel', function(e) {
 			e.preventDefault();
+			e.stopPropagation();
 
 			if (wheelTimeout) {
 				return false;
@@ -539,7 +624,10 @@ function MtrDatepicker(inputConfig) {
 			// If the user is using the mouse wheel the values should be changed
 			var target = e.target;
 			var parent = target.parentElement.parentElement.parentElement.parentElement; // value -> values -> content -> input slider
+			var values = qSelect(parent, '.values');
+			var input = qSelect(parent, '.input');
 			var wheelData = e.wheelDeltaY;
+
 			var arrow;
 
 			if (wheelData > 0) { // Scroll up
@@ -553,7 +641,19 @@ function MtrDatepicker(inputConfig) {
 				clearWheelTimeout();
 			}, 100);
 
-			arrow.click();
+			arrow.click();	
+			return false;
+		}, false);
+
+		divValues.addEventListener('touchstart', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			return false;
+		}, false);
+
+		divValues.addEventListener('touchmove', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
 			return false;
 		}, false);
 
@@ -607,7 +707,9 @@ function MtrDatepicker(inputConfig) {
 
 	var validateValue = function(type, value) {
 		value = parseInt(value);
-		return config.defaultValues[type].indexOf(value) > -1 ? true : false;
+
+		// Strict, thr value is exact in the array
+		return config.defaultValues[type].indexOf(value) > -1 ? true : false; 
 	};
 
 	var clearWheelTimeout = function() {
@@ -837,10 +939,11 @@ function MtrDatepicker(inputConfig) {
 		// Find the specific value
 		var divValues = qSelect(element, '.content'),
 				divValue = qSelect(element, '.values .default-value[data-value="'+newValue+'"]'),
+				divArrow = qSelect(element, '.arrow.up'),
 				inputValue = qSelect(element, '.input');
 
-				scrollTo = getRelativeOffset(divValues, divValue);
-		
+				scrollTo = getRelativeOffset(divValues, divValue) + divArrow.clientHeight;
+
 		inputValue.value = newValue;
 		inputValue.setAttribute('data-old-value', newValue);
 
@@ -975,7 +1078,10 @@ function MtrDatepicker(inputConfig) {
 
 		var range = {
 			values: [],
-			names: []
+			names: [],
+			min: firstDay.getDate(),
+			max: lastDay.getDate(),
+			step: 1
 		};
 
 		var currentDate;

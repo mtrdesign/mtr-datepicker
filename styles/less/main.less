@@ -43,7 +43,7 @@
 	.mtr-input-slider {
 		width: @input-slider-width;
 		height: @input-slider-height;
-		overflow: hidden;
+		overflow: hidden; 
 		margin: @input-slider-margin;
 		position: relative;
 		float: left;
@@ -56,6 +56,8 @@
 			height: @input-slider-arrow-height;
 			line-height: @input-slider-arrow-height;
 			cursor: pointer;
+			z-index: 0;
+			position: relative;
 
 			span {
 				display: block;
@@ -65,8 +67,10 @@
 
 		/** The input field and values are stored here */
 		.content {
-			overflow: auto;
+			overflow: hidden;
 			height: @input-slider-content-height;
+			z-index: 1;
+			position: relative;
 
 			.input {
 				width: 100%;
@@ -80,6 +84,7 @@
 
 			input {
 				border: none;
+				height: @input-slider-content-height;
 			}
 
 			.values {
@@ -93,10 +98,12 @@
 
 				.default-value.has-name,
 				.default-value-name {
-					position: relative;
-
-					height: @input-slider-content-height / 2;
+					height: inherit; 
 					line-height: @input-slider-content-height / 2;
+				}
+
+				.default-value.has-name {
+					height: @input-slider-content-height / 2;	
 				}
 
 				.default-value-name {

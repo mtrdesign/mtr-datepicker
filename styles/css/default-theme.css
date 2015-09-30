@@ -1,4 +1,5 @@
 .mtr-datepicker {
+  font-family: "Helvetica";
   background: #ffffff;
 }
 .mtr-datepicker .arrow span {
@@ -9,9 +10,11 @@
 .mtr-datepicker .arrow.up span {
   background-position: top center;
 }
+.mtr-datepicker .arrow.down {
+  padding-top: 6px;
+}
 .mtr-datepicker .arrow.down span {
   background-position: bottom center;
-  margin-top: 6px;
 }
 .mtr-datepicker .content {
   background: #bdbcb8;
@@ -21,6 +24,10 @@
 .mtr-datepicker .content:hover,
 .mtr-datepicker .content input {
   background: #ff8612;
+}
+.mtr-datepicker .content .values .default-value.has-name,
+.mtr-datepicker .content .values .default-value-name {
+  background: #bdbcb8;
 }
 .mtr-datepicker .content .values .default-value.has-name {
   padding-top: 10px;

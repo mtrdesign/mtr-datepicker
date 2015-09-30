@@ -31,14 +31,18 @@
   height: 15px;
   line-height: 15px;
   cursor: pointer;
+  z-index: 0;
+  position: relative;
 }
 .mtr-datepicker .mtr-input-slider .arrow span {
   display: block;
   margin: 0 auto;
 }
 .mtr-datepicker .mtr-input-slider .content {
-  overflow: auto;
+  overflow: hidden;
   height: 45px;
+  z-index: 1;
+  position: relative;
 }
 .mtr-datepicker .mtr-input-slider .content .input {
   width: 100%;
@@ -51,6 +55,7 @@
 }
 .mtr-datepicker .mtr-input-slider .content input {
   border: none;
+  height: 45px;
 }
 .mtr-datepicker .mtr-input-slider .content .values .default-value-holder,
 .mtr-datepicker .mtr-input-slider .content .values .default-value {
@@ -61,9 +66,11 @@
 }
 .mtr-datepicker .mtr-input-slider .content .values .default-value.has-name,
 .mtr-datepicker .mtr-input-slider .content .values .default-value-name {
-  position: relative;
-  height: 22.5px;
+  height: inherit;
   line-height: 22.5px;
+}
+.mtr-datepicker .mtr-input-slider .content .values .default-value.has-name {
+  height: 22.5px;
 }
 .mtr-datepicker .mtr-input-slider .content .values .default-value-name {
   font-size: 10px;
