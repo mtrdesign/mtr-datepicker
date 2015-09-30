@@ -464,10 +464,16 @@ function MtrDatepicker(inputConfig) {
 
 			// On keybard press we should accept the new value
 			inputValue.addEventListener('keypress', function(e) {
-				var keyCode = e.keyCode || e.which; 
+				var keyCode = e.keyCode || e.which; 				
 				var allowed = [9, 13, 27, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57];
+				
+				// Not working in Firefox
+				// if (allowed.indexOf(keyCode) === -1) {
+				// 	e.preventDefault();
+				// 	return false;
+				// }
 
-				if (allowed.indexOf(keyCode) === -1) {
+				if (keyCode >= 97 && keyCode <= 119) {
 					e.preventDefault();
 					return false;
 				}
@@ -483,7 +489,7 @@ function MtrDatepicker(inputConfig) {
 						break;
 
 					default:
-						if (inputValue.value.length === config[elementConfig.name].maxlength) {
+						if (inputValue.value.length === config[elementConfig.name].maxlength && allowed.indexOf(keyCode) > -1) {
 							e.preventDefault();
 							return false;
 						}
