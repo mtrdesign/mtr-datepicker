@@ -109,9 +109,7 @@ function MtrDatepicker(inputConfig) {
 
 		targetElement = byId(config.targetElement);
 		targetElement.className += 'mtr-datepicker';
-
-		values.date = new Date();
-		values.timestamp = values.date.getTime();
+		
 		setDatesRange();
 
 		createMarkup();
@@ -119,6 +117,10 @@ function MtrDatepicker(inputConfig) {
 
 	var setConfig = function(input) {
 		config.targetElement = input.target;
+		
+		values.date = input.timestamp ? new Date(input.timestamp) : new Date();
+		values.timestamp = values.date.getTime();
+		
 		config.animations = input.animations !== undefined ? input.animations : config.animations;
 
 		// Init hours
@@ -1251,20 +1253,46 @@ function MtrDatepicker(inputConfig) {
 	var format = function(input) {
 		var currentHours = getHours();
 		var currentMinutes = getMinutes();
+		var currentAmPm = getIsAm();
+		
+		var currentDate = getDate();
+		var currentMonth = getMonth() + 1;
 		var currentYear = getYear();
 
-		input = input.replace('M', getMonth()+1);
-		input = input.replace('D', getDate());
+		// Months
+		input = input.replace('MM', prependZero(currentMonth));
+		input = input.replace('M', currentMonth);
+
+		// Dates
+		input = input.replace('DD', prependZero(currentDate));
+		input = input.replace('D', currentDate);
+
+		// Years
 		input = input.replace('YYYY', currentYear);
 		input = input.replace('YY', currentYear.toString().substr(2));
 		input = input.replace('Y', currentYear);
 
-		input = input.replace('hh', currentHours <= 9 ? ('0'+currentHours) : currentHours);
+		// Hours
+		input = input.replace('HH', prependZero(transformAmPm(currentHours, currentAmPm)));
+		input = input.replace('hh', prependZero(currentHours));
+		input = input.replace('H', transformAmPm(currentHours, currentAmPm));
 		input = input.replace('h', currentHours);
-		input = input.replace('mm', currentHours <= 0 ? '0'+(currentMinutes) : currentMinutes);
+
+		// Minutes
+		input = input.replace('mm', prependZero(currentMinutes));
 		input = input.replace('m', getMinutes());
-		input = input.replace('a', getIsAm() ? 'am' : 'pm');
-		input = input.replace('A', getIsAm() ? 'AM' : 'PM');
+		
+		// Am Pm
+		input = input.replace('a', currentAmPm ? 'am' : 'pm');
+		input = input.replace('A', currentAmPm ? 'AM' : 'PM');
+
+		function prependZero(value) {
+			return value <= 9 ? ('0'+value) : value;
+		}
+
+		function transformAmPm(hours, ampm) {
+			return ampm ? hours : hours + 12;
+		}
 
 		return input;
 	};
