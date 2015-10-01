@@ -5,6 +5,8 @@
 @content-background-active: #ff8612;
 @content-foreground: #ffffff;
 
+@arrow-background-active: #F3F3F3;
+
 @radio-label-foreground: #b9b7b7;
 
 .mtr-datepicker {
@@ -20,16 +22,26 @@
 			height: 8px;
 		}
 
-		&.up span {
-			background-position: top center;
+		&.up {
+			padding-top: 6px;
+			margin-bottom: 1px;
+
+			span {
+				background-position: top center;
+			}
 		}
 
 		&.down {
+			margin-top: 1px;
 			padding-top: 6px;
 			
 			span {
 				background-position: bottom center;
 			}
+		}
+
+		&:hover {
+			background: @arrow-background-active;
 		}
 	}
 

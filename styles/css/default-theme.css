@@ -7,14 +7,22 @@
   width: 13px;
   height: 8px;
 }
+.mtr-datepicker .arrow.up {
+  padding-top: 6px;
+  margin-bottom: 1px;
+}
 .mtr-datepicker .arrow.up span {
   background-position: top center;
 }
 .mtr-datepicker .arrow.down {
+  margin-top: 1px;
   padding-top: 6px;
 }
 .mtr-datepicker .arrow.down span {
   background-position: bottom center;
+}
+.mtr-datepicker .arrow:hover {
+  background: #f3f3f3;
 }
 .mtr-datepicker .content {
   background: #bdbcb8;

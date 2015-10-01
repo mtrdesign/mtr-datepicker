@@ -17,7 +17,7 @@
 }
 .mtr-datepicker .mtr-input-slider {
   width: 50px !important;
-  height: 75px !important;
+  height: 85px !important;
   overflow: hidden !important;
   margin: 14px 6px !important;
   position: relative !important;
@@ -28,8 +28,8 @@
   /** The input field and values are stored here */
 }
 .mtr-datepicker .mtr-input-slider .arrow {
-  height: 15px !important;
-  line-height: 15px !important;
+  height: 20px !important;
+  line-height: 20px !important;
   cursor: pointer !important;
   z-index: 0 !important;
   position: relative !important;
@@ -46,7 +46,7 @@
 }
 .mtr-datepicker .mtr-input-slider .content .input {
   width: 100% !important;
-  height: 75px !important;
+  height: 85px !important;
   margin: 0 !important;
   padding: 0 !important;
   border: none !important;
@@ -84,7 +84,7 @@
 }
 .mtr-datepicker .mtr-input-radio {
   margin: 14px 10px !important;
-  padding-top: 15px !important;
+  padding-top: 20px !important;
   position: relative !important;
   float: left !important;
   font-size: 13px !important;

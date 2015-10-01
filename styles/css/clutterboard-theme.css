@@ -17,7 +17,7 @@
 }
 .mtr-datepicker .mtr-input-slider {
   width: 50px !important;
-  height: 75px !important;
+  height: 85px !important;
   overflow: hidden !important;
   margin: 14px 6px !important;
   position: relative !important;
@@ -28,8 +28,8 @@
   /** The input field and values are stored here */
 }
 .mtr-datepicker .mtr-input-slider .arrow {
-  height: 15px !important;
-  line-height: 15px !important;
+  height: 20px !important;
+  line-height: 20px !important;
   cursor: pointer !important;
   z-index: 0 !important;
   position: relative !important;
@@ -46,7 +46,7 @@
 }
 .mtr-datepicker .mtr-input-slider .content .input {
   width: 100% !important;
-  height: 75px !important;
+  height: 85px !important;
   margin: 0 !important;
   padding: 0 !important;
   border: none !important;
@@ -84,7 +84,7 @@
 }
 .mtr-datepicker .mtr-input-radio {
   margin: 14px 10px !important;
-  padding-top: 15px !important;
+  padding-top: 20px !important;
   position: relative !important;
   float: left !important;
   font-size: 13px !important;
@@ -114,7 +114,7 @@
 }
 #cb_et3iVBwv661RY .mtr-input-slider {
   width: 50px !important;
-  height: 75px !important;
+  height: 85px !important;
   overflow: hidden !important !important;
   margin: 14px 6px !important;
   position: relative !important !important;
@@ -125,8 +125,8 @@
   /** The input field and values are stored here */
 }
 #cb_et3iVBwv661RY .mtr-input-slider .arrow {
-  height: 15px !important;
-  line-height: 15px !important;
+  height: 20px !important;
+  line-height: 20px !important;
   cursor: pointer !important !important;
   z-index: 0 !important !important;
   position: relative !important !important;
@@ -143,7 +143,7 @@
 }
 #cb_et3iVBwv661RY .mtr-input-slider .content .input {
   width: 100% !important !important;
-  height: 75px !important;
+  height: 85px !important;
   margin: 0 !important !important;
   padding: 0 !important !important;
   border: none !important !important;
@@ -181,7 +181,7 @@
 }
 #cb_et3iVBwv661RY .mtr-input-radio {
   margin: 14px 10px !important;
-  padding-top: 15px !important;
+  padding-top: 20px !important;
   position: relative !important !important;
   float: left !important !important;
   font-size: 13px !important;
@@ -211,14 +211,22 @@
   height: 8px !important;
   margin-left: 18px !important;
 }
+#cb_et3iVBwv661RY .mtr-datepicker .arrow.up {
+  padding-top: 6px !important;
+  margin-bottom: 1px !important;
+}
 #cb_et3iVBwv661RY .mtr-datepicker .arrow.up span {
   background-position: top center !important;
 }
 #cb_et3iVBwv661RY .mtr-datepicker .arrow.down {
+  margin-top: 1px !important;
   padding-top: 6px !important;
 }
 #cb_et3iVBwv661RY .mtr-datepicker .arrow.down span {
   background-position: bottom center !important;
+}
+#cb_et3iVBwv661RY .mtr-datepicker .arrow:hover {
+  background: #f3f3f3 !important;
 }
 #cb_et3iVBwv661RY .mtr-datepicker .content {
   background: #bdbcb8 !important;

@@ -7,6 +7,8 @@
 
 @radio-label-foreground: #b9b7b7;
 
+@arrow-background-active: #F3F3F3;
+
 @import "main";
 
 #cb_et3iVBwv661RY {
@@ -27,16 +29,26 @@
 			margin-left: 18px !important;
 		}
 
-		&.up span {
-			background-position: top center !important;
+		&.up {
+			padding-top: 6px !important;
+			margin-bottom: 1px !important;
+
+			span {
+				background-position: top center !important;
+			}
 		}
 
 		&.down {
+			margin-top: 1px !important;
 			padding-top: 6px !important;
 			
 			span {
 				background-position: bottom center !important;
 			}
+		}
+
+		&:hover {
+			background: @arrow-background-active !important;
 		}
 	}
 

@@ -14,8 +14,8 @@
     <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.min.css?rel=1443628593598" />
-  	<link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.default-theme.min.css?rel=1443628593598" />
+    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.min.css?rel=1443693016955" />
+  	<link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.default-theme.min.css?rel=1443693016956" />
 		<link rel="stylesheet" type="text/css" href="styles/css/demo.css" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -48,7 +48,8 @@
         <div class="col-sm-8 blog-main">
 
           <div class="blog-post">
-            <h2 class="blog-post-title">Demo</h2>
+            <h3 class="blog-post-title">Demo</h3>
+            <p class="blog-post-meta">Default behavior</p>
 
             <div class="col-sm-6">
               <div id="demo"></div>
@@ -62,7 +63,48 @@
 
           </div><!-- /.blog-post -->
 
-           <div class="blog-post">
+          <div class="clearfix"></div>
+          <br /><hr /><br />
+
+          <div class="blog-post">
+            <h3 class="blog-post-title">Demo - 2</h3>
+            <p class="blog-post-meta">Fixed start</p>
+
+            <div class="col-sm-6">
+              <div id="demo-fixed-start"></div>
+            </div>
+            <div class="col-sm-6">
+              <h3>Export Formats</h3> 
+              <div id="demo-result-fixed-start"></div>
+            </div>
+            
+            <hr />
+
+          </div><!-- /.blog-post -->
+
+          <div class="clearfix"></div>
+          <br /><hr /><br />
+
+          <div class="blog-post">
+            <h3 class="blog-post-title">Demo - 3</h3>
+            <p class="blog-post-meta">Only future dates and hours</p>
+
+            <div class="col-sm-6">
+              <div id="demo-future"></div>
+            </div>
+            <div class="col-sm-6">
+              <h3>Export Formats</h3> 
+              <div id="demo-result-future"></div>
+            </div>
+            
+            <hr />
+
+          </div><!-- /.blog-post -->
+
+          <div class="clearfix"></div>
+          <br /><hr /><br />
+
+          <div class="blog-post">
             <h2 class="blog-post-title">Documentation</h2>
 
             <p class="alert alert-info">
@@ -125,57 +167,67 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="libs/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- <script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1443628593598"></script> -->
-		<script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1443628593598"></script>
+    <!--
+    <script type="text/javascript" src="scripts/mtr-datepicker.js?rel=1443689693256"></script>
+    -->
+    <!-- --> 
+    <script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1443693016956"></script>
+    <!-- -->
 		<script type="text/javascript">
 
-		var datepicker1;
+		var datepickerDefault, 
+        datepickerFixedStart,
+        datepickerFuture;
 
 		$(document).ready(function() {
-
-        var now = new Date('2015-09-27 22:25');
-				datepicker1 = new MtrDatepicker({
+        
+				datepickerDefault = new MtrDatepicker({
 					target: "demo",
-          timestamp: now.getTime()
 				});
 
-				// datepicker1.onChange('hour', function() {
-				// 	console.log('onChange:hour');
-				// 	console.log(datepicker1.toString());
-				// });
+        var now = new Date('2010-09-27 22:25');
+        datepickerFixedStart = new MtrDatepicker({
+          target: "demo-fixed-start",
+          timestamp: now.getTime()
+        });
 
-				// datepicker1.onChange('time', function() {
-				// 	console.log('onChange:time');
-				// 	console.log(datepicker1.toString());
-				// });
+        datepickerFuture = new MtrDatepicker({
+          target: "demo-future",
+          future: true
+        });
 
-				// datepicker1.onChange('date', function() {
-				// 	console.log('onChange:date');
-				// 	console.log(datepicker1.toString());
-				// });
+        var demoResultDefault = $('#demo-result');
+        var demoResultFixedStart = $('#demo-result-fixed-start');
+				var demoResultFuture = $('#demo-result-future');
 
-				var demoResult = $('#demo-result');
-
-				function datepickerChange() {
-					var result = datepicker1.toString() + '<br /><br />' + 
-						datepicker1.toDateString() + '<br />' +
-						datepicker1.toLocaleDateString() + '<br /><br />' +
+				function datepickerChange(resultElement, datepicker) {
+					var result = datepicker.toString() + '<br /><br />' + 
+						datepicker.toDateString() + '<br />' +
+						datepicker.toLocaleDateString() + '<br /><br />' +
 						
-						datepicker1.toTimeString() + '<br />' +
-            datepicker1.getFullTime() + '<br />' +
-            datepicker1.toLocaleTimeString() + '<br /><br />' +
-            datepicker1.format('M/D/Y h:ia') + '<br />' +
-            datepicker1.format('M/D/YYYY hh:mmA') + '<br />' +
-						datepicker1.format('YYYY-MM-DD HH:mm') + '<br />';
+						datepicker.toTimeString() + '<br />' +
+            datepicker.getFullTime() + '<br />' +
+            datepicker.format('M/D/YYYY hh:mm A') + '<br />' +
+						datepicker.format('YYYY-MM-DD HH:mm') + '<br />';
 
-					demoResult.html(result);
+					resultElement.html(result);
 				}
 
-				datepickerChange();
+        datepickerChange(demoResultDefault, datepickerDefault);
+        datepickerChange(demoResultFixedStart, datepickerFixedStart);
+				datepickerChange(demoResultFuture, datepickerFuture);
 
-				datepicker1.onChange('all', function() {
-					datepickerChange();
+				datepickerDefault.onChange('all', function() {
+					datepickerChange(demoResultDefault, datepickerDefault);
 				});
+
+        datepickerFixedStart.onChange('all', function() {
+          datepickerChange(demoResultFixedStart, datepickerFixedStart);
+        });
+
+        datepickerFuture.onChange('all', function() {
+          datepickerChange(demoResultFixedStart, datepickerFuture);
+        });
 			});
 			  
 		</script>

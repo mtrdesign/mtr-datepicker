@@ -22,8 +22,8 @@ function MtrDatepicker(inputConfig) {
 		},
 		minutes: {
 			min: 0,
-			max: 55,
-			step: 5,
+			max: 50,
+			step: 10,
 			maxlength: 2
 		},
 		months: {
@@ -39,6 +39,7 @@ function MtrDatepicker(inputConfig) {
 			maxlength: 4
 		},
 		animations: true,
+		future: false,
 		transitionDelay: 100,
 		references: { // Used to store references to the main elements
 			hours: null
@@ -113,21 +114,29 @@ function MtrDatepicker(inputConfig) {
 		setDatesRange();
 
 		createMarkup();
+
+		attachEvents();
 	};
 
 	var setConfig = function(input) {
 		config.targetElement = input.target;
 		
 		values.date = input.timestamp ? new Date(input.timestamp) : new Date();
+		values.date.setSeconds(0);
 		values.timestamp = values.date.getTime();
 		
 		config.animations = input.animations !== undefined ? input.animations : config.animations;
+		config.future = input.future !== undefined ? input.future : config.future;
 
 		// Init hours
 		config.defaultValues.hours = createRange(config.hours);
 		config.defaultValues.minutes = createRange(config.minutes);
 		config.defaultValues.months = createRange(config.months);
 		config.defaultValues.years = createRange(config.years);
+	};
+
+	var attachEvents = function() {
+
 	};
 
 	var setDatesRange = function(month, year) {
@@ -555,8 +564,15 @@ function MtrDatepicker(inputConfig) {
 			divHolder.appendChild(label);
 
 			// Attach event listeners
-			input.addEventListener('change', function() {
-				setAmPm(radioValue);
+			input.addEventListener('change', function(e) {
+				var result = setAmPm(radioValue);
+
+				if (!result && config.future) {
+					setAmPm(!radioValue);
+					e.preventDefault();
+					e.stopPropagation();
+					return false;
+				}
 			}, false);
 
 			return divHolder;
@@ -720,6 +736,58 @@ function MtrDatepicker(inputConfig) {
 		return config.defaultValues[type].indexOf(value) > -1 ? true : false; 
 	};
 
+	/**
+	 * This function is validating the change of the date
+	 *
+	 * If the config.feature is enabled this function will prevent selecting dates
+	 * in the past
+	 * 
+	 * @param  {String} target   
+	 * @param  {Number} newValue 
+	 * @param  {Number} oldValue 
+	 * @return {boolean}          
+	 */
+	var validateBeforeChange = function(target, newValue, oldValue) {
+		if (config.future === false)
+			return true;
+
+		var dateNow = new Date(),
+				datePicker = new Date(values.date.getTime());
+
+		switch(target) {
+			case 'hour':	datePicker.setHours(newValue); break;
+			case 'minute':	datePicker.setMinutes(newValue); break;
+			case 'ampm':
+				var currentHours = datePicker.getHours(),
+						currentAmPm = (currentHours >= 0 && currentHours <= 11) ? true : false,
+						newHours = currentHours;
+				
+				if (newValue != oldValue) {
+					if (newValue == true && currentHours >= 12) { // set AM
+						newHours = currentHours - 12;
+					}
+					else if (newValue == false && currentHours < 12) { // Set PM
+						newHours = currentHours + 12;
+					}
+				}
+
+				datePicker.setHours(newHours);
+				break;
+			case 'day':	datePicker.setDate(newValue); break;
+			case 'month':	datePicker.setMonth(newValue); break;
+			case 'year':	datePicker.setFullYear(newValue); break;
+		}
+		
+		dateNow.setSeconds(0);
+		dateNow.setMilliseconds(0);
+		datePicker.setMilliseconds(0);
+
+		if (datePicker.getTime() < dateNow.getTime()) {
+			return false;
+		}
+		return true;
+	};
+
 	var clearWheelTimeout = function() {
 		wheelTimeout = null;
 	}
@@ -729,7 +797,11 @@ function MtrDatepicker(inputConfig) {
 	 ****************************************************************************/
 
 	var setHours = function(input, preventAnimation) {
-		executeChangeEvents('hour', 'beforeChange');
+		var oldValue = values.date.getHours();
+		if (!validateBeforeChange('hour', input, oldValue)) {
+			return;
+		}
+		executeChangeEvents('hour', 'beforeChange', input, oldValue);
 
 		var isAm = getIsAm();
 
@@ -749,8 +821,8 @@ function MtrDatepicker(inputConfig) {
 
 		updateInputSlider(config.references.hours, input, preventAnimation);
 
-		executeChangeEvents('hour', 'onChange');
-		executeChangeEvents('hour', 'afterChange');
+		executeChangeEvents('hour', 'onChange', input, oldValue);
+		executeChangeEvents('hour', 'afterChange', input, oldValue);
 	};
 
 	var getHours = function() {
@@ -764,15 +836,19 @@ function MtrDatepicker(inputConfig) {
 	};
 
 	var setMinutes = function(input, preventAnimation) {
-		executeChangeEvents('minute', 'beforeChange');
+		var oldValue = values.date.getMinutes();
+		if (!validateBeforeChange('minute', input, oldValue)) {
+			return;
+		}
+		executeChangeEvents('minute', 'beforeChange', input, oldValue);
 		// TODO: validate
 		var defaultValues = config.defaultValues.minutes;
 
 		values.timestamp = values.date.setMinutes(input);
 		updateInputSlider(config.references.minutes, input, preventAnimation);
 
-		executeChangeEvents('minute', 'onChange');
-		executeChangeEvents('minute', 'afterChange');
+		executeChangeEvents('minute', 'onChange', input, oldValue);
+		executeChangeEvents('minute', 'afterChange', input, oldValue);
 	};
 
 	var getMinutes = function() {
@@ -780,7 +856,11 @@ function MtrDatepicker(inputConfig) {
 	};
 
 	var setAmPm = function(setAmPm) {
-		executeChangeEvents('ampm', 'beforeChange');
+		var oldValue = getIsAm();
+		if (!validateBeforeChange('ampm', setAmPm, oldValue)) {
+			return false;
+		}
+		executeChangeEvents('ampm', 'beforeChange', setAmPm, oldValue);
 		// TODO: validate
 
 		var currentHours = values.date.getHours(); 
@@ -806,8 +886,9 @@ function MtrDatepicker(inputConfig) {
 
 		formRadio.ampm.value = setAmPm ? '1' : '0';
 
-		executeChangeEvents('ampm', 'onChange');
-		executeChangeEvents('ampm', 'afterChange');
+		executeChangeEvents('ampm', 'onChange', setAmPm, oldValue);
+		executeChangeEvents('ampm', 'afterChange', setAmPm, oldValue);
+		return true;
 	};
 
 	var getIsAm = function() {
@@ -822,14 +903,18 @@ function MtrDatepicker(inputConfig) {
 	};
 
 	var setDate = function(newDate, preventAnimation) {
-		executeChangeEvents('day', 'beforeChange');
+		var oldValue = values.date.getDate();
+		if (!validateBeforeChange('day', newDate, oldValue)) {
+			return;
+		}
+		executeChangeEvents('day', 'beforeChange', newDate, oldValue);
 
 		// TODO: Validate input
 		values.timestamp = values.date.setDate(newDate);
 		updateInputSlider(config.references.dates, newDate, preventAnimation);
 
-		executeChangeEvents('day', 'onChange');
-		executeChangeEvents('day', 'afterChange');
+		executeChangeEvents('day', 'onChange', newDate, oldValue);
+		executeChangeEvents('day', 'afterChange', newDate, oldValue);
 	};
 
 	var getDate = function() {
@@ -837,7 +922,11 @@ function MtrDatepicker(inputConfig) {
 	};
 
 	var setMonth = function(newMonth, preventAnimation) {
-		executeChangeEvents('month', 'beforeChange');
+		var oldValue = values.date.getMonth();
+		if (!validateBeforeChange('month', newMonth, oldValue)) {
+			return;
+		}
+		executeChangeEvents('month', 'beforeChange', newMonth, oldValue);
 		// TODO: Validate input
 		updateDate(newMonth);
 
@@ -845,8 +934,8 @@ function MtrDatepicker(inputConfig) {
 		values.timestamp = values.date.setMonth(newMonth);
 		updateInputSlider(config.references.months, newMonth, preventAnimation);
 
-		executeChangeEvents('month', 'onChange');
-		executeChangeEvents('month', 'afterChange');
+		executeChangeEvents('month', 'onChange', newMonth, oldValue);
+		executeChangeEvents('month', 'afterChange', newMonth, oldValue);
 	};
 
 	var getMonth = function() {
@@ -854,15 +943,19 @@ function MtrDatepicker(inputConfig) {
 	};
 
 	var setYear = function(newYear, preventAnimation) {
-		executeChangeEvents('year', 'beforeChange');
+		var oldValue = values.date.getFullYear();
+		if (!validateBeforeChange('year', newYear, oldValue)) {
+			return;
+		}
+		executeChangeEvents('year', 'beforeChange', newYear, oldValue);
 		// TODO: Validate input
 		updateDate(undefined, newYear); 
 		
 		values.timestamp = values.date.setFullYear(newYear);
 		updateInputSlider(config.references.years, newYear, preventAnimation);
 
-		executeChangeEvents('year', 'onChange');
-		executeChangeEvents('year', 'afterChange');
+		executeChangeEvents('year', 'onChange', newYear, oldValue);
+		executeChangeEvents('year', 'afterChange', newYear, oldValue);
 	};
 
 	var getYear = function() {
@@ -963,14 +1056,18 @@ function MtrDatepicker(inputConfig) {
 		}
 	};
 
-	var executeChangeEvents = function(target, changeEvent) {
+	var executeChangeEvents = function(target, changeEvent, newValue, oldValue) {
+
+		var callbackFunction = function(callback) {
+			callback(target, newValue, oldValue);
+		};
 
 		events[changeEvent][target].forEach(function(callback) {
-			callback();
+			callbackFunction(callback);
 		});
 
 		events[changeEvent].all.forEach(function(callback) {
-			callback();
+			callbackFunction(callback);
 		});
 
 		switch (target) {
@@ -978,14 +1075,14 @@ function MtrDatepicker(inputConfig) {
 			case 'minute':
 			case 'ampm': 
 				events[changeEvent].time.forEach(function(callback) {
-					callback();
+					callbackFunction(callback);
 				});			
 				break;
 			case 'day': 
 			case 'month':
 			case 'year': 
 				events[changeEvent].date.forEach(function(callback) {
-					callback();
+					callbackFunction(callback);
 				});			
 				break;
 		}
@@ -1340,6 +1437,7 @@ function MtrDatepicker(inputConfig) {
 	this.setDate = setDate;
 	this.setMonth = setMonth;
 	this.setYear = setYear;
+	this.setTimestamp = setTimestamp;
 
 	this.values = values;
 
