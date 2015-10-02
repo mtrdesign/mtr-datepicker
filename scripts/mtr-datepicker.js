@@ -770,7 +770,7 @@ function MtrDatepicker(inputConfig) {
 		if (config.future === false)
 			return true;
 
-		//console.log('Validate ' + target + '; newValue: ' + newValue + '; oldValue: ' + oldValue);
+		console.log('Validate ' + target + '; newValue: ' + newValue + '; oldValue: ' + oldValue);
 
 		var dateNow = new Date(),
 				datePicker = new Date(values.date.getTime());

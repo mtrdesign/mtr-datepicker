@@ -238,6 +238,9 @@
 #cb_et3iVBwv661RY .mtr-datepicker .content input {
   background: #ff8612 !important;
 }
+#cb_et3iVBwv661RY .mtr-datepicker .content.active .values .default-value,
+#cb_et3iVBwv661RY .mtr-datepicker .content:hover .values .default-value,
+#cb_et3iVBwv661RY .mtr-datepicker .content input .values .default-value,
 #cb_et3iVBwv661RY .mtr-datepicker .content.active .values .default-value.has-name,
 #cb_et3iVBwv661RY .mtr-datepicker .content:hover .values .default-value.has-name,
 #cb_et3iVBwv661RY .mtr-datepicker .content input .values .default-value.has-name,
@@ -260,6 +263,7 @@
   font-size: 1.2rem !important;
   font-family: "Helvetica" !important;
 }
+#cb_et3iVBwv661RY .mtr-datepicker .content .values .default-value,
 #cb_et3iVBwv661RY .mtr-datepicker .content .values .default-value.has-name,
 #cb_et3iVBwv661RY .mtr-datepicker .content .values .default-value-name {
   background: #bdbcb8 !important;

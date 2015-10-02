@@ -33,6 +33,9 @@
 .mtr-datepicker .content input {
   background: #ff8612;
 }
+.mtr-datepicker .content.active .values .default-value,
+.mtr-datepicker .content:hover .values .default-value,
+.mtr-datepicker .content input .values .default-value,
 .mtr-datepicker .content.active .values .default-value.has-name,
 .mtr-datepicker .content:hover .values .default-value.has-name,
 .mtr-datepicker .content input .values .default-value.has-name,
@@ -41,6 +44,11 @@
 .mtr-datepicker .content input .values .default-value-name {
   background: #ff8612;
 }
+.mtr-datepicker .content input,
+.mtr-datepicker .content .input {
+  background: #ff8612;
+}
+.mtr-datepicker .content .values .default-value,
 .mtr-datepicker .content .values .default-value.has-name,
 .mtr-datepicker .content .values .default-value-name {
   background: #bdbcb8;
