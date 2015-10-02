@@ -399,6 +399,7 @@ function MtrDatepicker(inputConfig) {
 			
 				function blurEvent() {
 					var newValue = inputValue.value;
+					var oldValue = inputValue.getAttribute('data-old-value');
 
 					// If the blur is called after click on arrow we shoulnt update the value
 					if (e.target.className.indexOf('arrow-click') > -1) {
@@ -412,8 +413,26 @@ function MtrDatepicker(inputConfig) {
 						newValue--;
 					}
 
+
+					// Validate the value
 					if (validateValue(elementConfig.name, newValue) === false) {
-						inputValue.value = inputValue.getAttribute('data-old-value');
+						inputValue.value = oldValue;
+						inputValue.focus();
+						return;
+					}
+
+					// If the future detection is ON validate the value again
+					var target = elementConfig.name.substring(0, elementConfig.name.length-1);
+					if (elementConfig.name === 'dates') {
+						target = 'day';
+					}
+
+					if (config.future && !validateBeforeChange(target, newValue, oldValue)) {
+						if (elementConfig.name === 'months') {
+							oldValue++;
+						}
+
+						inputValue.value = oldValue;
 						inputValue.focus();
 						return;
 					}
@@ -751,6 +770,8 @@ function MtrDatepicker(inputConfig) {
 		if (config.future === false)
 			return true;
 
+		//console.log('Validate ' + target + '; newValue: ' + newValue + '; oldValue: ' + oldValue);
+
 		var dateNow = new Date(),
 				datePicker = new Date(values.date.getTime());
 
@@ -799,7 +820,7 @@ function MtrDatepicker(inputConfig) {
 	var setHours = function(input, preventAnimation) {
 		var oldValue = values.date.getHours();
 		if (!validateBeforeChange('hour', input, oldValue)) {
-			return;
+			return false;
 		}
 		executeChangeEvents('hour', 'beforeChange', input, oldValue);
 
@@ -838,7 +859,7 @@ function MtrDatepicker(inputConfig) {
 	var setMinutes = function(input, preventAnimation) {
 		var oldValue = values.date.getMinutes();
 		if (!validateBeforeChange('minute', input, oldValue)) {
-			return;
+			return false;
 		}
 		executeChangeEvents('minute', 'beforeChange', input, oldValue);
 		// TODO: validate
@@ -924,7 +945,7 @@ function MtrDatepicker(inputConfig) {
 	var setMonth = function(newMonth, preventAnimation) {
 		var oldValue = values.date.getMonth();
 		if (!validateBeforeChange('month', newMonth, oldValue)) {
-			return;
+			return false;
 		}
 		executeChangeEvents('month', 'beforeChange', newMonth, oldValue);
 		// TODO: Validate input
@@ -945,7 +966,7 @@ function MtrDatepicker(inputConfig) {
 	var setYear = function(newYear, preventAnimation) {
 		var oldValue = values.date.getFullYear();
 		if (!validateBeforeChange('year', newYear, oldValue)) {
-			return;
+			return false;
 		}
 		executeChangeEvents('year', 'beforeChange', newYear, oldValue);
 		// TODO: Validate input
