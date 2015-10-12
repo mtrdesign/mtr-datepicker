@@ -517,7 +517,6 @@ function MtrDatepicker(inputConfig) {
 						return false;
 
 					case 9: // tab
-						console.log('Tab');
 						break;
 
 					default:
@@ -703,14 +702,14 @@ function MtrDatepicker(inputConfig) {
 		}, false);
 
 		return divValues;
-	}
+	};
 
 	var rebuildElementValues = function(reference, data) {
 		var element = byId(reference);
 		var elementContent = qSelect(element, '.content');
 		var elementContentValues = qSelect(elementContent, '.values');
 
-		elementContentValues.remove();
+		elementContentValues.parentNode.removeChild(elementContentValues);
 		var elementContentNewValues = createElementValues({
 			name: data.name,
 			values: data.values,
@@ -772,8 +771,6 @@ function MtrDatepicker(inputConfig) {
 		if (config.future === false)
 			return true;
 
-		//console.log('Validate ' + target + '; newValue: ' + newValue + '; oldValue: ' + oldValue);
-
 		var dateNow = new Date(),
 				datePicker = new Date(values.date.getTime());
 
@@ -786,10 +783,10 @@ function MtrDatepicker(inputConfig) {
 						newHours = currentHours;
 				
 				if (newValue != oldValue) {
-					if (newValue == true && currentHours >= 12) { // set AM
+					if (newValue === true && currentHours >= 12) { // set AM
 						newHours = currentHours - 12;
 					}
-					else if (newValue == false && currentHours < 12) { // Set PM
+					else if (newValue === false && currentHours < 12) { // Set PM
 						newHours = currentHours + 12;
 					}
 				}
@@ -1234,11 +1231,11 @@ function MtrDatepicker(inputConfig) {
     target = Math.round(target);
     duration = Math.round(duration);
     if (duration < 0) {
-        return Promise.reject("bad duration");
+      return;
     }
     if (duration === 0) {
-        element.scrollTop = target;
-        return Promise.resolve();
+      element.scrollTop = target;
+      return;
     }
 
     var start_time = Date.now();
@@ -1256,51 +1253,47 @@ function MtrDatepicker(inputConfig) {
       return x*x*(3 - 2*x);
     };
 
-  	return new Promise(function(resolve, reject) {
-      // This is to keep track of where the element's scrollTop is
-      // supposed to be, based on what we're doing
-      var previous_top = element.scrollTop;
+    // This is to keep track of where the element's scrollTop is
+    // supposed to be, based on what we're doing
+    var previous_top = element.scrollTop;
 
-      // This is like a think function from a game loop
-      var scroll_frame = function() {
-        if(element.scrollTop != previous_top) {
-          //reject("interrupted");
-          return;
-        }
+    // This is like a think function from a game loop
+    var scroll_frame = function() {
+      if(element.scrollTop != previous_top) {
+        //reject("interrupted");
+        return;
+      }
 
-        // set the scrollTop for this frame
-        var now = Date.now();
-        var point = smooth_step(start_time, end_time, now);
-        var frameTop = Math.round(start_top + (distance * point));
-        element.scrollTop = frameTop;
+      // set the scrollTop for this frame
+      var now = Date.now();
+      var point = smooth_step(start_time, end_time, now);
+      var frameTop = Math.round(start_top + (distance * point));
+      element.scrollTop = frameTop;
 
-        // check if we're done!
-        if(now >= end_time) {
-          resolve();
-          return;
-        }
+      // check if we're done!
+      if(now >= end_time) {
+        return;
+      }
 
-        // If we were supposed to scroll but didn't, then we
-        // probably hit the limit, so consider it done; not
-        // interrupted.
-        if(element.scrollTop === previous_top && element.scrollTop !== frameTop) {
-          resolve();
-          return;
-        }
-        previous_top = element.scrollTop;
+      // If we were supposed to scroll but didn't, then we
+      // probably hit the limit, so consider it done; not
+      // interrupted.
+      if(element.scrollTop === previous_top && element.scrollTop !== frameTop) {
+        return;
+      }
+      previous_top = element.scrollTop;
 
-        // schedule next frame for execution
-        setTimeout(function() {
-        	scroll_frame();
-        }, 0);
-      };
-
-      // boostrap the animation process
+      // schedule next frame for execution
       setTimeout(function() {
-      	scroll_frame();
+        scroll_frame();
       }, 0);
-    });
-	};
+    };
+
+    // boostrap the animation process
+        setTimeout(function() {
+            scroll_frame();
+        }, 0);
+    };
 
 	/*****************************************************************************
 	 * PUBLIC API
