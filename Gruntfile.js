@@ -59,6 +59,15 @@ module.exports = function(grunt) {
         }
       },
 
+      jsdoc : {
+        dist : {
+            src: ['scripts/*.js'],
+            options: {
+                destination: 'docs'
+            }
+        }
+      },
+
       watch: {
         options: {
           livereload: true,
@@ -68,7 +77,7 @@ module.exports = function(grunt) {
             livereload: false
           },
           files: ['styles/less/*.less', 'scripts/*.js'],
-          tasks: ['less', 'cssmin', 'uglify', 'notify:watch', 'cachebreaker'],
+          tasks: ['less', 'cssmin', 'uglify', 'notify:watch', 'cachebreaker', 'jsdoc'],
         },
       },
 
@@ -102,6 +111,7 @@ module.exports = function(grunt) {
 
     });
 
+    grunt.loadNpmTasks('grunt-jsdoc');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -109,9 +119,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-cache-breaker');
+    grunt.loadNpmTasks('grunt-jsdoc-ng');
     grunt.loadNpmTasks('grunt-notify');
 
     grunt.task.run('notify_hooks');
     
-    grunt.registerTask('default', ['less', 'cssmin', 'uglify', 'cachebreaker', 'connect', 'watch']);
+    grunt.registerTask('default', ['less', 'cssmin', 'uglify', 'cachebreaker', 'jsdoc', 'connect', 'watch']);
+    
 };

@@ -1,4 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: mtr-datepicker.js</title>
 
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: mtr-datepicker.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
 function MtrDatepicker(inputConfig) {
 	var self = this;
 
@@ -309,7 +337,7 @@ function MtrDatepicker(inputConfig) {
 					case 'hours': 
 					 	// Check is we have to make a transform of the hour
 					 	var newHour = config.defaultValues[name][indexInArray];
-					 	if (getIsPm() && newHour !== 12) {
+					 	if (getIsPm() &amp;&amp; newHour !== 12) {
 					 		newHour += 12;
 					 	}
 					 	setHours(newHour);
@@ -359,7 +387,7 @@ function MtrDatepicker(inputConfig) {
 				var indexInArray = config.defaultValues[name].indexOf(currentValue);
 				indexInArray--;
 
-				if (indexInArray < 0) {
+				if (indexInArray &lt; 0) {
 					indexInArray = config.defaultValues[name].length - 1;
 				}
 
@@ -368,7 +396,7 @@ function MtrDatepicker(inputConfig) {
 					 case 'hours': 
 					 	// Check is we have to make a transform of the hour
 					 	var newHour = config.defaultValues[name][indexInArray];
-					 	if (getIsPm() && newHour !== 12) {
+					 	if (getIsPm() &amp;&amp; newHour !== 12) {
 					 		newHour += 12;
 					 	}
 					 	setHours(newHour); 
@@ -429,7 +457,7 @@ function MtrDatepicker(inputConfig) {
 						target = 'day';
 					}
 
-					if (config.future && !validateBeforeChange(target, newValue, oldValue)) {
+					if (config.future &amp;&amp; !validateBeforeChange(target, newValue, oldValue)) {
 						if (elementConfig.name === 'months') {
 							oldValue++;
 						}
@@ -474,7 +502,7 @@ function MtrDatepicker(inputConfig) {
 				}
 
 				if (wheelData > 0) { // Scroll up
-					if (oldValue < configMax) {
+					if (oldValue &lt; configMax) {
 						newValue = oldValue + configStep;
 					}
 					else {
@@ -505,7 +533,7 @@ function MtrDatepicker(inputConfig) {
 				// 	return false;
 				// }
 
-				if (keyCode >= 97 && keyCode <= 119) {
+				if (keyCode >= 97 &amp;&amp; keyCode &lt;= 119) {
 					e.preventDefault();
 					return false;
 				}
@@ -520,7 +548,7 @@ function MtrDatepicker(inputConfig) {
 						break;
 
 					default:
-						if (inputValue.value.length === config[elementConfig.name].maxlength && allowed.indexOf(keyCode) > -1) {
+						if (inputValue.value.length === config[elementConfig.name].maxlength &amp;&amp; allowed.indexOf(keyCode) > -1) {
 							e.preventDefault();
 							return false;
 						}
@@ -595,7 +623,7 @@ function MtrDatepicker(inputConfig) {
 			input.addEventListener('change', function(e) {
 				var result = setAmPm(radioValue);
 
-				if (!result && config.future) {
+				if (!result &amp;&amp; config.future) {
 					setAmPm(!radioValue);
 					e.preventDefault();
 					e.stopPropagation();
@@ -787,14 +815,14 @@ function MtrDatepicker(inputConfig) {
 			case 'minute':	datePicker.setMinutes(newValue); break;
 			case 'ampm':
 				var currentHours = datePicker.getHours(),
-						currentAmPm = (currentHours >= 0 && currentHours <= 11) ? true : false,
+						currentAmPm = (currentHours >= 0 &amp;&amp; currentHours &lt;= 11) ? true : false,
 						newHours = currentHours;
 				
 				if (newValue != oldValue) {
-					if (newValue === true && currentHours >= 12) { // set AM
+					if (newValue === true &amp;&amp; currentHours >= 12) { // set AM
 						newHours = currentHours - 12;
 					}
-					else if (newValue === false && currentHours < 12) { // Set PM
+					else if (newValue === false &amp;&amp; currentHours &lt; 12) { // Set PM
 						newHours = currentHours + 12;
 					}
 				}
@@ -810,7 +838,7 @@ function MtrDatepicker(inputConfig) {
 		dateNow.setMilliseconds(0);
 		datePicker.setMilliseconds(0);
 
-		if (datePicker.getTime() < dateNow.getTime()) {
+		if (datePicker.getTime() &lt; dateNow.getTime()) {
 			return false;
 		}
 		return true;
@@ -835,7 +863,7 @@ function MtrDatepicker(inputConfig) {
 
 		values.timestamp = values.date.setHours(input);
 
-		if (input === 12 && isAm) {
+		if (input === 12 &amp;&amp; isAm) {
 			values.timestamp = values.date.setHours(0);
 		}
 		else {
@@ -860,7 +888,7 @@ function MtrDatepicker(inputConfig) {
 		if (currentHours === 12 || currentHours === 0) {
 			return 12;
 		}
-		return (currentHours < 12 && isAm) ? currentHours : currentHours - 12;
+		return (currentHours &lt; 12 &amp;&amp; isAm) ? currentHours : currentHours - 12;
 	};
 
 	var setMinutes = function(input, preventAnimation) {
@@ -897,11 +925,11 @@ function MtrDatepicker(inputConfig) {
 		var currentIsAm = getIsAm();
 
 		if (currentIsAm !== setAmPm) {
-			if (setAmPm === true && currentHours >= 12 ) { // Set AM
+			if (setAmPm === true &amp;&amp; currentHours >= 12 ) { // Set AM
 				currentHours -= 12;
 				values.timestamp = values.date.setHours(currentHours);
 			}
-			else if (setAmPm === false && currentHours < 12) { // Set PM
+			else if (setAmPm === false &amp;&amp; currentHours &lt; 12) { // Set PM
 				currentHours += 12;
 				values.timestamp = values.date.setHours(currentHours);
 			}
@@ -932,7 +960,7 @@ function MtrDatepicker(inputConfig) {
 
 	var getIsAm = function() {
 		var currentHours = values.date.getHours();
-		return (currentHours >= 0 && currentHours <= 11) ? true : false; 
+		return (currentHours >= 0 &amp;&amp; currentHours &lt;= 11) ? true : false; 
 		//return values.date.toLocaleTimeString().indexOf('AM') > -1 ? 1 : 0;
 		//return values.ampm;
 	};
@@ -1016,14 +1044,14 @@ function MtrDatepicker(inputConfig) {
 
 		var currentHours = values.date.getHours(),
 				currentMinutes = getMinutes(),
-				currentAmPm = currentHours <= 12 ? true : false,
+				currentAmPm = currentHours &lt;= 12 ? true : false,
 				currentDate = getDate(),
 				currentMonth = getMonth(),
 				currentYear = getYear();
 
 		// Get the closest minutes
 		var defaultMinutes = config.defaultValues.minutes;
-		for (var iMinutes = 0; iMinutes < defaultMinutes.length; iMinutes++) {
+		for (var iMinutes = 0; iMinutes &lt; defaultMinutes.length; iMinutes++) {
 			var currentValue = defaultMinutes[iMinutes],
 					nextValue;
 			
@@ -1038,12 +1066,12 @@ function MtrDatepicker(inputConfig) {
 				// The minutes values is the same as the default value
 				break;
 			}
-			else if (currentMinutes > currentValue && currentMinutes < nextValue) {
+			else if (currentMinutes > currentValue &amp;&amp; currentMinutes &lt; nextValue) {
 				// The minutes values will assign the next possible values from the list
 				currentMinutes = nextValue;
 				break;
 			}
-			else if (currentMinutes > currentValue && currentMinutes > nextValue && iMinutes === defaultMinutes.length-1) {
+			else if (currentMinutes > currentValue &amp;&amp; currentMinutes > nextValue &amp;&amp; iMinutes === defaultMinutes.length-1) {
 				// The next possible values is in the next hour, so change the hours
 				currentMinutes = nextValue;
 				currentHours += 1;
@@ -1152,7 +1180,7 @@ function MtrDatepicker(inputConfig) {
     // Handle Array
     if (obj instanceof Array) {
         copy = [];
-        for (var i = 0, len = obj.length; i < len; i++) {
+        for (var i = 0, len = obj.length; i &lt; len; i++) {
             copy[i] = clone(obj[i]);
         }
         return copy;
@@ -1202,7 +1230,7 @@ function MtrDatepicker(inputConfig) {
 				step = settings.step,
 				range = [];
 
-		for (var i=from; i<=to; i+=step) {
+		for (var i=from; i&lt;=to; i+=step) {
 			range.push(i);
 		}
 
@@ -1225,7 +1253,7 @@ function MtrDatepicker(inputConfig) {
 		};
 
 		var currentDate;
-		for (var i=firstDay.getDate(); i<=lastDay.getDate(); i++) {
+		for (var i=firstDay.getDate(); i&lt;=lastDay.getDate(); i++) {
 			currentDate = new Date(year, month, i);
 
 			range.values.push(i);
@@ -1245,7 +1273,7 @@ function MtrDatepicker(inputConfig) {
 	var smooth_scroll_to = function(element, target, duration) {
     target = Math.round(target);
     duration = Math.round(duration);
-    if (duration < 0) {
+    if (duration &lt; 0) {
       return;
     }
     if (duration === 0) {
@@ -1262,7 +1290,7 @@ function MtrDatepicker(inputConfig) {
     // https://coderwall.com/p/hujlhg/smooth-scrolling-without-jquery
     // based on http://en.wikipedia.org/wiki/Smoothstep
     var smooth_step = function(start, end, point) {
-      if(point <= start) { return 0; }
+      if(point &lt;= start) { return 0; }
       if(point >= end) { return 1; }
       var x = (point - start) / (end - start); // interpolation
       return x*x*(3 - 2*x);
@@ -1293,7 +1321,7 @@ function MtrDatepicker(inputConfig) {
       // If we were supposed to scroll but didn't, then we
       // probably hit the limit, so consider it done; not
       // interrupted.
-      if(element.scrollTop === previous_top && element.scrollTop !== frameTop) {
+      if(element.scrollTop === previous_top &amp;&amp; element.scrollTop !== frameTop) {
         return;
       }
       previous_top = element.scrollTop;
@@ -1418,7 +1446,7 @@ function MtrDatepicker(inputConfig) {
 		input = input.replace('A', currentAmPm ? 'AM' : 'PM');
 
 		function prependZero(value) {
-			return value <= 9 ? ('0'+value) : value;
+			return value &lt;= 9 ? ('0'+value) : value;
 		}
 
 		function transformAmPm(hours, ampm) {
@@ -1493,3 +1521,26 @@ function MtrDatepicker(inputConfig) {
 	this.beforeChange = beforeChange;
 	this.afterChange = afterChange;
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#init">init</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Tue Oct 13 2015 16:03:02 GMT+0300 (EEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
