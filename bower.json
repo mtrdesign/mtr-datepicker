@@ -19,6 +19,6 @@
     "tests",
     "Gruntfile.js",
     "dev.sh",
-    "index.html",
+    "index.html"
   ]
 }
