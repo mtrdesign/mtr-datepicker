@@ -10,7 +10,6 @@ function publish {
 
   sudo rm -rf node_modules
   sudo rm -rf scripts
-  sudo rm -rf styles
   sudo rm -rf images
   sudo rm -rf package.json
   sudo rm -rf Gruntfile.js
