@@ -1458,15 +1458,16 @@ function MtrDatepicker(inputConfig) {
 
 	this.init = init;
 	
-	this.getHours = getHours;
-	this.getMinutes = getMinutes;
-	this.getIsAm = getIsAm;
-	this.getIsPm = getIsPm;
-	this.getTime = getTime;
-	this.getDate = getDate;
-	this.getMonth = getMonth;
-	this.getYear = getYear;
-	this.getFullTime = getFullTime;
+	// Closing this interfaces, use format, instead of them
+	// this.getHours = getHours;
+	// this.getMinutes = getMinutes;
+	// this.getIsAm = getIsAm;
+	// this.getIsPm = getIsPm;
+	// this.getTime = getTime;
+	// this.getDate = getDate;
+	// this.getMonth = getMonth;
+	// this.getYear = getYear;
+	// this.getFullTime = getFullTime;
 	this.getTimestamp = getTimestamp;
 
 	this.setHours = setHours;
