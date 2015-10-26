@@ -91,7 +91,7 @@ function MtrDatepicker(inputConfig) {
 		'day': [],
 		'month': [],
 		'year': [],
-	}
+	};
 	var events = {
 		'onChange': clone(defaultChangeEventsCategories),
 		'beforeChange': clone(defaultChangeEventsCategories),
@@ -447,7 +447,7 @@ function MtrDatepicker(inputConfig) {
 						case 'dates': setDate(newValue); break;
 						case 'months': setMonth(newValue); break;
 						case 'years': setYear(newValue); break;
-					};
+					}
 				}
 			}, false);
 
@@ -630,8 +630,14 @@ function MtrDatepicker(inputConfig) {
 
 			var divValue = document.createElement('div');
 			divValue.className = 'default-value';
-			divValue.appendChild(document.createTextNode(innerHTML));
 			divValue.setAttribute('data-value', value);
+
+			if (value === 0) {
+				divValue.appendChild(document.createTextNode('00'));
+			}
+			else {
+				divValue.appendChild(document.createTextNode(innerHTML));
+			}
 
 			divValueHolder.appendChild(divValue);
 
@@ -1379,6 +1385,7 @@ function MtrDatepicker(inputConfig) {
 	 * h
 	 * hh
 	 * m
+	 * mm
 	 * a
 	 */
 	var format = function(input) {
@@ -1467,7 +1474,7 @@ function MtrDatepicker(inputConfig) {
 	// this.getDate = getDate;
 	// this.getMonth = getMonth;
 	// this.getYear = getYear;
-	// this.getFullTime = getFullTime;
+	this.getFullTime = getFullTime;
 	this.getTimestamp = getTimestamp;
 
 	this.setHours = setHours;

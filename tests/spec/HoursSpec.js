@@ -17,10 +17,22 @@ describe('MTR Datepicker: Hours ', function() {
   }
 
   describe('getter', function() {
-    it('format("HH") should return the same hour as the current one', function() {
+    it('format("H") should return the same hour as the current one', function() {
+      var currentDate = new Date();
+      var currentHour = currentDate.getHours();
+      var datepickerHour = datepicker.format('H');
+
+      expect(datepickerHour).toEqual(currentHour.toString());
+    });
+
+    it('format("HH") should return the same hour as the current one but with leading 0', function() {
       var currentDate = new Date();
       var currentHour = currentDate.getHours();
       var datepickerHour = datepicker.format('HH');
+
+      if (currentHour < 10) {
+        currentHour = '0' + currentHour;
+      }
 
       expect(datepickerHour).toEqual(currentHour.toString());
     });
