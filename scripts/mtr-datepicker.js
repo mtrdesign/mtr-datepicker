@@ -794,9 +794,9 @@ function MtrDatepicker(inputConfig) {
 				if (isAm && newValue === 12) {
 					newValue = 0;
 				}
-				else if (!isAm && newValue < 12) {
-					newValue += 12;
-				}
+				// else if (!isAm && newValue < 12) {
+				// 	newValue += 12;
+				// }
 				datePicker.setHours(newValue); 
 				break;
 			case 'minute':	datePicker.setMinutes(newValue); break;
@@ -829,6 +829,7 @@ function MtrDatepicker(inputConfig) {
 		
 		dateNow.setSeconds(0);
 		dateNow.setMilliseconds(0);
+		datePicker.setSeconds(0);
 		datePicker.setMilliseconds(0);
 
 		if (datePicker.getTime() < dateNow.getTime()) {
