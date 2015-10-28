@@ -22,7 +22,7 @@ describe('MTR Datepicker: Minutes ', function() {
       var currentMinutes = currentDate.getMinutes();
       var datepickerMinutes = datepicker.format('m');
 
-      if (currentMinutes.length === 1 && currentMinutes !== 0) {
+      if (currentMinutes.toString().length === 1 && currentMinutes !== 0) {
         currentMinutes = 10;
       }
       else {

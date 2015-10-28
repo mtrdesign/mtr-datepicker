@@ -1,5 +1,7 @@
 describe('MTR Datepicker: After init', function() {
   
+  var MtrDatepicker = require('../../scripts/mtr-datepicker');
+
   var datepickerSelectorName = 'datepicker';
   var datepickerSelector = '#' + datepickerSelectorName;
   var datepicker;

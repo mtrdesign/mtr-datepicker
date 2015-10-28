@@ -13,6 +13,7 @@ function publish {
   sudo rm -rf images
   sudo rm -rf package.json
   sudo rm -rf Gruntfile.js
+  sudo rm -rf docs
 
   echo -e "\e[33mPushing...\e[39m"
   git add -A
