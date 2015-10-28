@@ -1146,7 +1146,10 @@ function MtrDatepicker(inputConfig) {
 	}
 
 	function getRelativeOffset(parent, child) {
-		return child.offsetTop - parent.offsetTop;
+		if (parent && child) {
+		 	return child.offsetTop - parent.offsetTop;
+		}
+		return 0;
 	}
 
 	function clone(obj) {
