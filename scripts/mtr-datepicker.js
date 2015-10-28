@@ -789,19 +789,34 @@ function MtrDatepicker(inputConfig) {
 				datePicker = new Date(values.date.getTime());
 
 		switch(target) {
-			case 'hour':	datePicker.setHours(newValue); break;
+			case 'hour':	
+				var isAm = getIsAm();
+				if (isAm && newValue === 12) {
+					newValue = 0;
+				}
+				else if (!isAm && newValue < 12) {
+					newValue += 12;
+				}
+				datePicker.setHours(newValue); 
+				break;
 			case 'minute':	datePicker.setMinutes(newValue); break;
 			case 'ampm':
 				var currentHours = datePicker.getHours(),
 						currentAmPm = (currentHours >= 0 && currentHours <= 11) ? true : false,
 						newHours = currentHours;
-				
+
 				if (newValue != oldValue) {
-					if (newValue === true && currentHours >= 12) { // set AM
+					if (newValue == true && currentHours > 12) { // set AM
 						newHours = currentHours - 12;
 					}
-					else if (newValue === false && currentHours < 12) { // Set PM
+					else if (newValue == true && currentHours == 12) {
+						newHours = 0;
+					}
+					else if (newValue == false && currentHours < 12) { // Set PM
 						newHours = currentHours + 12;
+					}
+					else if (newValue == false && currentHours == 12) { // Set PM
+						newHours = 12;
 					}
 				}
 
