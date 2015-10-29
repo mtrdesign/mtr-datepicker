@@ -1,4 +1,11 @@
 
+/**
+ * The main class of the MtrDatepicker
+ * Here inside is covered everything that you need to know
+ *
+ * @class MtrDatepicker
+ * @param {Object} inputConfig used for user configurations
+ */
 function MtrDatepicker(inputConfig) {
 	var self = this;
 
@@ -34,11 +41,12 @@ function MtrDatepicker(inputConfig) {
 		},
 		years: {
 			min: 2000,
-			max: 2020,
+			max: 2030,
 			step: 1,
 			maxlength: 4
 		},
 		animations: true,
+		smartHours: false,
 		future: false,
 		transitionDelay: 100,
 		references: { // Used to store references to the main elements
@@ -104,6 +112,11 @@ function MtrDatepicker(inputConfig) {
 	// Keep the arrow click in a timeout
 	var arrowTimeout = {};
 
+	/**
+	 * The main init function which prepares the datepicker for use
+	 *
+	 * @param  {Object} inputConfig used to setup datepicker specific features
+	 */
 	var init = function(inputConfig) {
 
 		setConfig(inputConfig);
@@ -118,6 +131,11 @@ function MtrDatepicker(inputConfig) {
 		attachEvents();
 	};
 
+	/**
+	 * Attaching the user input config settings to ovverride the default one
+	 *
+	 * @param {Object} input user input settings
+	 */
 	var setConfig = function(input) {
 		config.targetElement = input.target;
 		
@@ -127,6 +145,7 @@ function MtrDatepicker(inputConfig) {
 		
 		config.animations = input.animations !== undefined ? input.animations : config.animations;
 		config.future = input.future !== undefined ? input.future : config.future;
+		config.smartHours = input.smartHours !== undefined ? input.smartHours : config.smartHours;
 
 		// Init hours
 		config.defaultValues.hours = createRange(config.hours);
@@ -154,6 +173,11 @@ function MtrDatepicker(inputConfig) {
 		config.defaultValues.datesNames = datesRange.names;
 	};
 
+	/**
+	 * Generate the main markup used from the datepicker
+	 * This means that here we are generating input sliders for hours, minutes, months, dates and years
+	 * and a radio input for swithing the time AM/PM
+	 */
 	var createMarkup = function() {
 
 		// Create time elements
@@ -233,6 +257,7 @@ function MtrDatepicker(inputConfig) {
 	 * @param  {object} elementConfig 
 	 * @return {HtmlElement}
 	 */
+	
 	var createSliderInput = function(elementConfig) {
 		var element = document.createElement('div');
 		element.className = 'mtr-input-slider';
@@ -245,7 +270,7 @@ function MtrDatepicker(inputConfig) {
 
 		// Content of the input, holding the input and the available values
 		var divContent = document.createElement('div');
-		divContent.className = "content";
+		divContent.className = "mtr-content";
 
 		var inputValue = createInputValue();
 		var divValues = createValues();
@@ -266,13 +291,13 @@ function MtrDatepicker(inputConfig) {
 
 		function createUpArrow() {
 			var divArrowUp = document.createElement('div');
-			divArrowUp.className = 'arrow up';
+			divArrowUp.className = 'mtr-arrow up';
 			divArrowUp.appendChild(document.createElement('span'));
 
 			// Attach event listener
 			divArrowUp.addEventListener('click', function() {
 				// Prevent blur event
-				var input = qSelect(inputValue, '.input');
+				var input = qSelect(inputValue, '.mtr-input');
 				addClass(inputValue, 'arrow-click');
 				addClass(divContent, 'active');
 
@@ -326,12 +351,12 @@ function MtrDatepicker(inputConfig) {
 
 		function createDownArrow() {
 			var divArrowDown = document.createElement('div');
-			divArrowDown.className = 'arrow down';
+			divArrowDown.className = 'mtr-arrow down';
 			divArrowDown.appendChild(document.createElement('span'));
 
 			divArrowDown.addEventListener('click', function(e) {
 				// Prevent blur event
-				var input = qSelect(inputValue, '.input');
+				var input = qSelect(inputValue, '.mtr-input');
 				addClass(inputValue, 'arrow-click');
 				addClass(divContent, 'active');
 
@@ -387,7 +412,7 @@ function MtrDatepicker(inputConfig) {
 			var inputValue = document.createElement('input');
 			inputValue.value = elementConfig.value;
 			inputValue.type = 'text';
-			inputValue.className = 'input ' + elementConfig.name;
+			inputValue.className = 'mtr-input ' + elementConfig.name;
 			inputValue.style.display = 'none';
 
 			// Attach event listeners
@@ -582,7 +607,7 @@ function MtrDatepicker(inputConfig) {
 			label.appendChild(innerHtmlSpanValue);
 			label.appendChild(innerHtmlSpanRadio);
 
-			input.className = 'input ';
+			input.className = 'mtr-input ';
 			input.type = 'radio';
 			input.name = radioName;
 			input.id = elementId;
@@ -619,17 +644,17 @@ function MtrDatepicker(inputConfig) {
 	var createElementValues = function(elementConfig) {
 			
 		var divValues = document.createElement('div');
-		divValues.className = 'values';
+		divValues.className = 'mtr-values';
 
 		elementConfig.values.forEach(function(value) {
 			var innerHTML = elementConfig.name === 'months' ? value+1 : value;
 
 			var divValueHolder = document.createElement('div');
-			divValueHolder.className = 'default-value-holder';
+			divValueHolder.className = 'mtr-default-value-holder';
 			divValueHolder.setAttribute('data-value', value);
 
 			var divValue = document.createElement('div');
-			divValue.className = 'default-value';
+			divValue.className = 'mtr-default-value';
 			divValue.setAttribute('data-value', value);
 
 			if (value === 0) {
@@ -643,7 +668,7 @@ function MtrDatepicker(inputConfig) {
 
 			if (elementConfig.valuesNames) {
 				var divValueName = document.createElement('div');
-				divValueName.className = 'default-value-name';
+				divValueName.className = 'mtr-default-value-name';
 				divValueName.appendChild(document.createTextNode(elementConfig.valuesNames[value]));
 
 				divValue.className += ' has-name';
@@ -658,7 +683,7 @@ function MtrDatepicker(inputConfig) {
 		divValues.addEventListener('click', function() {
 			// Show the input field for manual setup
 			var parent = divValues.parentElement,
-					inputValue = qSelect(parent, '.input');
+					inputValue = qSelect(parent, '.mtr-input');
 			
 			// If we are working with months we have to incement the value
 			// because the months are starting from 0
@@ -682,17 +707,17 @@ function MtrDatepicker(inputConfig) {
 			// If the user is using the mouse wheel the values should be changed
 			var target = e.target;
 			var parent = target.parentElement.parentElement.parentElement.parentElement; // value -> values -> content -> input slider
-			var values = qSelect(parent, '.values');
-			var input = qSelect(parent, '.input');
+			var values = qSelect(parent, '.mtr-values');
+			var input = qSelect(parent, '.mtr-input');
 			var wheelData = e.wheelDeltaY;
 
 			var arrow;
 
 			if (wheelData > 0) { // Scroll up
-				arrow = qSelect(parent, '.arrow.up');
+				arrow = qSelect(parent, '.mtr-arrow.up');
 			}
 			else { // Scroll down
-				arrow = qSelect(parent, '.arrow.down');
+				arrow = qSelect(parent, '.mtr-arrow.down');
 			}
 
 			wheelTimeout = setTimeout(function() {
@@ -720,8 +745,8 @@ function MtrDatepicker(inputConfig) {
 
 	var rebuildElementValues = function(reference, data) {
 		var element = byId(reference);
-		var elementContent = qSelect(element, '.content');
-		var elementContentValues = qSelect(elementContent, '.values');
+		var elementContent = qSelect(element, '.mtr-content');
+		var elementContentValues = qSelect(elementContent, '.mtr-values');
 
 		elementContentValues.parentNode.removeChild(elementContentValues);
 		var elementContentNewValues = createElementValues({
@@ -848,16 +873,21 @@ function MtrDatepicker(inputConfig) {
 
 	var setHours = function(input, preventAnimation) {
 		var oldValue = values.date.getHours();
+
+		var isAm = getIsAm();
+
 		if (!validateBeforeChange('hour', input, oldValue)) {
 			return false;
 		}
 		executeChangeEvents('hour', 'beforeChange', input, oldValue);
 
-		var isAm = getIsAm();
-
 		values.timestamp = values.date.setHours(input);
 
-		if (input === 12 && isAm) {
+		if (config.smartHours && input === 12 && isAm) {
+			values.timestamp = values.date.setHours(12);
+			setAmPm(false); 	// set to PM
+		}
+		else if (!config.smartHours && input === 12 && isAm) {
 			values.timestamp = values.date.setHours(0);
 		}
 		else {
@@ -936,8 +966,8 @@ function MtrDatepicker(inputConfig) {
 
 		formRadio.ampm.value = setAmPm ? '1' : '0';
 
-		var radioAm = qSelect(formRadio, 'input.input[type="radio"][value="1"]');
-		var radioPm = qSelect(formRadio, 'input.input[type="radio"][value="0"]');
+		var radioAm = qSelect(formRadio, 'input.mtr-input[type="radio"][value="1"]');
+		var radioPm = qSelect(formRadio, 'input.mtr-input[type="radio"][value="0"]');
 		if (setAmPm) {
 			radioAm.setAttribute('checked', '');
 			radioPm.removeAttribute('checked');
@@ -1099,10 +1129,10 @@ function MtrDatepicker(inputConfig) {
 		preventAnimation = preventAnimation || false;
 
 		// Find the specific value
-		var divValues = qSelect(element, '.content'),
-				divValue = qSelect(element, '.values .default-value[data-value="'+newValue+'"]'),
-				divArrow = qSelect(element, '.arrow.up'),
-				inputValue = qSelect(element, '.input');
+		var divValues = qSelect(element, '.mtr-content'),
+				divValue = qSelect(element, '.mtr-values .mtr-default-value[data-value="'+newValue+'"]'),
+				divArrow = qSelect(element, '.mtr-arrow.up'),
+				inputValue = qSelect(element, '.mtr-input');
 
 				scrollTo = getRelativeOffset(divValues, divValue) + divArrow.clientHeight;
 

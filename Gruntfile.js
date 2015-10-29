@@ -119,7 +119,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-cache-breaker');
-    grunt.loadNpmTasks('grunt-jsdoc-ng');
     grunt.loadNpmTasks('grunt-notify');
 
     grunt.task.run('notify_hooks');

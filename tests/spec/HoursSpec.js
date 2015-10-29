@@ -87,9 +87,9 @@ describe('MTR Datepicker: Hours ', function() {
     beforeEach(function() {
       datepickerElement = $(datepickerSelector);
 
-      arrowUpElement = datepickerElement.find(datepickerSelector + '-input-hours .arrow.up');
-      arrowDownElement = datepickerElement.find(datepickerSelector + '-input-hours .arrow.down');
-      inputElement = datepickerElement.find(datepickerSelector + '-input-hours input.input.hours');
+      arrowUpElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-arrow.up');
+      arrowDownElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-arrow.down');
+      inputElement = datepickerElement.find(datepickerSelector + '-input-hours input.mtr-input.hours');
     });
 
     it('on the upper arrow to be triggered', function() {

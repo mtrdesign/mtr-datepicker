@@ -52,7 +52,7 @@
 		vertical-align: middle !important;
 
 		/** The navigatators of the input */
-		.arrow {
+		.mtr-arrow {
 			height: @input-slider-arrow-height !important;
 			line-height: @input-slider-arrow-height !important;
 			cursor: pointer !important;
@@ -66,13 +66,13 @@
 		}
 
 		/** The input field and values are stored here */
-		.content {
+		.mtr-content {
 			overflow: hidden !important;
 			height: @input-slider-content-height !important;
 			z-index: 1 !important;
 			position: relative !important;
 
-			.input {
+			.mtr-input {
 				width: 100% !important;
 				height: @input-slider-height !important;
 				margin: 0 !important;
@@ -89,32 +89,32 @@
 				.font-size(1.5) !important;
 			}
 
-			.values {
+			.mtr-values {
 
-				.default-value-holder,
-				.default-value {
+				.mtr-default-value-holder,
+				.mtr-default-value {
 					height: @input-slider-content-height !important;
 					line-height: @input-slider-content-height !important;
 					.font-size(1.5) !important;
 				}
 
-				.default-value.has-name,
-				.default-value-name {
+				.mtr-default-value.has-name,
+				.mtr-default-value-name {
 					height: inherit !important; 
 					line-height: @input-slider-content-height / 2 !important;
 				}
 
-				.default-value.has-name {
+				.mtr-default-value.has-name {
 					height: @input-slider-content-height / 2 !important;	
 				}
 
-				.default-value-name {
+				.mtr-default-value-name {
 					.font-size(1.0) !important;
 				}
 			}
 		}
 
-		.content::-webkit-scrollbar {
+		.mtr-content::-webkit-scrollbar {
 			display: none !important;
 		}
 	}
