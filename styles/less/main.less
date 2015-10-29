@@ -1,0 +1,148 @@
+
+/**
+ * Main Variables
+ */
+
+@input-margin: 14px 6px;
+
+@input-slider-width: 50px;
+@input-slider-height: 85px;
+@input-slider-arrow-height: 20px;
+@input-slider-margin: @input-margin;
+
+@input-slider-content-height: @input-slider-height - (2 * @input-slider-arrow-height);
+
+@input-radio-margin: 14px 10px;
+
+/**
+ * Mixins
+ */
+
+.font-size(@sizeValue) {
+  @remValue: @sizeValue;
+  @pxValue: (@sizeValue * 10);
+  font-size: ~"@{pxValue}px" !important; 
+  font-size: ~"@{remValue}rem" !important;
+}
+
+/**
+ * Styles
+ */
+
+.mtr-datepicker {
+
+	* {
+		-webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -khtml-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+	}
+
+	.mtr-input-slider {
+		width: @input-slider-width !important;
+		height: @input-slider-height !important;
+		overflow: hidden !important; 
+		margin: @input-slider-margin !important;
+		position: relative !important;
+		float: left !important;
+
+		text-align: center !important;
+		vertical-align: middle !important;
+
+		/** The navigatators of the input */
+		.mtr-arrow {
+			height: @input-slider-arrow-height !important;
+			line-height: @input-slider-arrow-height !important;
+			cursor: pointer !important;
+			z-index: 0 !important;
+			position: relative !important;
+
+			span {
+				display: block !important;
+				margin: 0 auto !important;
+			}
+		}
+
+		/** The input field and values are stored here */
+		.mtr-content {
+			overflow: hidden !important;
+			height: @input-slider-content-height !important;
+			z-index: 1 !important;
+			position: relative !important;
+
+			.mtr-input {
+				width: 100% !important;
+				height: @input-slider-height !important;
+				margin: 0 !important;
+				padding: 0 !important;
+				border: none !important;
+				height: @input-slider-content-height !important;
+				line-height: @input-slider-content-height !important;
+				text-align: center !important;
+			}
+
+			input {
+				border: none !important;
+				height: @input-slider-content-height !important;
+				.font-size(1.5) !important;
+			}
+
+			.mtr-values {
+
+				.mtr-default-value-holder,
+				.mtr-default-value {
+					height: @input-slider-content-height !important;
+					line-height: @input-slider-content-height !important;
+					.font-size(1.5) !important;
+				}
+
+				.mtr-default-value.has-name,
+				.mtr-default-value-name {
+					height: inherit !important; 
+					line-height: @input-slider-content-height / 2 !important;
+				}
+
+				.mtr-default-value.has-name {
+					height: @input-slider-content-height / 2 !important;	
+				}
+
+				.mtr-default-value-name {
+					.font-size(1.0) !important;
+				}
+			}
+		}
+
+		.mtr-content::-webkit-scrollbar {
+			display: none !important;
+		}
+	}
+
+	.mtr-input-radio {
+		margin: @input-radio-margin !important;
+		padding-top: @input-slider-arrow-height !important;
+		position: relative !important;
+		float: left !important;
+
+		.font-size(1.3) !important;
+
+		label {
+			position: relative !important;
+
+			span {
+				position: relative !important;
+				float: left !important;
+			}
+		}
+	}
+
+	.mtr-row {
+		position: relative !important;
+		float: left !important;
+	}
+
+	.mtr-clearfix {
+		clear: both !important;
+	}
+}

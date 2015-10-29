@@ -25,6 +25,9 @@ describe('MTR Datepicker: Minutes ', function() {
       if (currentMinutes.toString().length === 1 && currentMinutes !== 0) {
         currentMinutes = 10;
       }
+      else if (currentMinutes.toString().charAt(currentMinutes.toString().length-1) === '0') {
+        currentMinutes = currentMinutes;
+      }
       else {
         var minutesString = currentMinutes.toString();
 
@@ -71,9 +74,9 @@ describe('MTR Datepicker: Minutes ', function() {
     beforeEach(function() {
       datepickerElement = $(datepickerSelector);
 
-      arrowUpElement = datepickerElement.find(datepickerSelector + '-input-minutes .arrow.up');
-      arrowDownElement = datepickerElement.find(datepickerSelector + '-input-minutes .arrow.down');
-      inputElement = datepickerElement.find(datepickerSelector + '-input-minutes input.input.minutes');
+      arrowUpElement = datepickerElement.find(datepickerSelector + '-input-minutes .mtr-arrow.up');
+      arrowDownElement = datepickerElement.find(datepickerSelector + '-input-minutes .mtr-arrow.down');
+      inputElement = datepickerElement.find(datepickerSelector + '-input-minutes input.mtr-input.minutes');
     });
 
     it('on the upper arrow to be triggered', function() {
