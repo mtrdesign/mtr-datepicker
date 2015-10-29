@@ -973,6 +973,7 @@ function MtrDatepicker(inputConfig) {
 	var setAmPm = function(setAmPm) {
 		var oldValue = getIsAm();
 		if (!validateChange('ampm', setAmPm, oldValue)) {
+			showInputRadioError(config.references.ampm, setAmPm);
 			return false;
 		}
 		executeChangeEvents('ampm', 'beforeChange', setAmPm, oldValue);
@@ -1231,6 +1232,16 @@ function MtrDatepicker(inputConfig) {
 	var showInputSliderError = function(reference) {
 		var element = byId(reference);
 		var divContent = qSelect(element, '.mtr-content');
+		addClass(divContent, 'mtr-error');
+
+		setTimeout(function() {
+			removeClass(divContent, 'mtr-error');
+		}, config.transitionValidationDelay + 300);
+	};
+
+	var showInputRadioError = function(reference, value) {
+		var element = byId(reference);
+		var divContent = qSelect(element, '.mtr-input[value="'+value+'"]');
 		addClass(divContent, 'mtr-error');
 
 		setTimeout(function() {
