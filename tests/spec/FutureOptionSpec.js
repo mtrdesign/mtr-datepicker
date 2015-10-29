@@ -92,8 +92,6 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
       var datepickerGetterValue = datepicker.format('H');
       
       expect(datepickerGetterValue).toEqual(expectedHourValue);
-      expect(inputElement).toHaveAttr('data-old-value', expectedHourVisualValue);
-
     });
 
   });

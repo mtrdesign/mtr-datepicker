@@ -3,6 +3,7 @@
 
 @content-background: #bdbcb8;
 @content-background-active: #ff8612;
+@content-background-error: #e74c3c;
 @content-foreground: #ffffff;
 
 @arrow-background-active: #F3F3F3;
@@ -49,7 +50,7 @@
 		background: @content-background;
 		color: @content-foreground;
 
-		&.active,
+		&.mtr-active,
 		&:hover,
 		input {
 			background: @content-background-active;
@@ -59,6 +60,18 @@
 				.mtr-default-value.has-name,
 				.mtr-default-value-name {
 					background: @content-background-active;
+				}
+			}
+		}
+
+		&.mtr-error {
+			background: @content-background-error;
+
+			.mtr-values {
+				.mtr-default-value,
+				.mtr-default-value.has-name,
+				.mtr-default-value-name {
+					background: @content-background-error;
 				}
 			}
 		}

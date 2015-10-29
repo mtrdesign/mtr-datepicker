@@ -28,21 +28,29 @@
   background: #bdbcb8;
   color: #ffffff;
 }
-.mtr-datepicker .mtr-content.active,
+.mtr-datepicker .mtr-content.mtr-active,
 .mtr-datepicker .mtr-content:hover,
 .mtr-datepicker .mtr-content input {
   background: #ff8612;
 }
-.mtr-datepicker .mtr-content.active .mtr-values .mtr-default-value,
+.mtr-datepicker .mtr-content.mtr-active .mtr-values .mtr-default-value,
 .mtr-datepicker .mtr-content:hover .mtr-values .mtr-default-value,
 .mtr-datepicker .mtr-content input .mtr-values .mtr-default-value,
-.mtr-datepicker .mtr-content.active .mtr-values .mtr-default-value.has-name,
+.mtr-datepicker .mtr-content.mtr-active .mtr-values .mtr-default-value.has-name,
 .mtr-datepicker .mtr-content:hover .mtr-values .mtr-default-value.has-name,
 .mtr-datepicker .mtr-content input .mtr-values .mtr-default-value.has-name,
-.mtr-datepicker .mtr-content.active .mtr-values .mtr-default-value-name,
+.mtr-datepicker .mtr-content.mtr-active .mtr-values .mtr-default-value-name,
 .mtr-datepicker .mtr-content:hover .mtr-values .mtr-default-value-name,
 .mtr-datepicker .mtr-content input .mtr-values .mtr-default-value-name {
   background: #ff8612;
+}
+.mtr-datepicker .mtr-content.mtr-error {
+  background: #e74c3c;
+}
+.mtr-datepicker .mtr-content.mtr-error .mtr-values .mtr-default-value,
+.mtr-datepicker .mtr-content.mtr-error .mtr-values .mtr-default-value.has-name,
+.mtr-datepicker .mtr-content.mtr-error .mtr-values .mtr-default-value-name {
+  background: #e74c3c;
 }
 .mtr-datepicker .mtr-content input,
 .mtr-datepicker .mtr-content .mtr-input {

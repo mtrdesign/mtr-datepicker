@@ -3,6 +3,7 @@
 
 @content-background: #bdbcb8;
 @content-background-active: #ff8612;
+@content-background-error: #e74c3c;
 @content-foreground: #ffffff;
 
 @radio-label-foreground: #b9b7b7;
@@ -57,7 +58,7 @@
 		color: @content-foreground !important;
 		font-family: "Helvetica" !important;
 
-		&.active,
+		&.mtr-active,
 		&:hover,
 		input {
 			background: @content-background-active !important;
@@ -67,6 +68,19 @@
 				.mtr-default-value.has-name,
 				.mtr-default-value-name {
 					background: @content-background-active !important;
+					font-family: "Helvetica" !important;
+				}
+			}
+		}
+
+		&.mtr-error {
+			background: @content-background-error !important;
+
+			.mtr-values {
+				.mtr-default-value,
+				.mtr-default-value.has-name,
+				.mtr-default-value-name {
+					background: @content-background-error !important;
 					font-family: "Helvetica" !important;
 				}
 			}
