@@ -45,10 +45,14 @@ function MtrDatepicker(inputConfig) {
 			step: 1,
 			maxlength: 4
 		},
-		animations: true,
-		smartHours: false,
-		future: false,
+		animations: true,				// Deprecated for now, but resposible for the transition of the sliders - animated or static
+		smartHours: false,			// Make auto swicth between AM/PM when moving from 11AM to 12PM
+		future: false,					// Validate the date to be only in the future
+		validateBefore: false,	// perform the future validation before the date change
+		validateAfter: true,		// perform the future validation after the date change
+		
 		transitionDelay: 100,
+		transitionValidationDelay: 500,
 		references: { // Used to store references to the main elements
 			hours: null
 		},
@@ -145,6 +149,8 @@ function MtrDatepicker(inputConfig) {
 		
 		config.animations = input.animations !== undefined ? input.animations : config.animations;
 		config.future = input.future !== undefined ? input.future : config.future;
+		config.validateBefore = input.validateBefore !== undefined ? input.validateBefore : config.validateBefore;
+		config.validateAfter = input.validateAfter !== undefined ? input.validateAfter : config.validateAfter;
 		config.smartHours = input.smartHours !== undefined ? input.smartHours : config.smartHours;
 
 		// Init hours
@@ -876,7 +882,7 @@ function MtrDatepicker(inputConfig) {
 
 		var isAm = getIsAm();
 
-		if (!validateBeforeChange('hour', input, oldValue)) {
+		if (config.validateBefore && !validateBeforeChange('hour', input, oldValue)) {
 			return false;
 		}
 		executeChangeEvents('hour', 'beforeChange', input, oldValue);
@@ -903,6 +909,10 @@ function MtrDatepicker(inputConfig) {
 
 		executeChangeEvents('hour', 'onChange', input, oldValue);
 		executeChangeEvents('hour', 'afterChange', input, oldValue);
+
+		if (config.validateAfter && !validateBeforeChange('hour', input, oldValue)) {
+			//setHours(oldValue);
+		}
 	};
 
 	var getHours = function() {
@@ -995,7 +1005,7 @@ function MtrDatepicker(inputConfig) {
 
 	var setDate = function(newDate, preventAnimation) {
 		var oldValue = values.date.getDate();
-		if (!validateBeforeChange('day', newDate, oldValue)) {
+		if (config.validateBefore && !validateBeforeChange('day', newDate, oldValue)) {
 			return;
 		}
 		executeChangeEvents('day', 'beforeChange', newDate, oldValue);
@@ -1004,8 +1014,18 @@ function MtrDatepicker(inputConfig) {
 		values.timestamp = values.date.setDate(newDate);
 		updateInputSlider(config.references.dates, newDate, preventAnimation);
 
-		executeChangeEvents('day', 'onChange', newDate, oldValue);
-		executeChangeEvents('day', 'afterChange', newDate, oldValue);
+		if (config.validateAfter && !validateBeforeChange('day', newDate, oldValue)) {
+			setTimeout(function() {
+				setDate(oldValue);
+
+				executeChangeEvents('day', 'onChange', newDate, oldValue);
+				executeChangeEvents('day', 'afterChange', newDate, oldValue);
+			}, config.transitionValidationDelay);
+		}
+		else {
+			executeChangeEvents('day', 'onChange', newDate, oldValue);
+			executeChangeEvents('day', 'afterChange', newDate, oldValue);
+		}
 	};
 
 	var getDate = function() {
