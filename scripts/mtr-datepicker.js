@@ -125,7 +125,6 @@ function MtrDatepicker(inputConfig) {
 		setConfig(inputConfig);
 
 		targetElement = byId(config.targetElement);
-		targetElement.className += 'mtr-datepicker';
 		
 		setDatesRange();
 
@@ -183,6 +182,13 @@ function MtrDatepicker(inputConfig) {
 	 * and a radio input for swithing the time AM/PM
 	 */
 	var createMarkup = function() {
+
+		// Clear all of the content of the target element
+		removeClass(targetElement, 'mtr-datepicker');
+		addClass(targetElement, 'mtr-datepicker');
+		while (targetElement.firstChild) {
+    	targetElement.removeChild(targetElement.firstChild);
+		}
 
 		// Create time elements
 		var hoursElement = createSliderInput({
@@ -1615,6 +1621,7 @@ function MtrDatepicker(inputConfig) {
 	 */
 
 	this.init = init;
+	this.setConfig = setConfig;
 	
 	// Closing this interfaces, use format, instead of them
 	// this.getHours = getHours;
