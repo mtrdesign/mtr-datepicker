@@ -11,8 +11,3 @@ before_script:
 after_script: node_modules/coveralls/bin/coveralls.js
 notifications:
   slack: mtr-design:8Hj8yAQDcHqPZKpylxbalk9K
-  email:
-	recipients:
-	  - valentin.kirilov@mtr-design.com
-	on_success: always
-	on_failure: always
