@@ -16,6 +16,11 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
     current.datetime = new Date();
     current.hour = current.datetime.getHours();
 
+    if (current.datetime.getMinutes() >= 51) {
+      current.hour++;
+      current.datetime.setHours(current.hour);
+    }
+
     datepicker = new MtrDatepicker({
       target: 'datepicker',
       future: true
