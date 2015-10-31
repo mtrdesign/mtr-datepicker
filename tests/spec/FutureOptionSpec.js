@@ -3,6 +3,7 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
   var datepickerSelectorName = 'datepicker';
   var datepickerSelector = '#' + datepickerSelectorName;
   var datepicker;
+  var transitionValidationDelay = 500; // Keep it equal with this one in the code
 
   var current = {
     datetime: null,
@@ -27,8 +28,7 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
 
   describe('setter', function() {
 
-    it('setHours() should not work when you try to assign value before the current hour', function() {
-
+    it('setHours() should not work when you try to assign value before the current hour', function(done) {
       // If the hour is 1, we cannot go back in a valid way
       if (current.hour >= 2) {
         var oldHourValue = current.hour;
@@ -38,10 +38,14 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
         var datepickerHour = datepicker.format('H');
 
         expect(datepickerHour).toEqual(oldHourValue.toString());
+
+        setTimeout(function() {
+          done();
+        }, transitionValidationDelay);
       }
     });
 
-    it('setHours() should not work when you try to assign value which will be 3 hours before the current hour', function() {
+    it('setHours() should not work when you try to assign value which will be 3 hours before the current hour', function(done) {
 
       // If the hour is 1, we cannot go back in a valid way
       if (current.hour >= 4) {
@@ -52,6 +56,10 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
         var datepickerHour = datepicker.format('H');
 
         expect(datepickerHour).toEqual(oldHourValue.toString());
+
+        setTimeout(function() {
+          done();
+        }, transitionValidationDelay);
       }
     });
 
@@ -71,18 +79,23 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
       inputElement = datepickerElement.find(datepickerSelector + '-input-hours input.mtr-input.hours');
     });
 
-    it('on the bottom arrow to be triggered', function() {
+    it('on the bottom arrow to be triggered', function(done) {
       spyEvent = spyOnEvent(arrowDownElement, 'click');
       $(arrowDownElement).trigger( "click" );
            
       expect('click').toHaveBeenTriggeredOn(arrowDownElement);
       expect(spyEvent).toHaveBeenTriggered();
+
+      setTimeout(function() {
+        done();
+      }, transitionValidationDelay);
     });
 
     /**
      * To be valid the result should be checked using getter, DOM attribute and DOM vissible element
      */
-    it('on the down arrow shouldnt change the hour', function() {
+
+    it('on the down arrow shouldnt change the hour', function(done) {
       var expectedHourValue = datepicker.format('H');
       var expectedHourVisualValue = datepicker.format('h');
 
@@ -92,6 +105,10 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
       var datepickerGetterValue = datepicker.format('H');
       
       expect(datepickerGetterValue).toEqual(expectedHourValue);
+
+      setTimeout(function() {
+        done();
+      }, transitionValidationDelay);
     });
 
   });
