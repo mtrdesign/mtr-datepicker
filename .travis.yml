@@ -13,6 +13,6 @@ notifications:
   slack: mtr-design:8Hj8yAQDcHqPZKpylxbalk9K
   email:
 	recipients:
-	  – valentin.kirilov@mtr-design.com
+	  - valentin.kirilov@mtr-design.com
 	on_success: always
 	on_failure: always
