@@ -9,4 +9,4 @@ before_install:
 before_script:
   - npm install
 notifications:
-  slack: code-and-design:jUEWylLSLxterKZ9KY2UWsjO
+  slack: mtr-design:8Hj8yAQDcHqPZKpylxbalk9K
