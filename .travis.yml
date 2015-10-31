@@ -8,5 +8,6 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 before_script:
   - npm install
+after_script: NODE_ENV=cat tests/coverage/lcov.info | node_modules/coveralls/bin/coveralls.js && rm -rf tests/coverage
 notifications:
   slack: mtr-design:8Hj8yAQDcHqPZKpylxbalk9K
