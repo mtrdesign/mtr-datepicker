@@ -1,4 +1,4 @@
-# mtr-datepicker [![Build Status](https://travis-ci.org/mtrdesign/mtr-datepicker.svg?branch=master)](https://travis-ci.org/mtrdesign/mtr-datepicker)
+# mtr-datepicker [![Build Status](https://travis-ci.org/mtrdesign/mtr-datepicker.svg?branch=master)](https://travis-ci.org/mtrdesign/mtr-datepicker) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 The pure JavaScript ultimate datepicker
 
 ## About

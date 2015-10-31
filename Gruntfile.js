@@ -90,6 +90,16 @@ module.exports = function(grunt) {
         }
       },
 
+      coveralls: {
+        options: {
+          debug: true,
+          coverageDir: 'tests/coverage/',
+          dryRun: true,
+          force: true,
+          recursive: true
+        }
+      },
+
       notify_hooks: {
         options: {
           enabled: true,
@@ -120,9 +130,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-cache-breaker');
     grunt.loadNpmTasks('grunt-notify');
+    grunt.loadNpmTasks('grunt-karma-coveralls');
 
     grunt.task.run('notify_hooks');
     
     grunt.registerTask('default', ['less', 'cssmin', 'uglify', 'cachebreaker', 'jsdoc', 'connect', 'watch']);
+    grunt.registerTask('test', ['coveralls']);
     
 };
