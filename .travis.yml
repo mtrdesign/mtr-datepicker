@@ -7,4 +7,6 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 before_script:
-    - npm install
+  - npm install
+notifications:
+  slack: code-and-design:jUEWylLSLxterKZ9KY2UWsjO
