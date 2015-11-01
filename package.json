@@ -6,7 +6,8 @@
   "license": "MIT",
   "dependencies": {},
   "scripts": {
-    "start": "grunt"
+    "start": "grunt",
+    "test": "node_modules/karma/bin/karma start karma.conf.js"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
