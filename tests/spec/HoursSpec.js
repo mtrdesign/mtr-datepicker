@@ -20,6 +20,12 @@ describe('MTR Datepicker: Hours ', function() {
     it('format("H") should return the same hour as the current one', function() {
       var currentDate = new Date();
       var currentHour = currentDate.getHours();
+
+      // Maybe we are in the next hour
+      if (currentDate.getMinutes() >= 51) {
+        currentHour++;
+      }
+
       var datepickerHour = datepicker.format('H');
 
       expect(datepickerHour).toEqual(currentHour.toString());
@@ -29,6 +35,11 @@ describe('MTR Datepicker: Hours ', function() {
       var currentDate = new Date();
       var currentHour = currentDate.getHours();
       var datepickerHour = datepicker.format('HH');
+
+      // Maybe we are in the next hour
+      if (currentDate.getMinutes() >= 51) {
+        currentHour++;
+      }
 
       if (currentHour < 10) {
         currentHour = '0' + currentHour;

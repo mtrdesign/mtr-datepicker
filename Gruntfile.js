@@ -90,6 +90,24 @@ module.exports = function(grunt) {
         }
       },
 
+      coveralls: {
+        // Options relevant to all targets
+        options: {
+          // When true, grunt-coveralls will only print a warning rather than
+          // an error, to prevent CI builds from failing unnecessarily (e.g. if
+          // coveralls.io is down). Optional, defaults to false.
+          force: false
+        },
+
+        your_target: {
+          // LCOV coverage file (can be string, glob or array)
+          src: 'tests/coverage/lcov.info',
+          options: {
+            // Any options for just this target
+          }
+        },
+      },
+
       notify_hooks: {
         options: {
           enabled: true,
@@ -120,9 +138,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-cache-breaker');
     grunt.loadNpmTasks('grunt-notify');
+    grunt.loadNpmTasks('grunt-karma-coveralls');
+    grunt.loadNpmTasks('grunt-coveralls');
 
     grunt.task.run('notify_hooks');
     
     grunt.registerTask('default', ['less', 'cssmin', 'uglify', 'cachebreaker', 'jsdoc', 'connect', 'watch']);
+    grunt.registerTask('coverage', ['coveralls:your_target']);
     
 };

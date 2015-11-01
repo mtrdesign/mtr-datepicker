@@ -7,4 +7,7 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 before_script:
-    - npm install
+  - npm install
+after_script: node_modules/grunt-cli/bin/grunt coverage
+notifications:
+  slack: mtr-design:8Hj8yAQDcHqPZKpylxbalk9K

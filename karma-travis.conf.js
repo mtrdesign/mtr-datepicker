@@ -21,12 +21,27 @@ module.exports = function(config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
+            "scripts/*.js": ["coverage"]
         },
+
+
+        coverageReporter: {
+            type: 'lcov',
+            dir: 'tests/coverage',
+            subdir: '.'
+        },  
+
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
+        reporters: ['progress', 'coverage'],
+
+        plugins: [
+            'karma-jasmine-jquery',
+            'karma-jasmine',
+            'karma-coverage'
+        ],
 
         // web server port
         port: 9876,
@@ -39,7 +54,7 @@ module.exports = function(config) {
         logLevel: config.LOG_INFO,
 
         // enable / disable watching file and executing tests whenever any file changes
-        autoWatch: false,
+        autoWatch: true,
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
@@ -56,10 +71,6 @@ module.exports = function(config) {
         // if true, Karma captures browsers, runs the tests and exits
         singleRun: false
     };
-
-    if (process.env.TRAVIS) {
-        cfg.browsers = ['Chrome_travis_ci'];
-    }
 
     config.set(cfg);
 };
