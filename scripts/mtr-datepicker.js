@@ -885,6 +885,12 @@ function MtrDatepicker(inputConfig) {
 		var isChangeValid = validateChange('hour', input, oldValue);
 		var isAm = getIsAm();
 
+		// If the smart hourrs are enabled and we want to gto from X Am to 12 PM, we should
+		// deisable the validation
+		if (config.smartHours && input === 12 && isAm) {
+			isChangeValid = true;
+		}
+
 		if (!config.validateAfter && !isChangeValid) {
 			showInputSliderError(config.references.hours);
 			return;
@@ -1534,6 +1540,7 @@ function MtrDatepicker(inputConfig) {
 	 * @return {String}       [description]
 	 *
 	 * M
+	 * MMM
 	 * D
 	 * Y
 	 * YY
@@ -1552,34 +1559,44 @@ function MtrDatepicker(inputConfig) {
 		
 		var currentDate = getDate();
 		var currentMonth = getMonth() + 1;
-		var currentYear = getYear();
-
-		// Months
-		input = input.replace('MM', prependZero(currentMonth));
-		input = input.replace('M', currentMonth);
+		var currentYear = getYear();		
 
 		// Dates
-		input = input.replace('DD', prependZero(currentDate));
-		input = input.replace('D', currentDate);
+		input = specialReplace(input, 'DD', prependZero(currentDate));
+		input = specialReplace(input, 'D', currentDate);
 
 		// Years
-		input = input.replace('YYYY', currentYear);
-		input = input.replace('YY', currentYear.toString().substr(2));
-		input = input.replace('Y', currentYear);
+		input = specialReplace(input, 'YYYY', currentYear);
+		input = specialReplace(input, 'YY', currentYear.toString().substr(2));
+		input = specialReplace(input, 'Y', currentYear);
 
 		// Hours
-		input = input.replace('HH', prependZero(transformAmPm(currentHours, currentAmPm)));
-		input = input.replace('hh', prependZero(currentHours));
-		input = input.replace('H', transformAmPm(currentHours, currentAmPm));
-		input = input.replace('h', currentHours);
+		input = specialReplace(input, 'HH', prependZero(transformAmPm(currentHours, currentAmPm)));
+		input = specialReplace(input, 'hh', prependZero(currentHours));
+		input = specialReplace(input, 'H', transformAmPm(currentHours, currentAmPm));
+		input = specialReplace(input, 'h', currentHours);
 
 		// Minutes
-		input = input.replace('mm', prependZero(currentMinutes));
-		input = input.replace('m', getMinutes());
+		input = specialReplace(input, 'mm', prependZero(currentMinutes));
+		input = specialReplace(input, 'm', getMinutes());
 		
 		// Am Pm
-		input = input.replace('a', currentAmPm ? 'am' : 'pm');
-		input = input.replace('A', currentAmPm ? 'AM' : 'PM');
+		input = specialReplace(input, 'a', currentAmPm ? 'am' : 'pm');
+		input = specialReplace(input, 'A', currentAmPm ? 'AM' : 'PM');
+
+		// Months
+		input = specialReplace(input, 'MMM', config.monthsNames[currentMonth-1]);
+		input = specialReplace(input, 'MM', prependZero(currentMonth));
+		input = specialReplace(input, 'M', currentMonth);
+
+		input = input.split('#%#').join('');
+
+		function specialReplace(input, selector, value) {
+			var specialDelimiter = '#%#';
+			var regex = new RegExp(selector+'(?!'+specialDelimiter+')', 'g');
+			input = input.replace(regex, value + specialDelimiter);
+			return input;
+		}
 
 		function prependZero(value) {
 			return value <= 9 ? ('0'+value) : value;
