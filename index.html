@@ -14,8 +14,13 @@
     <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.min.css?rel=1446146182273" />
-  	<link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.default-theme.min.css?rel=1446146182274" />
+<<<<<<< HEAD
+    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.min.css?rel=1446454498789" />
+  	<link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.default-theme.min.css?rel=1446454498789" />
+=======
+    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.min.css?rel=1446454498789" />
+  	<link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.default-theme.min.css?rel=1446454498789" />
+>>>>>>> e0bbcd98f7ff94b56e09587080c9178439891ced
 		<link rel="stylesheet" type="text/css" href="styles/css/demo.css" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -148,13 +153,62 @@
           <br /><hr /><br />
 
           <div class="blog-post">
+            <h3 class="blog-post-title">Demo</h3>
+            <p class="blog-post-meta">Customize your own demo</p>
+
+            <div>
+
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#demo-smart-ampm-live" role="tab" data-toggle="tab">Live</a></li>
+                <li role="presentation"><a href="#demo-smart-ampm-code" role="tab" data-toggle="tab">Code</a></li>
+              </ul>
+
+              <br />
+
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="demo-smart-ampm-live">
+                  <div class="col-sm-6">
+                    <div id="demo-custom"></div>
+                  </div>
+                  <div class="col-sm-6">
+                    <label>
+                      <input id="input-customize-future" type="checkbox" />
+                      Only future dates
+                    </label>
+                    <label>
+                      <input id="input-customize-smart-ampm" type="checkbox" />
+                      Smart AM/PM swithing
+                    </label>
+
+                    <hr />
+                    <strong>Export Formats</strong> 
+                    <div id="demo-result-custom"></div>
+                  </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="demo-smart-ampm-code">
+                  <div class="alert alert-info">Soon</div>
+                </div>
+              </div>
+
+            </div>
+            
+            <hr />
+
+          </div><!-- /.blog-post -->
+
+          <div class="clearfix"></div>
+          <br /><hr /><br />
+
+          <div class="blog-post">
             <h2 class="blog-post-title">Documentation</h2>
 
             <p class="alert alert-info">
           		Documentation is still not available. If you have any questions look at the code or submit an issue.
             </p>
             <p class="alert alert-warning">
-              <strong>Note:</strong> You can check <a href="/docs/MtrDatepicker.html">the jsdocs</a> which are still not complete but are something, the oasis in the desert if you don't want to dive directly in the code!
+              <strong>Note:</strong> You can check <a href="docs/MtrDatepicker.html">the jsdocs</a> which are still not complete but are something, the oasis in the desert if you don't want to dive directly in the code!
             </p>
 
           </div><!-- /.blog-post -->
@@ -227,7 +281,11 @@
     <script type="text/javascript" src="scripts/mtr-datepicker.js"></script>
     -->
     <!-- --> 
-    <script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1446146182274"></script>
+<<<<<<< HEAD
+    <script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1446454498789"></script>
+=======
+    <script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1446454498789"></script>
+>>>>>>> e0bbcd98f7ff94b56e09587080c9178439891ced
     <!-- -->
 
 		<script type="text/javascript">
@@ -235,7 +293,8 @@
 		var datepickerDefault, 
         datepickerFixedStart,
         datepickerFuture,
-        datepickerSmartAmPm;
+        datepickerSmartAmPm,
+        datepickerCustom;
 
 		$(document).ready(function() {
         
@@ -264,7 +323,8 @@
         var demoResultDefault = $('#demo-result');
         var demoResultFixedStart = $('#demo-result-fixed-start');
         var demoResultFuture = $('#demo-result-future');
-				var demoResultSmartAmPm = $('#demo-result-smart-ampm');
+        var demoResultSmartAmPm = $('#demo-result-smart-ampm');
+				var demoResultCustom = $('#demo-result-custom');
 
 				function datepickerChange(resultElement, datepicker) {
 					var result = 
@@ -299,6 +359,38 @@
         datepickerSmartAmPm.onChange('all', function() {
           datepickerChange(demoResultSmartAmPm, datepickerSmartAmPm);
         });
+
+        var customOptions = {
+          future: false,
+          smartHours: false,
+          target: 'demo-custom'
+        };
+
+        datepickerCustom = new MtrDatepicker(customOptions);
+        datepickerChange(demoResultCustom, datepickerCustom);
+
+        datepickerCustom.onChange('all', function() {
+          datepickerChange(demoResultCustom, datepickerCustom);
+        });
+
+        $('#input-customize-future').on('change', function() {
+          customOptions.future = $(this).is(':checked');
+          if (customOptions.future) {
+            var dateNow = new Date();
+            customOptions.timestamp = dateNow.getTime();
+          }
+          else {
+            delete customOptions.timestamp; 
+          }
+          
+          datepickerCustom.init(customOptions);
+        });
+
+        $('#input-customize-smart-ampm').on('change', function() {
+          customOptions.smartHours = $(this).is(':checked');
+          datepickerCustom.init(customOptions);
+        });
+
 			});
 			  
 		</script>

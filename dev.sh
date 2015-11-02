@@ -13,6 +13,11 @@ function publish {
   sudo rm -rf images
   sudo rm -rf package.json
   sudo rm -rf Gruntfile.js
+  sudo rm -rf .coveralls.yml
+  sudo rm -rf .travis.yml
+  sudo rm -rf bower.json
+  sudo rm -rf karma-travis.conf.js
+  sudo rm -rf karma.conf.js
 
   echo -e "\e[33mPushing...\e[39m"
   git add -A

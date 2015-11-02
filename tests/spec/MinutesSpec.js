@@ -31,7 +31,7 @@ describe('MTR Datepicker: Minutes ', function() {
       else {
         var minutesString = currentMinutes.toString();
 
-        if (minutesString.charAt(0) === 5) {
+        if (minutesString.charAt(0) === '5') {
           currentMinutes = '0';
         }
         else {
