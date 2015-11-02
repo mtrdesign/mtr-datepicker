@@ -1084,7 +1084,6 @@ function MtrDatepicker(inputConfig) {
 		}
 		executeChangeEvents('month', 'beforeChange', newMonth, oldValue);
 		// TODO: Validate input
-		updateDate(newMonth);
 
 		// Finally, update the month
 		updateInputSlider(config.references.months, newMonth, preventAnimation);
@@ -1100,6 +1099,7 @@ function MtrDatepicker(inputConfig) {
 		}
 		else {
 			values.timestamp = values.date.setMonth(newMonth);
+			updateDate(newMonth);
 			executeChangeEvents('month', 'onChange', newMonth, oldValue);
 			executeChangeEvents('month', 'afterChange', newMonth, oldValue);
 		}
