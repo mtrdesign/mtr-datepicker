@@ -7,6 +7,14 @@
  * @param {Object} inputConfig used for user configurations
  */
 function MtrDatepicker(inputConfig) {
+	
+
+
+
+	/**
+	 * The real implementation of the library starts here
+	 */
+
 	var self = this;
 
 	// The main configuration properties
@@ -90,6 +98,8 @@ function MtrDatepicker(inputConfig) {
 		ampm: true,
 	};
 
+	var browser = null;
+
 	// Here are the attached user events
 	var defaultChangeEventsCategories = {
 		'all': [],
@@ -122,6 +132,8 @@ function MtrDatepicker(inputConfig) {
 	 */
 	var init = function(inputConfig) {
 
+		browser = detectBrowser();
+
 		setConfig(inputConfig);
 
 		targetElement = byId(config.targetElement);
@@ -132,6 +144,7 @@ function MtrDatepicker(inputConfig) {
 
 		attachEvents();
 	};
+
 
 	/**
 	 * Attaching the user input config settings to ovverride the default one
@@ -986,6 +999,13 @@ function MtrDatepicker(inputConfig) {
 		var oldValue = getIsAm();
 		if (!validateChange('ampm', setAmPm, oldValue)) {
 			showInputRadioError(config.references.ampm, setAmPm);
+
+			if (browser.isSafari) {
+				setTimeout(function() {
+					setRadioFormValue(config.references.ampm, oldValue);	
+				}, 10);
+				
+			}
 			return false;
 		}
 		executeChangeEvents('ampm', 'beforeChange', setAmPm, oldValue);
@@ -1008,14 +1028,29 @@ function MtrDatepicker(inputConfig) {
 		}
 
 		values.ampm = setAmPm;
+		setRadioFormValue(config.references.ampm, setAmPm);
 
-		var divRadioInput = byId(config.references.ampm);
+		executeChangeEvents('ampm', 'onChange', setAmPm, oldValue);
+		executeChangeEvents('ampm', 'afterChange', setAmPm, oldValue);
+		return true;
+	};
+	
+	var setRadioFormValue = function(reference, setAmPm) {
+		var divRadioInput = byId(reference);
 		var formRadio = qSelect(divRadioInput, 'form');
 
 		formRadio.ampm.value = setAmPm ? '1' : '0';
+		var labelAmPm = setAmPm ? 'AM' : 'PM';
 
 		var radioAm = qSelect(formRadio, 'input.mtr-input[type="radio"][value="1"]');
 		var radioPm = qSelect(formRadio, 'input.mtr-input[type="radio"][value="0"]');
+
+		var label = qSelect(formRadio, 'label[for="'+config.targetElement+'-radio-ampm-'+labelAmPm+'"]');
+
+		var clickEventObj = document.createEvent('MouseEvents');
+  	clickEventObj.initMouseEvent('click', true, true, window);
+  	label.dispatchEvent(clickEventObj);
+
 		if (setAmPm) {
 			radioAm.setAttribute('checked', '');
 			radioPm.removeAttribute('checked');
@@ -1024,11 +1059,7 @@ function MtrDatepicker(inputConfig) {
 			radioPm.setAttribute('checked', '');
 			radioAm.removeAttribute('checked');	
 		}
-
-		executeChangeEvents('ampm', 'onChange', setAmPm, oldValue);
-		executeChangeEvents('ampm', 'afterChange', setAmPm, oldValue);
-		return true;
-	};
+	}
 
 	var getIsAm = function() {
 		var currentHours = values.date.getHours();
@@ -1158,7 +1189,7 @@ function MtrDatepicker(inputConfig) {
 
 		var currentHours = values.date.getHours(),
 				currentMinutes = getMinutes(),
-				currentAmPm = currentHours <= 12 ? true : false,
+				currentAmPm = (currentHours >= 1 && currentHours < 12) ? true : false,
 				currentDate = getDate(),
 				currentMonth = getMonth(),
 				currentYear = getYear();
@@ -1198,7 +1229,7 @@ function MtrDatepicker(inputConfig) {
 		setMonth(currentMonth);
 		setYear(currentYear);
 		setDate(currentDate);
-		//setAmPm(currentAmPm);
+		setAmPm(currentAmPm);
 	};
 
 	var getTimestamp = function() {
@@ -1630,17 +1661,28 @@ function MtrDatepicker(inputConfig) {
 		events.afterChange[target].push(callback);
 	};
 
-	// Lets init all
-	init(inputConfig);
+	function detectBrowser() {
+		var browser = {
+			isChrome: false,
+			isSafari: false,
+			isFirefox: false,
+		};
 
-	/**
+		if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
+   		browser.isSafari = true;
+		}
+
+		return browser;
+	}
+
+		/**
 	 * Public API here
 	 */
 
 	this.init = init;
 	this.setConfig = setConfig;
 	
-	// Closing this interfaces, use format, instead of them
+	// Closing these interfaces, use format, instead of them
 	// this.getHours = getHours;
 	// this.getMinutes = getMinutes;
 	// this.getIsAm = getIsAm;
@@ -1678,4 +1720,8 @@ function MtrDatepicker(inputConfig) {
 	this.onChange = onChange;
 	this.beforeChange = beforeChange;
 	this.afterChange = afterChange;
+
+	// Lets init all
+	init(inputConfig);
+
 }
