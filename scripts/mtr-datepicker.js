@@ -1047,9 +1047,11 @@ function MtrDatepicker(inputConfig) {
 
 		var label = qSelect(formRadio, 'label[for="'+config.targetElement+'-radio-ampm-'+labelAmPm+'"]');
 
-		var clickEventObj = document.createEvent('MouseEvents');
-  	clickEventObj.initMouseEvent('click', true, true, window);
-  	label.dispatchEvent(clickEventObj);
+		// Deprecated but needed in Safari
+		//var clickEventObj = document.createEvent('MouseEvents');
+  		//clickEventObj.initMouseEvent('click', true, true, window);
+  		//label.dispatchEvent(clickEventObj);
+  		label.click();
 
 		if (setAmPm) {
 			radioAm.setAttribute('checked', '');
