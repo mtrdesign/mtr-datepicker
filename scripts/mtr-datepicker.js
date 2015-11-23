@@ -1046,19 +1046,16 @@ function MtrDatepicker(inputConfig) {
 		var radioPm = qSelect(formRadio, 'input.mtr-input[type="radio"][value="0"]');
 
 		var label = qSelect(formRadio, 'label[for="'+config.targetElement+'-radio-ampm-'+labelAmPm+'"]');
-
-		// Deprecated but needed in Safari
-		//var clickEventObj = document.createEvent('MouseEvents');
-  		//clickEventObj.initMouseEvent('click', true, true, window);
-  		//label.dispatchEvent(clickEventObj);
-  		label.click();
+		var checkbox = qSelect(label, 'checkbox');
 
 		if (setAmPm) {
 			radioAm.setAttribute('checked', '');
+			radioAm.checked = true;
 			radioPm.removeAttribute('checked');
 		}
 		else {
 			radioPm.setAttribute('checked', '');
+			radioPm.checked = true;
 			radioAm.removeAttribute('checked');	
 		}
 	}
