@@ -1282,6 +1282,10 @@ function MtrDatepicker(inputConfig) {
 	};
 
 	var showInputRadioError = function(reference, value) {
+		if (typeof value === 'boolean') {
+            value = value === true ? 1 : 0;
+        }
+
 		var element = byId(reference);
 		var divContent = qSelect(element, '.mtr-input[value="'+value+'"]');
 		addClass(divContent, 'mtr-error');
