@@ -1,11 +1,11 @@
 {
   "name": "mtr-datepicker",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "authors": [
     "Valentin Kirilov <val.kirilov@mtr-design.com>"
   ],
   "description": "The pure JavaScript ultimate datepicker",
-  "main": "",
+  "main": "dist/mtr-datepicker.min.js",
   "license": "MIT",
   "ignore": [
     "**/.*",

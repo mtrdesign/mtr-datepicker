@@ -7,7 +7,9 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
 
   var current = {
     datetime: null,
-    hour: null
+    hour: null,
+    month: null,
+    timestamp: null
   };
 
   beforeEach(function() {
@@ -16,6 +18,7 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
     current.datetime = new Date();
     current.hour = current.datetime.getHours();
     current.month = current.datetime.getMonth();
+    current.timestamp = current.datetime.getTime();
 
     if (current.datetime.getMinutes() >= 51) {
       current.hour++;
@@ -139,7 +142,7 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
      * To be valid the result should be checked using getter, DOM attribute and DOM vissible element
      */
 
-    it('on the down arrow should NOT change the hour', function(done) {
+    it('on the down arrow should NOT change the hour if the result will be in the past', function(done) {
       var expectedHourValue = datepicker.format('H');
       var expectedHourVisualValue = datepicker.format('h');
 
@@ -147,8 +150,15 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
       $(arrowDownElementHours).trigger( "click" );
 
       var datepickerGetterValue = datepicker.format('H');
-      
-      expect(datepickerGetterValue).toEqual(expectedHourValue);
+      var datepickerTimestamp = datepicker.getTimestamp();
+
+      if (expectedHourValue != 12) {
+        expect(datepickerGetterValue).toEqual(expectedHourValue);
+      }
+      else {
+        // Needed because when it is 12PM you can actualy click the down arrow and go to 11PM whcih is 23h
+        expect(datepickerTimestamp).toBeGreaterThan(current.timestamp);
+      }
 
       setTimeout(function() {
         done();

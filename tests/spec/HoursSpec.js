@@ -3,6 +3,7 @@ describe('MTR Datepicker: Hours ', function() {
   var datepickerSelectorName = 'datepicker';
   var datepickerSelector = '#' + datepickerSelectorName;
   var datepicker;
+  var transitionBlurDelay = 600; // Keep it equal with this one in the code
 
   beforeEach(function() {
     setBaseFixtures();
@@ -91,12 +92,13 @@ describe('MTR Datepicker: Hours ', function() {
 
   describe('click event', function() {
 
-    var spyEvent;
-    var datepickerElement;
-    var arrowUpElement;
+    var spyEvent,
+        datepickerElement,
+        arrowUpElement,
+        arrowDownElement;
 
     beforeEach(function() {
-      datepickerElement = $(datepickerSelector);
+      datepickerElement = jQuery(datepickerSelector);
 
       arrowUpElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-arrow.up');
       arrowDownElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-arrow.down');
@@ -105,7 +107,7 @@ describe('MTR Datepicker: Hours ', function() {
 
     it('on the upper arrow to be triggered', function() {
       spyEvent = spyOnEvent(arrowUpElement, 'click');
-      $(arrowUpElement).trigger( "click" );
+      jQuery(arrowUpElement).trigger( "click" );
            
       expect('click').toHaveBeenTriggeredOn(arrowUpElement);
       expect(spyEvent).toHaveBeenTriggered();
@@ -121,7 +123,7 @@ describe('MTR Datepicker: Hours ', function() {
       datepicker.setHours(initHourValue);
 
       spyEvent = spyOnEvent(arrowUpElement, 'click');
-      $(arrowUpElement).trigger( "click" );
+      jQuery(arrowUpElement).trigger( "click" );
 
       var datepickerGetterValue = datepicker.format('H');
            
@@ -134,5 +136,95 @@ describe('MTR Datepicker: Hours ', function() {
     });
 
   });
+
+  describe('keyboard input', function() {
+
+    var spyEvent,
+        datepickerElement,
+        inputElement,
+        inputActivatorElement;
+
+    beforeEach(function() {
+      datepickerElement = jQuery(datepickerSelector);
+
+      inputActivatorElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-values');
+      inputElement = datepickerElement.find(datepickerSelector + '-input-hours input.mtr-input.hours');
+    });
+
+    it('should change the hour to 3', function(done) {
+      var newHourValue = 3;
+      var expectedHour = '3';
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(inputElement), 'focus');
+      var spyEventBlur = spyOnEvent(jQuery(inputElement), 'blur');
+
+      inputActivatorElement.trigger('click');
+      inputElement.trigger('focus');
+      inputElement.val(newHourValue);
+      inputElement.trigger('blur');
+
+      expect(spyEventClick).toHaveBeenTriggered();
+      expect(spyEventFocus).toHaveBeenTriggered();
+      expect(spyEventBlur).toHaveBeenTriggered();
+
+      setTimeout(function() {
+        var datepickerHour = datepicker.format('H');
+        expect(datepickerHour).toEqual(expectedHour);
+        done();
+      }, transitionBlurDelay);
+
+    });
+
+
+    xit('should NOT change the hour to 15, it should keep the old value', function(done) {
+      var newHourValue = 15;
+      var expectedHour = inputElement.attr('data-old-value');
+
+      var spyEventClick = spyOnEvent(inputActivatorElement, 'click');
+      var spyEventFocus = spyOnEvent(inputElement, 'focus');
+      var spyEventBlur = spyOnEvent(inputElement, 'blur');
+
+      inputActivatorElement.trigger('click');
+      inputElement.trigger('focus');
+      inputElement.val(newHourValue);
+      inputElement.trigger('blur');
+
+      expect(spyEventClick).toHaveBeenTriggered();
+      expect(spyEventFocus).toHaveBeenTriggered();
+      expect(spyEventBlur).toHaveBeenTriggered();
+
+      setTimeout(function() {
+        var datepickerHour = datepicker.format('h');
+        var datepickerVisualValue = inputElement.attr('data-old-value')
+
+        expect(datepickerHour).toEqual(expectedHour);
+        done();
+      }, transitionBlurDelay);
+
+    });
+
+  });
+
+  describe('wheel move', function() {
+
+    var spyEvent,
+        datepickerElement,
+        hoursElement;
+
+    beforeEach(function() {
+      datepickerElement = jQuery(datepickerSelector);
+
+      hoursElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-content');
+    });
+
+    it('should be triggered', function() {
+      var wheelEvent = jQuery.Event( "DOMMouseScroll", { delta: -10 } );
+
+      spyEvent = spyOnEvent(hoursElement, 'DOMMouseScroll');
+      hoursElement.trigger(wheelEvent);
+      expect(spyEvent).toHaveBeenTriggered();
+    });
+  })
 
 });
