@@ -32,10 +32,13 @@
     "karma-chrome-launcher": "^0.2.1",
     "karma-coverage": "^0.5.3",
     "karma-firefox-launcher": "^0.1.6",
+    "karma-ie-launcher": "^0.2.0",
     "karma-jasmine": "^0.3.6",
     "karma-jasmine-html-reporter": "^0.1.8",
     "karma-jasmine-jquery": "^0.1.1",
+    "karma-opera-launcher": "^0.3.0",
     "karma-phantomjs-launcher": "^0.2.1",
+    "karma-safari-launcher": "^0.1.1",
     "phantomjs": "^1.9.18",
     "shelljs": "^0.5.3"
   }
