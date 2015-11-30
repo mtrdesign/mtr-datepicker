@@ -65,10 +65,6 @@ module.exports = function(config) {
             Chrome_travis_ci: {
                 base: 'Chrome',
                 flags: ['--no-sandbox']
-            },
-            FirefoxAutoAllowGUM: {
-                base: 'Firefox',
-                flags: ['--no-sandbox']
             }
         },
 
@@ -78,7 +74,7 @@ module.exports = function(config) {
     };
 
     if (process.env.TRAVIS) {
-        cfg.browsers = ['Chrome_travis_ci', 'FirefoxAutoAllowGUM'];
+        cfg.browsers = ['Chrome_travis_ci', 'Firefox'];
     }
 
     config.set(cfg);
