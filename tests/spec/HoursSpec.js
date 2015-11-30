@@ -151,7 +151,7 @@ describe('MTR Datepicker: Hours ', function() {
       inputElement = datepickerElement.find(datepickerSelector + '-input-hours input.mtr-input.hours');
     });
 
-    it('should change the hour to 3', function(done) {
+    xit('should change the hour to 3', function(done) {
       var newHourValue = 3;
       var expectedHour = '3';
 
@@ -177,7 +177,7 @@ describe('MTR Datepicker: Hours ', function() {
     });
 
 
-    it('should NOT change the hour to 15, it should keep the old value', function(done) {
+    xit('should NOT change the hour to 15, it should keep the old value', function(done) {
       var newHourValue = 15;
       var expectedHour = inputElement.attr('data-old-value');
 
@@ -218,7 +218,7 @@ describe('MTR Datepicker: Hours ', function() {
       hoursElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-content');
     });
 
-    it('should be triggered', function() {
+    xit('should be triggered', function() {
       var wheelEvent = jQuery.Event( "DOMMouseScroll", { delta: -10 } );
 
       spyEvent = spyOnEvent(hoursElement, 'DOMMouseScroll');
