@@ -188,7 +188,7 @@ describe('MTR Datepicker: Hours ', function() {
     });
 
 
-    xit('should NOT change the hour to 15, it should keep the old value', function(done) {
+    it('should NOT change the hour to 15, it should keep the old value', function(done) {
       var newHourValue = '15';
       var expectedHour = datepicker.format('h');
 

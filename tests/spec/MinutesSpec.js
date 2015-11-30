@@ -17,7 +17,7 @@ describe('MTR Datepicker: Minutes ', function() {
   }
 
   describe('getter', function() {
-    xit('format("m") should return minutes close to the current one', function() {
+    it('format("m") should return minutes close to the current one', function() {
       var currentDate = new Date();
       var currentMinutes = currentDate.getMinutes();
       var datepickerMinutes = datepicker.format('m');
@@ -25,9 +25,9 @@ describe('MTR Datepicker: Minutes ', function() {
       if (currentMinutes.toString().length === 1) {
         currentMinutes = 10;
       }
-      else if (currentMinutes.toString().charAt(currentMinutes.toString().length-1) === '0') {
-        currentMinutes = currentMinutes;
-      }
+      // else if (currentMinutes.toString().charAt(currentMinutes.toString().length-1) === '0') {
+      //   currentMinutes = currentMinutes;
+      // }
       else {
         var minutesString = currentMinutes.toString();
 

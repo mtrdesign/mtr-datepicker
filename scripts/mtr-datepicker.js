@@ -1259,6 +1259,10 @@ function MtrDatepicker(inputConfig) {
 		var element = byId(reference);
 		preventAnimation = preventAnimation || false;
 
+		if (!element) {
+			return;
+		}
+
 		// Find the specific value
 		var divValues = qSelect(element, '.mtr-content'),
 				divValue = qSelect(element, '.mtr-values .mtr-default-value[data-value="'+newValue+'"]'),
@@ -1348,7 +1352,7 @@ function MtrDatepicker(inputConfig) {
 	}
 
 	function qSelect(element, selector) {
-		return element.querySelector(selector);
+		return element ? element.querySelector(selector) : null;
 	}
 
 	function getRelativeOffset(parent, child) {
