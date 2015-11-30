@@ -1,6 +1,9 @@
 language: node_js
 node_js:
   - "4.1"
+os:
+  - linux
+  - osx
 script: node_modules/karma/bin/karma start karma-travis.conf.js --single-run
 before_install:
   - export CHROME_BIN=chromium-browser

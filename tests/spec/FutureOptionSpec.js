@@ -114,7 +114,7 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
     var datepickerElement;
     var arrowUpElement;
 
-    beforeEach(function() {
+    beforeEach(function(done) {
       datepickerElement = $(datepickerSelector);
 
       arrowUpElementHours = datepickerElement.find(datepickerSelector + '-input-hours .mtr-arrow.up');
@@ -124,11 +124,16 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
       arrowUpElementMonths = datepickerElement.find(datepickerSelector + '-input-months .mtr-arrow.up');
       arrowDownElementMonths = datepickerElement.find(datepickerSelector + '-input-months .mtr-arrow.down');
       inputElementMonths = datepickerElement.find(datepickerSelector + '-input-months input.mtr-input.months');
+
+      setTimeout(function() {
+        done();
+      }, transitionValidationDelay * 2);
     });
 
     it('on the bottom arrow of the hours to be triggered', function(done) {
       spyEvent = spyOnEvent(arrowDownElementHours, 'click');
-      $(arrowDownElementHours).trigger( "click" );
+      var clickEvent = createClickEvent();
+      arrowDownElementHours[0].dispatchEvent(clickEvent);
            
       expect('click').toHaveBeenTriggeredOn(arrowDownElementHours);
       expect(spyEvent).toHaveBeenTriggered();
@@ -147,7 +152,8 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
       var expectedHourVisualValue = datepicker.format('h');
 
       spyEvent = spyOnEvent(arrowDownElementHours, 'click');
-      $(arrowDownElementHours).trigger( "click" );
+      var clickEvent = createClickEvent();
+      arrowDownElementHours[0].dispatchEvent(clickEvent);
 
       var datepickerGetterValue = datepicker.format('H');
       var datepickerTimestamp = datepicker.getTimestamp();
@@ -170,7 +176,8 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
       var expectedMonthVisualValue = datepicker.format('MMM');
 
       spyEvent = spyOnEvent(arrowDownElementMonths, 'click');
-      $(arrowDownElementMonths).trigger( "click" );
+      var clickEvent = createClickEvent();
+      arrowDownElementMonths[0].dispatchEvent(clickEvent);
 
       var datepickerGetterValue = datepicker.format('M');
       

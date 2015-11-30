@@ -448,6 +448,10 @@ function MtrDatepicker(inputConfig) {
 				}, 500);
 			
 				function blurEvent() {
+					if (!targetElement) {
+						return;
+					}
+
 					var newValue = inputValue.value;
 					var oldValue = inputValue.getAttribute('data-old-value');
 
