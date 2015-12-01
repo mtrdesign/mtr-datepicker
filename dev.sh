@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PATH=$PATH:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin/travis
+
 function publish {
   echo -e "\e[33mGo to gh-pages branch\e[39m"
 
@@ -26,6 +28,10 @@ function publish {
   git checkout master
 
   echo -e "\e[33mPublishing finished successfully\e[39m"
+}
+
+function test {
+  travis restart -r mtr-design/mtr-datepicker
 }
 
 cmd=$1
