@@ -7,7 +7,7 @@
   "dependencies": {},
   "scripts": {
     "start": "grunt",
-    "test": "node_modules/karma/bin/karma start karma.conf.js"
+    "test": "node node_modules/karma/bin/karma start karma.conf.js"
   },
   "devDependencies": {
     "coveralls": "^2.11.4",

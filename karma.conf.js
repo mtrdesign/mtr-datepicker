@@ -1,9 +1,5 @@
-// Karma configuration
-// Generated on Fri Oct 30 2015 17:47:05 GMT+0200 (EET)
-
 module.exports = function(config) {
-  config.set({
-
+  var cfg = {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
@@ -26,31 +22,33 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        "scripts/*.js": ["coverage"]
+      "scripts/*.js": ["coverage"]
     },
 
     coverageReporter: {
-        type: 'lcov',
-        dir: 'tests/coverage',
-        subdir: '.'
+      type: 'lcov',
+      dir: 'tests/coverage',
+      subdir: '.'
     },  
+
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['dots', 'progress', 'coverage'],
-
+    reporters: ['progress', 'coverage'],
 
     plugins: [
-        'karma-chrome-launcher',
-        'karma-firefox-launcher',
-        'karma-phantomjs-launcher',
-        'karma-jquery',
-        'karma-jasmine-jquery',
-        'karma-jasmine',
-        'karma-coverage'
+      'karma-chrome-launcher',
+      'karma-firefox-launcher',
+      'karma-opera-launcher',
+      'karma-safari-launcher',
+      'karma-ie-launcher',
+      'karma-phantomjs-launcher',
+      'karma-jquery',
+      'karma-jasmine-jquery',
+      'karma-jasmine',
+      'karma-coverage'
     ],
-
 
     // web server port
     port: 9876,
@@ -63,11 +61,22 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    autoWatch: false,
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome', 'Firefox', 'PhantomJS'],
+
+    customLaunchers: {
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      },
+      Opera_no_welcome_page: {
+        base: 'Opera',
+        flags: ['--no-welcome-page']
+      }
+    },
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
@@ -75,6 +84,18 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultanous
-    concurrency: Infinity
-  })
-}
+    concurrency: 1
+  };
+
+  // We want to run specific browsers if we are on the travis env
+  if (process.env.TRAVIS) {
+    cfg.browsers = ['Chrome_travis_ci', 'Firefox', 'PhantomJS'];
+  }
+
+  // We want to run more browsers on Windows envs
+  if (process.env.WINDOWS) {
+    cfg.browsers = ['Chrome', 'Firefox', 'Safari', 'IE'];
+  }
+
+  config.set(cfg);
+};
