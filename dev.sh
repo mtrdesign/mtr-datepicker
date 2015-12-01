@@ -31,7 +31,7 @@ function publish {
 }
 
 function test {
-  travis restart -r mtr-design/mtr-datepicker
+  travis restart -r mtrdesign/mtr-datepicker
 }
 
 cmd=$1

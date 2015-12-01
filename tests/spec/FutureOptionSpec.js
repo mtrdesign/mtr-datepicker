@@ -20,7 +20,7 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
     current.month = current.datetime.getMonth();
     current.timestamp = current.datetime.getTime();
 
-    if (current.datetime.getMinutes() >= 51) {
+    if (current.datetime.getMinutes() >= 50) {
       current.hour++;
       current.datetime.setHours(current.hour);
     }

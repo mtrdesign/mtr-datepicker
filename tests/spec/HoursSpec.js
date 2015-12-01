@@ -23,7 +23,7 @@ describe('MTR Datepicker: Hours ', function() {
       var currentHour = currentDate.getHours();
 
       // Maybe we are in the next hour
-      if (currentDate.getMinutes() >= 51) {
+      if (currentDate.getMinutes() >= 50) {
         currentHour++;
       }
 
@@ -38,7 +38,7 @@ describe('MTR Datepicker: Hours ', function() {
       var datepickerHour = datepicker.format('HH');
 
       // Maybe we are in the next hour
-      if (currentDate.getMinutes() >= 51) {
+      if (currentDate.getMinutes() >= 50) {
         currentHour++;
       }
 
