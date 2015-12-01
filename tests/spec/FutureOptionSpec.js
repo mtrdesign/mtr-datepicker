@@ -73,12 +73,12 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
     });
 
     it('setMonth() should NOT work when you try to assign value before the current month', function(done) {
-      // If the hour is 1, we cannot go back in a valid way
+      // If the month is 1, we cannot go back in a valid way
       if (current.month >= 1) {
         var oldMonthValue = current.month;
         var newMonthValue = current.month - 1;
 
-        datepicker.setHours(newMonthValue);
+        datepicker.setMonth(newMonthValue);
         var datepickerHour = datepicker.format('M');
 
         expect(datepickerHour).toEqual((oldMonthValue+1).toString());
@@ -87,15 +87,19 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
           done();
         }, transitionValidationDelay);
       }
+      else {
+        expect(true).toEqual(true);
+        done();
+      }
     });
 
     it('setMonth() should work when you try to assign value after the current month', function(done) {
-      // If the hour is 1, we cannot go back in a valid way
+      // If the month is December, we cannot go to the next month in a valid way without changing the year
       if (current.month <= 10) {
         var oldMonthValue = current.month;
         var newMonthValue = current.month + 1;
 
-        datepicker.setHours(newMonthValue);
+        datepicker.setMonth(newMonthValue);
         var datepickerHour = datepicker.format('M');
 
         expect(datepickerHour).toEqual((oldMonthValue+1).toString());
@@ -103,6 +107,10 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
         setTimeout(function() {
           done();
         }, transitionValidationDelay);
+      }
+      else {
+        expect(true).toEqual(true);
+        done();
       }
     });
 
