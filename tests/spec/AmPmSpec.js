@@ -28,6 +28,10 @@ describe('MTR Datepicker: AM/PM ', function() {
         currentHours++;
       }
 
+      if (currentHours === 24) {
+        currentHours = 0;
+      }
+
       if (currentHours >= 0 && currentHours <= 11) {
         expectedAmPm = 'am'
       }

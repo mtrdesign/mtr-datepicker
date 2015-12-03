@@ -1,6 +1,6 @@
 {
   "name": "mtr-datepicker",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "authors": [
     "Valentin Kirilov <valentin.kirilov@mtr-design.com>"
   ],
@@ -23,7 +23,6 @@
     "index.html",
     ".coveralls.yml",
     ".travis.yml",
-    "karma-travis.conf.js",
     "karma.conf.js",
     "package.json"
   ]

@@ -19,8 +19,13 @@ describe('MTR Datepicker: Dates ', function() {
   describe('getter', function() {
     it('format("D") should return the current date', function() {
       var currentDate = new Date();
-      var currentDay = currentDate.getDate();
       var datepickerDay = datepicker.format('D');
+
+      if (currentDate.getHours() === 23 && currentDate.getMinutes() >= 50) {
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+
+      var currentDay = currentDate.getDate();
 
       expect(datepickerDay).toEqual(currentDay.toString());
     });
@@ -40,9 +45,13 @@ describe('MTR Datepicker: Dates ', function() {
 
     it('format("DD") should return the current date with 2 digits', function() {
       var currentDate = new Date();
+  
+      if (currentDate.getHours() === 23 && currentDate.getMinutes() >= 50) {
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+
       var expectedDateValue = currentDate.getDate();
       expectedDateValue = (expectedDateValue <= 9) ? '0' + expectedDateValue : expectedDateValue;
-
       var datepickerDateValue = datepicker.format('DD');
 
       expect(datepickerDateValue).toEqual(expectedDateValue.toString());

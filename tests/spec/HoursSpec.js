@@ -27,6 +27,10 @@ describe('MTR Datepicker: Hours ', function() {
         currentHour++;
       }
 
+      if (currentHour === 24) {
+        currentHour = 0;
+      }
+
       var datepickerHour = datepicker.format('H');
 
       expect(datepickerHour).toEqual(currentHour.toString());
@@ -44,6 +48,10 @@ describe('MTR Datepicker: Hours ', function() {
 
       if (currentHour < 10) {
         currentHour = '0' + currentHour;
+      }
+
+      if (currentHour === 24) {
+        currentHour = '00';
       }
 
       expect(datepickerHour).toEqual(currentHour.toString());

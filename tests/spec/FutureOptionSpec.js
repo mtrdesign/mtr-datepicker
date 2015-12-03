@@ -7,6 +7,7 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
 
   var current = {
     datetime: null,
+    date: null,
     hour: null,
     month: null,
     timestamp: null
@@ -19,6 +20,7 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
     current.hour = current.datetime.getHours();
     current.month = current.datetime.getMonth();
     current.timestamp = current.datetime.getTime();
+    current.date = current.datetime.getDate();
 
     if (current.datetime.getMinutes() >= 50) {
       current.hour++;
@@ -39,7 +41,7 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
 
     it('setHours() should NOT work when you try to assign value before the current hour', function(done) {
       // If the hour is 1, we cannot go back in a valid way
-      if (current.hour >= 2) {
+      if (current.hour >= 2 && current.date == datepicker.format('D')) {
         var oldHourValue = current.hour;
         var newHourValue = current.hour - 1;
 
@@ -52,12 +54,16 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
           done();
         }, transitionValidationDelay);
       }
+      else {
+        expect(true).toEqual(true);
+        done();
+      }
     });
 
     it('setHours() should NOT work when you try to assign value which will be 3 hours before the current hour', function(done) {
 
       // If the hour is 1, we cannot go back in a valid way
-      if (current.hour >= 4) {
+      if (current.hour >= 4 && current.date == datepicker.format('D')) {
         var oldHourValue = current.hour;
         var newHourValue = current.hour - 3;
 
@@ -69,6 +75,10 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
         setTimeout(function() {
           done();
         }, transitionValidationDelay);
+      }
+      else {
+        expect(true).toEqual(true);
+        done();
       }
     });
 
@@ -166,7 +176,7 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
       var datepickerGetterValue = datepicker.format('H');
       var datepickerTimestamp = datepicker.getTimestamp();
 
-      if (expectedHourValue != 12) {
+      if (expectedHourValue != 12 && expectedHourValue != 0) {
         expect(datepickerGetterValue).toEqual(expectedHourValue);
       }
       else {
