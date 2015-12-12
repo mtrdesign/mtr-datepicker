@@ -96,6 +96,11 @@ module.exports = function(config) {
   if (process.env.WINDOWS) {
     cfg.browsers = ['Chrome', 'Firefox', 'Safari', 'IE'];
   }
+  
+  // We want to run more browsers on Windows envs
+  if (process.env.JENKINS) {
+    cfg.browsers = ['Firefox', 'PhantomJS'];
+  }
 
   config.set(cfg);
 };
