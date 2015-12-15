@@ -99,7 +99,7 @@ module.exports = function(config) {
   
   // We want to run more browsers on Windows envs
   if (process.env.JENKINS) {
-    cfg.browsers = ['Firefox'];
+    cfg.browsers = ['Chrome', 'Firefox'];
   }
 
   config.set(cfg);
