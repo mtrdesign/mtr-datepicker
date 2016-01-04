@@ -1,14 +1,9 @@
-
-/**
- * http://getbootstrap.com/examples/blog/blog.css
- */
-
 /*
  * Globals
  */
 
 body {
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Source Sans Pro",Calibri,Candara,Arial,sans-serif;
   color: #555;
 }
 
@@ -19,7 +14,7 @@ h4, .h4,
 h5, .h5,
 h6, .h6 {
   margin-top: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro",Calibri,Candara,Arial,sans-serif;
   font-weight: normal;
   color: #333;
 }
@@ -32,6 +27,7 @@ h6, .h6 {
 @media (min-width: 1200px) {
   .container {
     width: 970px;
+    max-width: 970px;
   }
 }
 
@@ -88,7 +84,7 @@ h6, .h6 {
   padding-bottom: 20px;
 }
 .blog-title {
-  margin-top: 30px;
+  margin-top: 40px;
   margin-bottom: 0;
   font-size: 60px;
   font-weight: normal;
@@ -168,4 +164,23 @@ h6, .h6 {
 }
 .blog-footer p:last-child {
   margin-bottom: 0;
+}
+
+.nav.list-unstyled {
+  padding: 0;
+  margin: 10px 0;
+}
+
+.nav.list-unstyled a {
+  margin: 0;
+  padding: 0 5px;
+}
+
+
+@media (max-width: 768px) {
+  .blog-sidebar {
+    width: 100%;
+    position: relative;
+    right: initial;
+  }
 }

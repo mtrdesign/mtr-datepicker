@@ -5,18 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="The pure JavaScript ultimate datepicker">
+    <meta name="author" content="MTR Design">
+    <meta name="keywords" content="datepicker, mtr datepicker, mtr design, pure javascript, javascript datepicker, js datepicker">
 
-    <title>Datepicker - MTR Design</title>
+    <title>MTR Datepicker - The pure JavaScript datepicker library</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/css/cosmo.bootstrap.min.css">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.min.css?rel=1446478502237" />
-  	<link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.default-theme.min.css?rel=1446478502237" />
-		<link rel="stylesheet" type="text/css" href="styles/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.min.css?rel=1451921641240" />
+    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.default-theme.min.css?rel=1451921641240" />
+    <link rel="stylesheet" type="text/css" href="styles/css/jumbotron-narrow.css" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -27,243 +29,109 @@
 
   <body>
 
+    <!-- Fork me button -->
     <a href="https://github.com/mtrdesign/mtr-datepicker">
-      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub" class="github-corner" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
     </a>
 
-    <div class="blog-masthead">
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
-        <nav class="blog-nav">
-          <a class="blog-nav-item active" href="#">Home</a>
-          <a class="blog-nav-item" href="#">About</a>
-        </nav>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">MTR Datepicker</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li role="presentation"><a href="/docs.html">Docs</a></li>
+            <li role="presentation"><a href="https://github.com/mtrdesign/mtr-datepicker">GitHub</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
       </div>
-    </div>
+    </nav>
 
     <div class="container">
 
-      <div class="blog-header">
-        <h1 class="blog-title">MTR Datepicker</h1>
-        <p class="lead blog-description">The pure JavaScript ultimate datepicker</p>
+      <div class="jumbotron">
+        <h1>MTR Datepicker</h1>
+        <p class="lead">The pure JavaScript datepicker library</p>
+        <p>
+          <a class="btn btn-lg btn-success" href="https://github.com/mtrdesign/mtr-datepicker/archive/master.zip" role="button">Download</a>
+          <a class="btn btn-lg btn-default" href="/docs.html" role="button">Learn more</a>
+        </p>
+        <hr />
+        <p>
+          <iframe src="https://ghbtns.com/github-btn.html?user=mtrdesign&repo=mtr-datepicker&type=watch&count=true&size=large&v=2" frameborder="0" scrolling="0" width="140px" height="30px"></iframe>
+          <iframe src="https://ghbtns.com/github-btn.html?user=mtrdesign&repo=mtr-datepicker&type=star&count=true&size=large" frameborder="0" scrolling="0" width="120px" height="30px"></iframe>
+          <iframe src="https://ghbtns.com/github-btn.html?user=mtrdesign&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="190px" height="30px"></iframe>
+        </p>
       </div>
 
-      <div class="row">
+      <div class="row marketing">
+        <div class="col-sm-6">
+          <h4>Pure JavaScript</h4>
+          <p>Written in pure JavaScript, the datepicker comes without any other dependencies. Yes, you cannot believe it but it is true, you don't need jQuery!</p>
 
-        <div class="col-sm-8 blog-main">
+          <h4>Lightweight</h4>
+          <p>~30kB at all, that's it - fast and lightweight, no more words needed.</p>
 
-          <div class="blog-post">
-            <h3 class="blog-post-title">Demo</h3>
-            <p class="blog-post-meta">Default behavior</p>
+          <h4>Browser support</h4>
+          <p>The datepicker is supported by the latset versions of the most popular internet browsers.s</p>
+        </div>
 
-            <div class="col-sm-6">
-              <div id="demo"></div>
-            </div>
-            <div class="col-sm-6">
-              <h3>Export Formats</h3> 
-              <div id="demo-result"></div>
-            </div>
-        		
-            <hr />
+        <div class="col-sm-6">
+          <h4>Bower support</h4>
+          <p>If you want to be up to date with our latest releases, just install the datepicker with <a href="http://bower.io/" target="_blank">Bower</a>, we support it.</p>
 
-          </div><!-- /.blog-post -->
+          <h4>Customizable themes</h4>
+          <p>The datepicker comes with easy to customize themes which makes it easy to fit for your needs.</p>
 
-          <div class="clearfix"></div>
-          <br /><hr /><br />
+          <h4>Easy to Contribute</h4>
+          <p>
+            The datepicker is build with <a href="http://gruntjs.com/" target="_blank">Grunt</a> 
+            and <a href="http://lesscss.org/" target="_blank">LESS</a> and this makes it
+            easy to contribute.
+          </p>
+        </div>
+      </div>
 
-          <div class="blog-post">
-            <h3 class="blog-post-title">Demo - 2</h3>
-            <p class="blog-post-meta">Fixed start</p>
+      <h1 class="text-center">Demo</h1>
+      <hr />
+      <div class="row marketing">
 
-            <div class="col-sm-6">
-              <div id="demo-fixed-start"></div>
-            </div>
-            <div class="col-sm-6">
-              <h3>Export Formats</h3> 
-              <div id="demo-result-fixed-start"></div>
-            </div>
-            
-            <hr />
+        <div class="col-sm-6">
+          <div id="datepicker-demo-custom"></div>
+        </div>
+        <div class="col-sm-6">
+          <h4>Customize the datepicker</h4>
 
-          </div><!-- /.blog-post -->
+          <label>
+            <input id="datepicker-demo-input-customize-future" type="checkbox" />
+            Only future dates
+          </label>
+          <br />
+          <label>
+            <input id="datepicker-demo-input-customize-smart-ampm" type="checkbox" />
+            Smart AM/PM swithing
+          </label>
 
-          <div class="clearfix"></div>
-          <br /><hr /><br />
+          <br /><br />
+          <h4>Export formats</h4>
+          <div id="datepicker-demo-custom-export-formats"></div>
+        </div>
+      </div>
 
-          <div class="blog-post">
-            <h3 class="blog-post-title">Demo - 3</h3>
-            <p class="blog-post-meta">Only future dates and hours</p>
+      <footer class="footer">
+        <p class="pull-left">&copy; 2015 MTR Design</p>
+        <a href="http://mtr-design.com/" class="pull-right" target="_blank"><img src="/images/mtr_logo.png" /></a>
+      </footer>
 
-            <div class="col-sm-6">
-              <div id="demo-future"></div>
-            </div>
-            <div class="col-sm-6">
-              <h3>Export Formats</h3> 
-              <div id="demo-result-future"></div>
-            </div>
-            
-            <hr />
-
-          </div><!-- /.blog-post -->
-
-          <div class="clearfix"></div>
-          <br /><hr /><br />
-
-          <div class="blog-post">
-            <h3 class="blog-post-title">Demo - 4</h3>
-            <p class="blog-post-meta">Smart AM/PM switching</p>
-
-            <div>
-
-              <!-- Nav tabs -->
-              <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#demo-smart-ampm-live" role="tab" data-toggle="tab">Live</a></li>
-                <li role="presentation"><a href="#demo-smart-ampm-code" role="tab" data-toggle="tab">Code</a></li>
-              </ul>
-
-              <br />
-
-              <!-- Tab panes -->
-              <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="demo-smart-ampm-live">
-                  <div class="col-sm-6">
-                    <div id="demo-smart-ampm"></div>
-                  </div>
-                  <div class="col-sm-6">
-                    <strong>Export Formats</strong> 
-                    <div id="demo-result-smart-ampm"></div>
-                  </div>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="demo-smart-ampm-code">
-                  <div class="alert alert-info">Soon</div>
-                </div>
-              </div>
-
-            </div>
-            
-            <hr />
-
-          </div><!-- /.blog-post -->
-
-          <div class="clearfix"></div>
-          <br /><hr /><br />
-
-          <div class="blog-post">
-            <h3 class="blog-post-title">Demo</h3>
-            <p class="blog-post-meta">Customize your own demo</p>
-
-            <div>
-
-              <!-- Nav tabs -->
-              <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#demo-smart-ampm-live" role="tab" data-toggle="tab">Live</a></li>
-                <li role="presentation"><a href="#demo-smart-ampm-code" role="tab" data-toggle="tab">Code</a></li>
-              </ul>
-
-              <br />
-
-              <!-- Tab panes -->
-              <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="demo-smart-ampm-live">
-                  <div class="col-sm-6">
-                    <div id="demo-custom"></div>
-                  </div>
-                  <div class="col-sm-6">
-                    <label>
-                      <input id="input-customize-future" type="checkbox" />
-                      Only future dates
-                    </label>
-                    <label>
-                      <input id="input-customize-smart-ampm" type="checkbox" />
-                      Smart AM/PM swithing
-                    </label>
-
-                    <hr />
-                    <strong>Export Formats</strong> 
-                    <div id="demo-result-custom"></div>
-                  </div>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="demo-smart-ampm-code">
-                  <div class="alert alert-info">Soon</div>
-                </div>
-              </div>
-
-            </div>
-            
-            <hr />
-
-          </div><!-- /.blog-post -->
-
-          <div class="clearfix"></div>
-          <br /><hr /><br />
-
-          <div class="blog-post">
-            <h2 class="blog-post-title">Documentation</h2>
-
-            <p class="alert alert-info">
-          		Documentation is still not available. If you have any questions look at the code or submit an issue.
-            </p>
-            <p class="alert alert-warning">
-              <strong>Note:</strong> You can check <a href="docs/MtrDatepicker.html">the jsdocs</a> which are still not complete but are something, the oasis in the desert if you don't want to dive directly in the code!
-            </p>
-
-          </div><!-- /.blog-post -->
-
-        </div><!-- /.blog-main -->
-
-        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-          <div class="sidebar-module sidebar-module-inset">
-            <h4>About us</h4>
-            <hr />
-            <p>
-              <iframe src="https://ghbtns.com/github-btn.html?user=mtrdesign&repo=mtr-datepicker&type=star&count=true" 
-            frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
-            </p>
-            <p>
-              <iframe src="https://ghbtns.com/github-btn.html?user=mtrdesign&repo=mtr-datepicker&type=watch&count=true&v=2" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
-            </p>
-            <p>
-              <iframe src="https://ghbtns.com/github-btn.html?user=mtrdesign&type=follow&count=true" frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
-            </p>
-          </div>
-          <!--
-          <div class="sidebar-module">
-            <h4>Archives</h4>
-            <ol class="list-unstyled">
-              <li><a href="#">March 2014</a></li>
-              <li><a href="#">February 2014</a></li>
-              <li><a href="#">January 2014</a></li>
-              <li><a href="#">December 2013</a></li>
-              <li><a href="#">November 2013</a></li>
-              <li><a href="#">October 2013</a></li>
-              <li><a href="#">September 2013</a></li>
-              <li><a href="#">August 2013</a></li>
-              <li><a href="#">July 2013</a></li>
-              <li><a href="#">June 2013</a></li>
-              <li><a href="#">May 2013</a></li>
-              <li><a href="#">April 2013</a></li>
-            </ol>
-          </div>
-          <div class="sidebar-module">
-            <h4>Elsewhere</h4>
-            <ol class="list-unstyled">
-              <li><a href="#">GitHub</a></li>
-              <li><a href="#">Twitter</a></li>
-              <li><a href="#">Facebook</a></li>
-            </ol>
-          </div>
-          -->
-        </div><!-- /.blog-sidebar -->
-
-      </div><!-- /.row -->
-
-    </div><!-- /.container -->
-
-    <footer class="blog-footer">
-      <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-      <p>
-        <a href="#">Back to top</a>
-      </p>
-    </footer>
+    </div> <!-- /container -->
 
 
     <!-- Bootstrap core JavaScript
@@ -276,114 +144,19 @@
     <script type="text/javascript" src="scripts/mtr-datepicker.js"></script>
     -->
     <!-- --> 
-    <script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1446478502238"></script>
+    <script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1451921641240"></script>
+    <script type="text/javascript" src="scripts/demo.js"></script>
     <!-- -->
 
-		<script type="text/javascript">
+    <script type="text/javascript">
+      var demoDatepicker = MtrDatepickerDemo.init({
+        target: 'datepicker-demo-custom'
+      }, {
+        exportFormats: 'datepicker-demo-custom-export-formats',
+        customizeFuture: 'datepicker-demo-input-customize-future',
+        customizeSmartAmPm: 'datepicker-demo-input-customize-smart-ampm',
+      });
+    </script>
 
-		var datepickerDefault, 
-        datepickerFixedStart,
-        datepickerFuture,
-        datepickerSmartAmPm,
-        datepickerCustom;
-
-		$(document).ready(function() {
-        
-				datepickerDefault = new MtrDatepicker({
-					target: "demo",
-				});
-
-        var now = new Date('2010-09-27 22:25');
-        datepickerFixedStart = new MtrDatepicker({
-          target: "demo-fixed-start",
-          timestamp: now.getTime()
-        });
-
-        datepickerFuture = new MtrDatepicker({
-          target: "demo-future",
-          future: true
-        });
-
-        var smartAmPmDate = new Date('2013-07-21 11:30');
-        datepickerSmartAmPm = new MtrDatepicker({
-          target: "demo-smart-ampm",
-          smartHours: true,
-          timestamp: smartAmPmDate.getTime()
-        });
-        
-        var demoResultDefault = $('#demo-result');
-        var demoResultFixedStart = $('#demo-result-fixed-start');
-        var demoResultFuture = $('#demo-result-future');
-        var demoResultSmartAmPm = $('#demo-result-smart-ampm');
-				var demoResultCustom = $('#demo-result-custom');
-
-				function datepickerChange(resultElement, datepicker) {
-					var result = 
-						datepicker.toDateString() + '<br />' +
-						datepicker.toLocaleDateString() + '<br /><br />' +
-						
-						datepicker.toTimeString() + '<br />' +
-            datepicker.getFullTime() + '<br />' +
-            datepicker.format('M/D/YYYY hh:mm A') + '<br />' +
-						datepicker.format('YYYY-MM-DD HH:mm') + '<br />';
-
-					resultElement.html(result);
-				}
-
-        datepickerChange(demoResultDefault, datepickerDefault);
-        datepickerChange(demoResultFixedStart, datepickerFixedStart);
-        datepickerChange(demoResultFuture, datepickerFuture);
-				datepickerChange(demoResultSmartAmPm, datepickerSmartAmPm);
-
-				datepickerDefault.onChange('all', function() {
-					datepickerChange(demoResultDefault, datepickerDefault);
-				});
-
-        datepickerFixedStart.onChange('all', function() {
-         datepickerChange(demoResultFixedStart, datepickerFixedStart);
-        });
-
-        datepickerFuture.onChange('all', function() {
-          datepickerChange(demoResultFuture, datepickerFuture);
-        });
-
-        datepickerSmartAmPm.onChange('all', function() {
-          datepickerChange(demoResultSmartAmPm, datepickerSmartAmPm);
-        });
-
-        var customOptions = {
-          future: false,
-          smartHours: false,
-          target: 'demo-custom'
-        };
-
-        datepickerCustom = new MtrDatepicker(customOptions);
-        datepickerChange(demoResultCustom, datepickerCustom);
-
-        datepickerCustom.onChange('all', function() {
-          datepickerChange(demoResultCustom, datepickerCustom);
-        });
-
-        $('#input-customize-future').on('change', function() {
-          customOptions.future = $(this).is(':checked');
-          if (customOptions.future) {
-            var dateNow = new Date();
-            customOptions.timestamp = dateNow.getTime();
-          }
-          else {
-            delete customOptions.timestamp; 
-          }
-          
-          datepickerCustom.init(customOptions);
-        });
-
-        $('#input-customize-smart-ampm').on('change', function() {
-          customOptions.smartHours = $(this).is(':checked');
-          datepickerCustom.init(customOptions);
-        });
-
-			});
-			  
-		</script>
   </body>
 </html>
