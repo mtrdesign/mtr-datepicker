@@ -68,6 +68,10 @@ module.exports = function(grunt) {
         }
       },
 
+      jshint: {
+        all: ['scripts/*.js', 'test/spec/**/*.js']
+      },
+
       watch: {
         options: {
           livereload: true,
@@ -140,6 +144,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-notify');
     grunt.loadNpmTasks('grunt-karma-coveralls');
     grunt.loadNpmTasks('grunt-coveralls');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
     grunt.task.run('notify_hooks');
     

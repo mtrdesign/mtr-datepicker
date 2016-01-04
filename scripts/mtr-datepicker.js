@@ -7,6 +7,14 @@
  * @param {Object} inputConfig used for user configurations
  */
 function MtrDatepicker(inputConfig) {
+	
+
+
+
+	/**
+	 * The real implementation of the library starts here
+	 */
+
 	var self = this;
 
 	// The main configuration properties
@@ -90,6 +98,8 @@ function MtrDatepicker(inputConfig) {
 		ampm: true,
 	};
 
+	var browser = null;
+
 	// Here are the attached user events
 	var defaultChangeEventsCategories = {
 		'all': [],
@@ -122,6 +132,8 @@ function MtrDatepicker(inputConfig) {
 	 */
 	var init = function(inputConfig) {
 
+		browser = detectBrowser();
+
 		setConfig(inputConfig);
 
 		targetElement = byId(config.targetElement);
@@ -132,6 +144,7 @@ function MtrDatepicker(inputConfig) {
 
 		attachEvents();
 	};
+
 
 	/**
 	 * Attaching the user input config settings to ovverride the default one
@@ -435,6 +448,10 @@ function MtrDatepicker(inputConfig) {
 				}, 500);
 			
 				function blurEvent() {
+					if (!targetElement) {
+						return;
+					}
+
 					var newValue = inputValue.value;
 					var oldValue = inputValue.getAttribute('data-old-value');
 
@@ -986,6 +1003,13 @@ function MtrDatepicker(inputConfig) {
 		var oldValue = getIsAm();
 		if (!validateChange('ampm', setAmPm, oldValue)) {
 			showInputRadioError(config.references.ampm, setAmPm);
+
+			if (browser.isSafari) {
+				setTimeout(function() {
+					setRadioFormValue(config.references.ampm, oldValue);	
+				}, 10);
+				
+			}
 			return false;
 		}
 		executeChangeEvents('ampm', 'beforeChange', setAmPm, oldValue);
@@ -1008,27 +1032,37 @@ function MtrDatepicker(inputConfig) {
 		}
 
 		values.ampm = setAmPm;
-
-		var divRadioInput = byId(config.references.ampm);
-		var formRadio = qSelect(divRadioInput, 'form');
-
-		formRadio.ampm.value = setAmPm ? '1' : '0';
-
-		var radioAm = qSelect(formRadio, 'input.mtr-input[type="radio"][value="1"]');
-		var radioPm = qSelect(formRadio, 'input.mtr-input[type="radio"][value="0"]');
-		if (setAmPm) {
-			radioAm.setAttribute('checked', '');
-			radioPm.removeAttribute('checked');
-		}
-		else {
-			radioPm.setAttribute('checked', '');
-			radioAm.removeAttribute('checked');	
-		}
+		setRadioFormValue(config.references.ampm, setAmPm);
 
 		executeChangeEvents('ampm', 'onChange', setAmPm, oldValue);
 		executeChangeEvents('ampm', 'afterChange', setAmPm, oldValue);
 		return true;
 	};
+	
+	var setRadioFormValue = function(reference, setAmPm) {
+		var divRadioInput = byId(reference);
+		var formRadio = qSelect(divRadioInput, 'form');
+
+		formRadio.ampm.value = setAmPm ? '1' : '0';
+		var labelAmPm = setAmPm ? 'AM' : 'PM';
+
+		var radioAm = qSelect(formRadio, 'input.mtr-input[type="radio"][value="1"]');
+		var radioPm = qSelect(formRadio, 'input.mtr-input[type="radio"][value="0"]');
+
+		var label = qSelect(formRadio, 'label[for="'+config.targetElement+'-radio-ampm-'+labelAmPm+'"]');
+		var checkbox = qSelect(label, 'checkbox');
+
+		if (setAmPm) {
+			radioAm.setAttribute('checked', '');
+			radioAm.checked = true;
+			radioPm.removeAttribute('checked');
+		}
+		else {
+			radioPm.setAttribute('checked', '');
+			radioPm.checked = true;
+			radioAm.removeAttribute('checked');	
+		}
+	}
 
 	var getIsAm = function() {
 		var currentHours = values.date.getHours();
@@ -1153,16 +1187,21 @@ function MtrDatepicker(inputConfig) {
 	};
 
 	var setTimestamp = function(input) {
-		values.date = new Date(input);
-		values.timestamp = input;
+		var roundedTimestamp = roundUpTimestamp(input);
+
+		values.date = new Date(roundedTimestamp);
+		values.timestamp = roundedTimestamp;
 
 		var currentHours = values.date.getHours(),
 				currentMinutes = getMinutes(),
-				currentAmPm = currentHours <= 12 ? true : false,
+				currentAmPm = (currentHours >= 0 && currentHours < 12) ? true : false,
 				currentDate = getDate(),
 				currentMonth = getMonth(),
 				currentYear = getYear();
 
+		currentHours = (currentHours === 0) ? 12 : currentHours;
+
+		/* Deprecating for now, can be cleared after a few commits
 		// Get the closest minutes
 		var defaultMinutes = config.defaultValues.minutes;
 		for (var iMinutes = 0; iMinutes < defaultMinutes.length; iMinutes++) {
@@ -1193,12 +1232,14 @@ function MtrDatepicker(inputConfig) {
 			}
 		}
 
+		*/
+
 		setHours(currentHours);
 		setMinutes(currentMinutes);
 		setMonth(currentMonth);
 		setYear(currentYear);
 		setDate(currentDate);
-		//setAmPm(currentAmPm);
+		setAmPm(currentAmPm);
 	};
 
 	var getTimestamp = function() {
@@ -1217,6 +1258,10 @@ function MtrDatepicker(inputConfig) {
 	var updateInputSlider = function(reference, newValue, preventAnimation) {
 		var element = byId(reference);
 		preventAnimation = preventAnimation || false;
+
+		if (!element) {
+			return;
+		}
 
 		// Find the specific value
 		var divValues = qSelect(element, '.mtr-content'),
@@ -1252,6 +1297,10 @@ function MtrDatepicker(inputConfig) {
 	};
 
 	var showInputRadioError = function(reference, value) {
+		if (typeof value === 'boolean') {
+            value = value === true ? 1 : 0;
+        }
+
 		var element = byId(reference);
 		var divContent = qSelect(element, '.mtr-input[value="'+value+'"]');
 		addClass(divContent, 'mtr-error');
@@ -1297,12 +1346,13 @@ function MtrDatepicker(inputConfig) {
 	/*****************************************************************************
 	 * Some Aliases
 	 ****************************************************************************/
+	
 	function byId(selector) {
 		return document.getElementById(selector);
 	}
 
 	function qSelect(element, selector) {
-		return element.querySelector(selector);
+		return element ? element.querySelector(selector) : null;
 	}
 
 	function getRelativeOffset(parent, child) {
@@ -1312,6 +1362,11 @@ function MtrDatepicker(inputConfig) {
 		return 0;
 	}
 
+	/**
+	 * A simple function which makes a clone of a specific JS Object
+	 * @param  {Object} obj 
+	 * @return {Object}
+	 */
 	function clone(obj) {
     var copy;
 
@@ -1339,7 +1394,16 @@ function MtrDatepicker(inputConfig) {
     throw new Error("Unable to copy obj! Its type isn't supported.");
 	}
 
+	/**
+	 * A simple shortcut function to add a class to specific element
+	 * @param {HTMLElement} element
+	 * @param {string} className
+	 */
 	function addClass(element, className) {
+		if (!element) {
+			return;
+		}
+
 	  if (element.className.indexOf(className) > -1) {
 	    return;
 	  }
@@ -1348,11 +1412,15 @@ function MtrDatepicker(inputConfig) {
 	}
 
 	/**
-	 * Short allias for a function which is removing a class name to a specific element
-	 * @param {HtmlElement}
-	 * @param {string}
+	 * Short allias for a function which is removing a class name from a specific element
+	 * @param {HtmlElement} element
+	 * @param {string} className
 	 */
 	function removeClass(element, className) {
+	  if (!element) {
+			return;
+		}
+
 	  if (element.className.indexOf(className) === -1) {
 	    return;
 	  }
@@ -1474,10 +1542,21 @@ function MtrDatepicker(inputConfig) {
     };
 
     // boostrap the animation process
-        setTimeout(function() {
-            scroll_frame();
-        }, 0);
-    };
+    setTimeout(function() {
+      scroll_frame();
+    }, 0);
+  };
+
+  /**
+   * Round up a timestamp to the closest monutes (11:35 to 11:40)
+   * @param  {Number} timestamp
+   * @return {Number}
+   */
+  var roundUpTimestamp = function(timestamp) {
+   var border = 10 * 60 * 1000; // 10 minutes
+   var delta = (border - (timestamp % border)) % timestamp;
+   return (timestamp + delta);
+	}
 
 	/*****************************************************************************
 	 * PUBLIC API
@@ -1630,17 +1709,28 @@ function MtrDatepicker(inputConfig) {
 		events.afterChange[target].push(callback);
 	};
 
-	// Lets init all
-	init(inputConfig);
+	function detectBrowser() {
+		var browser = {
+			isChrome: false,
+			isSafari: false,
+			isFirefox: false,
+		};
 
-	/**
+		if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
+   		browser.isSafari = true;
+		}
+
+		return browser;
+	}
+
+		/**
 	 * Public API here
 	 */
 
 	this.init = init;
 	this.setConfig = setConfig;
 	
-	// Closing this interfaces, use format, instead of them
+	// Closing these interfaces, use format, instead of them
 	// this.getHours = getHours;
 	// this.getMinutes = getMinutes;
 	// this.getIsAm = getIsAm;
@@ -1678,4 +1768,8 @@ function MtrDatepicker(inputConfig) {
 	this.onChange = onChange;
 	this.beforeChange = beforeChange;
 	this.afterChange = afterChange;
+
+	// Lets init all
+	init(inputConfig);
+
 }

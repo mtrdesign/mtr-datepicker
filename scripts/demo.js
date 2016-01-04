@@ -128,4 +128,11 @@ $(document).ready(function() {
 		setSidebar();
 	});
 
+	$('a').click(function(){
+	  $('html, body').animate({
+	      scrollTop: $( $.attr(this, 'href') ).offset().top - 80
+	  }, 500);
+	  return false;
+	});
+
 });

@@ -29,7 +29,7 @@
     <![endif]-->
   </head>
 
-  <body data-spy="scroll" data-target="#navbar-scrollspy">
+  <body data-spy="scroll" data-target="#navbar-scrollspy" data-offset="90">
 
     <!-- Fork me button -->
     <a href="https://github.com/mtrdesign/mtr-datepicker">
@@ -150,12 +150,25 @@
                 <li><a href="http://lesscss.org/" target="_blank">Less</a></li>
               </ul>
             </p>
-            <br />
 
+            <br />
+            <h2 id="scrollspy-our-guidlines">Our guidelines</h2>
+            <p>
+              Please, if you want to contribute to our project be sure that your code comply with these guidelines:
+              <ul>
+                <li>2 spaces for indentation, not tabs please.</li>
+                <li>Please check that your code will pass jshint code standards, grunt jshint will run this for you.</li>
+                <li>Please ensure you're changing the individual files in /scripts or /styiles/less, not the concatenated outputs in /dist directory</li>
+                <li>Please keep pull requests concise, and document new functionality with jsdocs and usage docs</li>
+                <li>Consider whether your changes are useful for all users</li>
+              </ul>
+            </p>
+
+            <br />
             <h2 id="scrollspy-how-to-build">How to build</h2>
             <br />
 
-            <h3>Get the source</h3>
+            <h3 id="scrollspy-how-to-build-get-the-source">Get the source</h3>
             <p>
               To prepare your enviornment you should follow theese simple steps.
               First you need to fork our <a href="https://github.com/mtrdesign/mtr-datepicker" target="_blank">repository</a> in GitHub and then clone it to your PC or Mac with the GitHub app for your platform or type the following line in your Terminal or CMD.
@@ -169,7 +182,7 @@ git clone https://github.com/[YOUR-USERNAME]/mtr-datepicker.git
             <p class="alert alert-info">NOTE: We don't obligate you to fork our repo. You can just download the code but if you want to submit your changes later it will be easy for you to send us a pull request. Because of this we suggest you to fork our repository.</p>
 
             <br />
-            <h3>Setup packages</h3>
+            <h3 id="scrollspy-how-to-build-setup-packages">Setup packages</h3>
             <p>
               Download the required developement packages with npm. Just type the following command in your Terminal or CMD. It will take a while to download all of the packages so don't terminate it and be patient.
             </p>
@@ -195,13 +208,25 @@ Waiting...
             </code></pre>
 
             <br />
-            <h3>Run the tests</h3>
+            <h3 id="scrollspy-how-to-build-run-the-tests">Run the tests</h3>
             <p>
               Yup, the datepicker has some tests and it will be good to run them after finishing your changes, we don't
               want to brake the build. So to run the test you just have to type the following command in your Terminal or CMD.
             </p>
 
             <pre><code>node_modules/karma/bin/karma start karma.conf.js --single-run</code></pre>
+
+            <br />
+            <h3 id="scrollspy-how-to-build-write-some-tests">Write some tests</h3>
+            <p>
+              If you want you can add more tests and increase the code coverage of the project, it will be great. 
+              We are using the <a href="http://jasmine.github.io/" target="_blank">Jasmine</a> framework and runnig the tests on all
+              supported browsers with the <a href="http://karma-runner.github.io/0.13/index.html" target="_blank">Karma</a> runner.
+              Everything is setuped and ready for use but if you are not familiar with writing tests with these tools we suggest you
+              to read something about them before you start. <br />
+              <br />
+              When you write some tests you can check their execution on the following url <a href="http://localhost:8080/tests/SpecRunner.html" target="_blank">http://localhost:8080/tests/SpecRunner.html</a> when you already started the server with grunt.
+            </p>
 
           </div><!-- /.contribute -->
 
@@ -225,7 +250,11 @@ Waiting...
             <h4>API</h4>
             <h4>Contribute</h4>
             <ol class="nav nav-pills nav-stacked list-unstyled">
+              <li><a href="#scrollspy-our-guidlines">Our guidelines</a></li>
               <li><a href="#scrollspy-how-to-build">How to build</a></li>
+              <li><a href="#scrollspy-how-to-build-get-the-source"> &nbsp; Get the source</a></li>
+              <li><a href="#scrollspy-how-to-build-run-the-tests"> &nbsp; Run the tests</a></li>
+              <li><a href="#scrollspy-how-to-build-write-some-tests"> &nbsp; Write some tests</a></li>
             </ol>
 
           </div>
