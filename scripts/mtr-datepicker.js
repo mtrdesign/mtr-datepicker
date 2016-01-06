@@ -134,6 +134,11 @@ function MtrDatepicker(inputConfig) {
 
 		browser = detectBrowser();
 
+		if (!validateInputConfig(inputConfig)) {
+			console.error('Initialization of the datepicker is blocked because of erros in the config.');
+			return;
+		}
+
 		setConfig(inputConfig);
 
 		targetElement = byId(config.targetElement);
@@ -163,12 +168,77 @@ function MtrDatepicker(inputConfig) {
 		config.validateAfter = input.validateAfter !== undefined ? input.validateAfter : config.validateAfter;
 		config.smartHours = input.smartHours !== undefined ? input.smartHours : config.smartHours;
 
+		// Override minutes
+		config.minutes.min = (input.minutes !== undefined && input.minutes.min !== undefined) ? parseInt(input.minutes.min) : config.minutes.min;
+		config.minutes.max = (input.minutes !== undefined && input.minutes.max !== undefined) ? parseInt(input.minutes.max) : config.minutes.max;
+		config.minutes.step = (input.minutes !== undefined && input.minutes.step !== undefined) ? parseInt(input.minutes.step) : config.minutes.step;
+
+		// Override months
+		config.months.min = (input.months !== undefined && input.months.min !== undefined) ? parseInt(input.months.min) : config.months.min;
+		config.months.max = (input.months !== undefined && input.months.max !== undefined) ? parseInt(input.months.max) : config.months.max;
+		config.months.step = (input.months !== undefined && input.months.step !== undefined) ? parseInt(input.months.step) : config.months.step;
+
+		// Override years
+		config.years.min = (input.years !== undefined && input.years.min !== undefined) ? parseInt(input.years.min) : config.years.min;
+		config.years.max = (input.years !== undefined && input.years.max !== undefined) ? parseInt(input.years.max) : config.years.max;
+		config.years.step = (input.years !== undefined && input.years.step !== undefined) ? parseInt(input.years.step) : config.years.step;
+
 		// Init hours
 		config.defaultValues.hours = createRange(config.hours);
 		config.defaultValues.minutes = createRange(config.minutes);
 		config.defaultValues.months = createRange(config.months);
 		config.defaultValues.years = createRange(config.years);
 	};
+
+	var validateInputConfig = function(input) {
+		var result = true;
+		
+		// Validate minutes
+		if (input.minutes) {
+			// Validate data type
+			if (input.minutes.min && !isNumber(input.minutes.min)) {
+				console.error('Invalid argument: minutes.min should be a number.');
+				result = false;
+			}
+			if (input.minutes.max && !isNumber(input.minutes.max)) {
+				console.error('Invalid argument: minutes.max should be a number.');
+				result = false;
+			}
+			if (input.minutes.step && !isNumber(input.minutes.step)) {
+				console.error('Invalid argument: minutes.step should be a number.');
+				result = false;
+			}
+
+			// Validate the range
+			if (input.minutes.min && input.minutes.max && input.minutes.max < input.minutes.min) {
+				console.error('Invalid argument: minutes.max should be larger than minutes.min.');
+				result = false;	
+			}
+
+			if (input.minutes.min && input.minutes.max && input.minutes.step && input.minutes.step > (input.minutes.max - input.minutes.min)) {
+				console.error('Invalid argument: minutes.step should be less than minutes.max-minutes.min.');
+				result = false;	
+			}
+		}
+
+		// TODO: Validate other input data
+
+		if (!result) {
+			targetElement = byId(input.target);
+
+			while (targetElement.firstChild) {
+    		targetElement.removeChild(targetElement.firstChild);
+			}
+
+			var errorElement = document.createElement('div');
+			addClass(errorElement, 'mtr-error');
+			errorElement.appendChild(document.createTextNode('An error has occured during the initialization of the datepicker.'));
+
+			targetElement.appendChild(errorElement);
+		}
+
+		return result;
+	}
 
 	var attachEvents = function() {
 
@@ -1426,6 +1496,15 @@ function MtrDatepicker(inputConfig) {
 	  }
 
 	  element.className = element.className.replace(new RegExp(className, 'g'), '');
+	}
+
+	/**
+	 * Check is a specific input a number
+	 * @param  {Number|String}  n
+	 * @return {Boolean}
+	 */
+	function isNumber(input){
+   return Number(input) === input && input % 1 === 0;
 	}
 
 	/**

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="The pure JavaScript ultimate datepicker">
     <meta name="author" content="MTR Design">
@@ -16,8 +16,8 @@
     <link rel="stylesheet" type="text/css" href="styles/css/cosmo.bootstrap.min.css">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.min.css?rel=1451924860796" />
-    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.default-theme.min.css?rel=1451924860797" />
+    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.min.css?rel=1452081895689" />
+    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.default-theme.min.css?rel=1452081895689" />
     <link rel="stylesheet" type="text/css" href="styles/css/jumbotron-narrow.css" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -48,8 +48,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+            <li role="presentation"><a href="/index.html#demo">Demo</a></li>
             <li role="presentation"><a href="/docs.html">Docs</a></li>
-            <li role="presentation"><a href="https://github.com/mtrdesign/mtr-datepicker">GitHub</a></li>
+            <li role="presentation"><a href="https://github.com/mtrdesign/mtr-datepicker" target="_blank">GitHub</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -62,13 +63,19 @@
         <p class="lead">The pure JavaScript datepicker library</p>
         <p>
           <a class="btn btn-lg btn-success" href="https://github.com/mtrdesign/mtr-datepicker/archive/master.zip" role="button">Download</a>
-          <a class="btn btn-lg btn-default" href="/docs.html" role="button">Learn more</a>
+          <a class="btn btn-lg btn-default" href="/docs.html" role="button">Documentation</a>
         </p>
         <hr />
-        <p>
+        <p class="visible-lg visible-md hidden-sm hidden-xs">
           <iframe src="https://ghbtns.com/github-btn.html?user=mtrdesign&repo=mtr-datepicker&type=watch&count=true&size=large&v=2" frameborder="0" scrolling="0" width="140px" height="30px"></iframe>
           <iframe src="https://ghbtns.com/github-btn.html?user=mtrdesign&repo=mtr-datepicker&type=star&count=true&size=large" frameborder="0" scrolling="0" width="120px" height="30px"></iframe>
-          <iframe src="https://ghbtns.com/github-btn.html?user=mtrdesign&type=follow&count=true&size=large" frameborder="0" scrolling="0" width="190px" height="30px"></iframe>
+          <iframe src="https://ghbtns.com/github-btn.html?user=mtrdesign&type=follow&size=large" frameborder="0" scrolling="0" width="190px" height="30px"></iframe>
+        </p>
+
+        <p class="visible-sm visible-xs hidden-md hidden-lg">
+          <iframe src="https://ghbtns.com/github-btn.html?user=mtrdesign&repo=mtr-datepicker&type=watch&count=true&size=small&v=2" frameborder="0" scrolling="0" width="90px" height="20px"></iframe>
+          <iframe src="https://ghbtns.com/github-btn.html?user=mtrdesign&repo=mtr-datepicker&type=star&count=true&size=small" frameborder="0" scrolling="0" width="75px" height="20px"></iframe>
+          <iframe src="https://ghbtns.com/github-btn.html?user=mtrdesign&type=follow&size=small" frameborder="0" scrolling="0" width="130px" height="20px"></iframe>
         </p>
       </div>
 
@@ -100,35 +107,35 @@
         </div>
       </div>
 
-      <h1 class="text-center">Demo</h1>
+      <h1 id="demo" class="text-center">Demo</h1>
       <hr />
       <div class="row marketing">
 
-        <div class="col-sm-6">
-          <div id="datepicker-demo-custom"></div>
+        <div class="col-sm-6 text-center">
+          <div id="datepicker-demo"></div>
         </div>
-        <div class="col-sm-6">
-          <h4>Customize the datepicker</h4>
-
-          <label>
-            <input id="datepicker-demo-input-customize-future" type="checkbox" />
-            Only future dates
-          </label>
+        <div class="col-sm-6 text-center">
           <br />
-          <label>
-            <input id="datepicker-demo-input-customize-smart-ampm" type="checkbox" />
-            Smart AM/PM swithing
-          </label>
-
-          <br /><br />
-          <h4>Export formats</h4>
-          <div id="datepicker-demo-custom-export-formats"></div>
+          <ul class="text-left">
+            <li>completely customizable</li>
+            <li>2 build-in themes</li>
+            <li>Browser support</li>
+            <li>Easy for users</li>
+            <li>Rich API for developers</li>
+            <li>Open Source</li>
+            <li>an more..</li>
+          </ul>
+          <br />
+          <a href="dev.html" type="button" class="btn btn-default">More demos</a>
         </div>
+
       </div>
 
       <footer class="footer">
-        <p class="pull-left">&copy; 2015 MTR Design</p>
         <a href="http://mtr-design.com/" class="pull-right" target="_blank"><img src="/images/mtr_logo.png" /></a>
+        <p class="pull-left">MTR Datepicker is open source and available under the GPL license.</p>
+        <div class="clearfix"></div>
+        <p class="pull-left">Powerd by <a href="http://www.mtr-design.com" target="_blank">MTR Design</a> &copy; 2015</p>
       </footer>
 
     </div> <!-- /container -->
@@ -139,21 +146,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="libs/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- 
-    <script type="text/javascript" src="scripts/mtr-datepicker.js"></script>
-    -->
-    <!-- --> 
-    <script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1451924860797"></script>
-    <script type="text/javascript" src="scripts/demo.js"></script>
-    <!-- -->
+    <script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1452081895689"></script>
 
     <script type="text/javascript">
-      var demoDatepicker = MtrDatepickerDemo.init({
-        target: 'datepicker-demo-custom'
-      }, {
-        exportFormats: 'datepicker-demo-custom-export-formats',
-        customizeFuture: 'datepicker-demo-input-customize-future',
-        customizeSmartAmPm: 'datepicker-demo-input-customize-smart-ampm',
+      var demoDatepicker = new MtrDatepicker({
+        target: 'datepicker-demo'
       });
     </script>
 

@@ -104,3 +104,12 @@
 .mtr-datepicker .mtr-clearfix {
   clear: both !important;
 }
+.mtr-datepicker .mtr-error {
+  width: 80% !important;
+  position: absolute !important;
+  top: 20%;
+  left: 10%;
+  text-align: center !important;
+  padding: 10px !important;
+  z-index: 100000 !important;
+}

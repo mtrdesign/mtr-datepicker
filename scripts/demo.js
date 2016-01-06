@@ -16,6 +16,9 @@ var MtrDatepickerDemo = (function() {
 
 		initCustomizeFuture(datepicker, settings.customizeFuture, config);
 		initCustomizeSmartAmPm(datepicker, settings.customizeSmartAmPm, config);
+		initCustomizeMinutes(datepicker, settings, config);
+		initCustomizeMonths(datepicker, settings, config);
+		initCustomizeYears(datepicker, settings, config);
 
 		return datepicker;
 	};
@@ -49,7 +52,7 @@ var MtrDatepickerDemo = (function() {
         delete config.timestamp; 
       }
       
-      datepicker.init(config);
+      datepicker = new MtrDatepicker(config);
 		}, false);
 	}
 
@@ -58,9 +61,78 @@ var MtrDatepickerDemo = (function() {
 
 		checkboxElement.addEventListener('change', function() {
 			config.smartHours = checkboxElement.checked;
-      datepicker.init(config);
+      datepicker = new MtrDatepicker(config);
 		}, false);
 
+	}
+
+	function initCustomizeMinutes(datepicker, selectors, config) {
+		
+		var elements = {
+			checkboxElement: document.getElementById(selectors.customizeMinutes),
+			minElement: document.getElementById(selectors.customizeMinutesMin),
+			maxElement: document.getElementById(selectors.customizeMinutesMax),
+			stepElement: document.getElementById(selectors.customizeMinutesStep)
+		}
+
+		customizeMinMaxStep(elements, 'minutes', datepicker, config);
+	}
+
+	function initCustomizeMonths(datepicker, selectors, config) {
+		
+		var elements = {
+			checkboxElement: document.getElementById(selectors.customizeMonths),
+			minElement: document.getElementById(selectors.customizeMonthsMin),
+			maxElement: document.getElementById(selectors.customizeMonthsMax),
+			stepElement: document.getElementById(selectors.customizeMonthsStep)
+		}
+
+		customizeMinMaxStep(elements, 'months', datepicker, config);
+	}
+
+	function initCustomizeYears(datepicker, selectors, config) {
+		
+		var elements = {
+			checkboxElement: document.getElementById(selectors.customizeYears),
+			minElement: document.getElementById(selectors.customizeYearsMin),
+			maxElement: document.getElementById(selectors.customizeYearsMax),
+			stepElement: document.getElementById(selectors.customizeYearsStep)
+		}
+
+		customizeMinMaxStep(elements, 'years', datepicker, config);
+	}
+
+	function customizeMinMaxStep(elements, type, datepicker, config) {
+		elements.checkboxElement.addEventListener('change', function() {
+			eventListenerFunc(datepicker, config);
+		}, false);
+
+		elements.minElement.addEventListener('change', function() {
+			eventListenerFunc(datepicker, config);
+		}, false);
+
+		elements.maxElement.addEventListener('change', function() {
+			eventListenerFunc(datepicker, config);
+		}, false);
+
+		elements.stepElement.addEventListener('change', function() {
+			eventListenerFunc(datepicker, config);
+		}, false);
+
+		function eventListenerFunc(datepicker, config) {
+			if (elements.checkboxElement.checked) {
+				config[type] = {
+					min: parseInt(elements.minElement.value),
+					max: parseInt(elements.maxElement.value),
+					step: parseInt(elements.stepElement.value),
+				}
+			}
+			else {
+				delete config[type];
+			}
+
+      datepicker = new MtrDatepicker(config);
+		}
 	}
 
 	return {
@@ -117,7 +189,7 @@ $(document).ready(function() {
 		element = $(element);
 
 		element.css('position', options.position);
-		element.css('width',options.width);
+		//element.css('width',options.width);
 		element.css('top:', options.top);
 		element.css('left', options.left);
 	}

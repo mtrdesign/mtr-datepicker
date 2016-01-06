@@ -110,9 +110,9 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
         var newMonthValue = current.month + 1;
 
         datepicker.setMonth(newMonthValue);
-        var datepickerHour = datepicker.format('M');
+        var datepickerMonth = datepicker.format('M');
 
-        expect(datepickerHour).toEqual((oldMonthValue+1).toString());
+        expect(datepickerMonth).toEqual((newMonthValue+1).toString());
 
         setTimeout(function() {
           done();
@@ -189,9 +189,13 @@ describe('MTR Datepicker: When the "future" option is enabled ', function() {
       }, transitionValidationDelay);
     });
 
-    it('on the down arrow should NOT change the month', function(done) {
-      var expectedMonthValue = datepicker.format('M');
-      var expectedMonthVisualValue = datepicker.format('MMM');
+    it('on the down arrow should NOT change the month if the result is in the past', function(done) {
+      if (current.month === 0) {
+        var expectedMonthValue = '12';
+      }
+      else {
+        var expectedMonthValue = datepicker.format('M'); 
+      }
 
       spyEvent = spyOnEvent(arrowDownElementMonths, 'click');
       var clickEvent = createClickEvent();

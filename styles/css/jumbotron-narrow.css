@@ -94,3 +94,10 @@ body {
     display: none;
   }
 }
+
+
+#datepicker-demo {
+  width: 200px;
+  margin: 0 auto;
+  position: relative;
+}

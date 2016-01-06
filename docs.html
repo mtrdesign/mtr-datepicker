@@ -3,22 +3,20 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="The pure JavaScript ultimate datepicker">
     <meta name="author" content="MTR Design">
     <meta name="keywords" content="datepicker, mtr datepicker, mtr design, pure javascript, javascript datepicker, js datepicker">
 
-    <title>MTR Datepicker - The pure JavaScript datepicker library</title>
+    <title>Docs | MTR Datepicker - The pure JavaScript datepicker library</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="styles/css/cosmo.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/css/flatly.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="libs/highlightjs/styles/xcode.css">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.min.css?rel=1446478502237" />
-    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.default-theme.min.css?rel=1446478502237" />
     <link rel="stylesheet" type="text/css" href="styles/css/jumbotron-narrow.css" />
     <link rel="stylesheet" type="text/css" href="styles/css/blog.css" />
 
@@ -33,11 +31,11 @@
 
     <!-- Fork me button -->
     <a href="https://github.com/mtrdesign/mtr-datepicker">
-      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" class="github-corner" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" class="github-corner" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
     </a>
 
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -50,8 +48,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+            <li role="presentation"><a href="/dev.html#demo">Demo</a></li>
             <li role="presentation" class="active"><a href="/docs.html">Docs</a></li>
-            <li role="presentation"><a href="https://github.com/mtrdesign/mtr-datepicker">GitHub</a></li>
+            <li role="presentation"><a href="https://github.com/mtrdesign/mtr-datepicker" target="_blank">GitHub</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -66,15 +65,13 @@
           <div id="scrollspy-about" class="blog-post">
             <h2 class="blog-post-title">About</h2>
             <p>
-              MTR Datepicker is a library written in pure JavaScript which lets you to create 
-              great looking and lightweight datepickers for you web apps. It is supported by all
-              of the modern internet browsers and is comming with a few customizible themes.<br />
+              MTR Datepicker is a library written in pure JavaScript which allows you to create great looking and lightweight datepickers for you web apps. It is supported by all of the modern internet browsers and comes with a few customizable themes.<br />
               <br />
               Use these docs to learn how to use it. If you are interested in that "How it is made?"
               you can check the <a href="http://mtrdesign.github.io/mtr-datepicker/docs/MtrDatepicker.html" target="_blank">jsdocs</a> or directly dive into the 
               <a href="https://github.com/mtrdesign/mtr-datepicker/blob/master/scripts/mtr-datepicker.js" target="_blank">code</a>. We appreciate your feedback so you can contact us
               aways in the <a href="https://github.com/mtrdesign/mtr-datepicker/issues" target="_blank">issues</a> section. And don't forget to check the
-              <a href="#scrollspy-contribute">Contributions guide</a>, maybe you can help us make the datepicker better.
+              <a href="#scrollspy-contribute">Contributions guide</a>, maybe you can help us to make the datepicker better.
             </p>
           </div><!-- /.blog-post about-->
 
@@ -90,14 +87,17 @@
               <br />
               Or if you prefer to be up-to-date with our latest releases with a package manager you
               can use <a href="http://bower.io/" target="_blank">Bower</a>, just type in your 
-              Terminal, Console or CMD the following command:<br />
+              Terminal or CMD the following command:<br />
 
               <pre><code>bower install --save mtr-datepicker</code></pre>
             </p>
 
             <br />
             <h3 id="scrollspy-installation-load-the-library">Load the library</h3>
-            <p>First you need to load the styles of the datepicker. Put the following lines in the <strong>head</strong> section of your html file or template</p>
+            <p>
+              First you need to load the styles of the datepicker. Put the following lines in 
+              the <strong>head</strong> section of your html file or template:
+            </p>
             
             <pre><code class="html">
 &lt;link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.min.css"&gt;
@@ -115,7 +115,7 @@
             <h2 class="blog-post-title">How to use</h2>
             <p>
               To use the loaded scripts just add an element with specific id to your html and then 
-              tell the library to make it a datepicker. Here is a simple example.
+              tell the library to make it a datepicker. Here is a simple example:
             </p>
 
             <pre><code>
@@ -129,20 +129,183 @@
 &lt;/script&gt;
             </code></pre>
 
-            <p>You can use more advanced datepickers and customize their behavior. To learn how you should go and read more from the <a href="scrollspy-API">API</a> section of the docs.</p>
+            <p>
+              You can use more advanced datepickers and customize their behavior. 
+              To learn how, you should go and read more from the <a href="scrollspy-API">API</a> section of the docs.
+            </p>
           </div><!-- /.blog-post getting-started -->
 
           <div id="scrollspy-api" class="blog-post">
             <h2 class="blog-post-title">API</h2>
             <br />
-            <div class="alert alert-warning" role="alert">This section is under construction</div>
+            
+            <h2 id="scrollspy-api-init">Init</h2>
+            <br />
+            <p>
+              The datepicker comes with a rich configuration properties. This allows you to make it work the way you want.
+              You can pass an object with configuration settings on initialization of every of your datepickers.
+              And the cool part is that you can use the options combined, here is a list of all of them and their
+              default values. Read the docs to learn more about every one of them.
+            </p>
+
+            <pre><code>
+var config = {
+  target:     'id-element',         // ID of HTML element
+  timestamp:  CURRENT_TIMESTAMP,    // Starting date 
+  future:     false,                // Only dates in the future,
+  smartHours: false,                // Make a smart switch from AM to PM
+  animations: true,                 // NOTE: thew version with disabled animations is not stable
+
+  months: {
+    min: 0,
+    max: 11,
+    step: 1
+  },
+  minutes: {
+    min: 0,
+    max: 50,
+    step: 10
+  }
+  years: {
+    min: 2000,
+    max: 2030,
+    step: 1
+  }
+};
+
+var myDatepicker = new MtrDatepicker(config);
+            </code></pre>
+
+            <br />
+            <h3 id="scrollspy-api-init-default">Default</h3>
+            <p>
+              If you want to initialize the datepicker with its default behavior you don't have to do anything special. 
+              Just refer to the <a href="#scrollspy-how-to-use">How to use</a> section.
+            </p>
+
+            <br />
+            <h3 id="scrollspy-api-init-starting-date">Set starting date</h3>
+            <p>
+              The default initialization behavior of the datepicker sets the current date as starting one.
+              If you want you can change this and make it to start with custom date simply by adding a timestamp.
+              Take a look at the example:
+            </p>
+
+            <pre><code>
+&lt;div id="start-date-mtr-datepicker"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  var initDate = new Date(2010, 10, 21);
+  var config = {
+    target: 'start-date-mtr-datepicker',
+    timestamp: initDate.getTime()
+  };
+  var myDatepicker = new MtrDatepicker(config);
+&lt;/script&gt;
+            </code></pre>
+
+            <br />
+            <h3 id="scrollspy-api-init-only-future-dates">Only future dates</h3>
+            <p>
+              Sometimes you need the users to be able to select only dates in the future. 
+              Don't worry, mtr-datepicker has build-in feature for this, just pass the <strong>future</strong> parameter
+              during the initialization and it is done.
+            </p>
+
+            <pre><code>
+&lt;div id="only-future-dates-mtr-datepicker"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  var config = {
+    target: 'only-future-dates-mtr-datepicker',
+    future: true
+  };
+  var myDatepicker = new MtrDatepicker(config);
+&lt;/script&gt;
+            </code></pre>
+
+            <br />
+            <h3 id="scrollspy-api-init-smart-ampm">Smart AM/PM swithing</h3>
+            <p>
+              Maybe you have noticed that when the hours are changing the AM/PM switch is not affected.
+              Make your datepicker smarter and initialize it with the <strong>smartHours</strong> parameter and
+              the AM/PM switch will change automatically with changes of the hours slider.
+            </p>
+
+            <pre><code>
+&lt;div id="smart-hours-mtr-datepicker"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  var config = {
+    target: 'smart-hours-mtr-datepicker',
+    smartHours: true
+  };
+  var myDatepicker = new MtrDatepicker(config);
+&lt;/script&gt;
+            </code></pre>
+
+            <br />
+            <h2 id="scrollspy-api-events">Events</h2>
+            <br />
+
+            <h3 id="scrollspy-api-events-on-change">On change</h3>
+            <p>
+              Sometimes you want to be notified when the datepicker values are changing. 
+              For this purpose the datepicker comes with build-in events and you can use them easy. <br />
+              You can register event listeners on change of the following properties.
+
+              <ul>
+                <li>hour</li>
+                <li>minute</li>
+                <li>ampm</li>
+                <li>time</li>
+                <li>day</li>
+                <li>month</li>
+                <li>year</li>
+                <li>date</li>
+                <li>all</li>
+              </ul>
+
+              Here is an example how to listen for changes on all of the time fields.
+            </p>
+
+            <pre><code>
+var config = {
+  target: 'mtr-datepicker',
+};
+
+var demoDatepicker = new MtrDatepicker(config);
+demoDatepicker.onChange('time', function() {
+  // put you code here
+});
+            </code></pre>
+
+            <br />
+            <h3 id="scrollspy-api-events-before-change">Before change</h3>
+            <p>
+              If you want you can listen for changes just before they are made to the datepicker fields. 
+              You can listen for the same properties in the <a href="#scrollspy-api-events-on-change">onChange</a> event.
+              Here is a simple example how to add your listeners for changes in all date fields:
+            </p>
+
+            <pre><code>
+var config = {
+  target: 'mtr-datepicker',
+};
+
+var demoDatepicker = new MtrDatepicker(config);
+demoDatepicker.beforeChange('date', function() {
+  // put you code here
+});
+            </code></pre>
+
           </div><!-- /.API -->
 
           <div id="scrollspy-contribute" class="blog-post">
             <h2 class="blog-post-title">Contribute</h2>
             <p>
               We will appreciate it if you want to support our project and contribute to make it better. 
-              You can read our <a href="" target="_blank">contribution guide</a> in GitHub or reffer to this one here
+              You can read our <a href="" target="_blank">contribution guide</a> in GitHub or refer to this one here
               in the docs. In order to change the source of the datepicker you have to install the following software to your PC or Mac:
               <ul>
                 <li><a href="https://nodejs.org/en/" target="_blank">Node.js and npm</a></li>
@@ -158,7 +321,7 @@
               <ul>
                 <li>2 spaces for indentation, not tabs please.</li>
                 <li>Please check that your code will pass jshint code standards, grunt jshint will run this for you.</li>
-                <li>Please ensure you're changing the individual files in /scripts or /styiles/less, not the concatenated outputs in /dist directory</li>
+                <li>Please ensure you're changing the individual files in /scripts or /styles/less, not the concatenated outputs in /dist directory</li>
                 <li>Please keep pull requests concise, and document new functionality with jsdocs and usage docs</li>
                 <li>Consider whether your changes are useful for all users</li>
               </ul>
@@ -170,8 +333,8 @@
 
             <h3 id="scrollspy-how-to-build-get-the-source">Get the source</h3>
             <p>
-              To prepare your enviornment you should follow theese simple steps.
-              First you need to fork our <a href="https://github.com/mtrdesign/mtr-datepicker" target="_blank">repository</a> in GitHub and then clone it to your PC or Mac with the GitHub app for your platform or type the following line in your Terminal or CMD.
+              To prepare your environment you should follow these simple steps
+              First you need to fork our <a href="https://github.com/mtrdesign/mtr-datepicker" target="_blank">repository</a> in GitHub and then clone it to your PC or Mac with the GitHub app for your platform or type the following command in your Terminal or CMD.
             </p>
 
             <pre><code>
@@ -184,17 +347,17 @@ git clone https://github.com/[YOUR-USERNAME]/mtr-datepicker.git
             <br />
             <h3 id="scrollspy-how-to-build-setup-packages">Setup packages</h3>
             <p>
-              Download the required developement packages with npm. Just type the following command in your Terminal or CMD. It will take a while to download all of the packages so don't terminate it and be patient.
+              Download the required development packages with npm. Just type the following command in your Terminal or CMD. It will take a while to download all of the packages so don't terminate it and be patient.
             </p>
 
             <pre><code>npm install</code></pre>
 
             <br />
-            <h3>Lets build the code</h3>
+            <h3 id="scrollspy-contribute-lets-build-the-code">Lets build the code</h3>
             <p>
               That's all, you are ready to make changes in the code. Probably you'll want to build the source and see in action 
-              the changes which you made. As we said in the beginning the datepicker is build with Grunt and comes with a setup for this.
-              Just type the following command in your Terminal or CMD and then open <a href="http://localhost:8080" target="_blank">http://localhost:8080</a> in your browser.
+              the changes which you made. As we said in the beginning, the datepicker is build with Grunt and comes with a setup for this.
+              Just type the following command in your Terminal or CMD and then open <a href="http://localhost:8080/dev.html" target="_blank">http://localhost:8080/dev.html</a> in your browser.
             </p>
 
             <pre><code>
@@ -211,7 +374,7 @@ Waiting...
             <h3 id="scrollspy-how-to-build-run-the-tests">Run the tests</h3>
             <p>
               Yup, the datepicker has some tests and it will be good to run them after finishing your changes, we don't
-              want to brake the build. So to run the test you just have to type the following command in your Terminal or CMD.
+              want to break the build. So to run the test you just have to type the following command in your Terminal or CMD.
             </p>
 
             <pre><code>node_modules/karma/bin/karma start karma.conf.js --single-run</code></pre>
@@ -220,13 +383,21 @@ Waiting...
             <h3 id="scrollspy-how-to-build-write-some-tests">Write some tests</h3>
             <p>
               If you want you can add more tests and increase the code coverage of the project, it will be great. 
-              We are using the <a href="http://jasmine.github.io/" target="_blank">Jasmine</a> framework and runnig the tests on all
+              We are using the <a href="http://jasmine.github.io/" target="_blank">Jasmine</a> framework and running the tests on all
               supported browsers with the <a href="http://karma-runner.github.io/0.13/index.html" target="_blank">Karma</a> runner.
               Everything is setuped and ready for use but if you are not familiar with writing tests with these tools we suggest you
               to read something about them before you start. <br />
               <br />
-              When you write some tests you can check their execution on the following url <a href="http://localhost:8080/tests/SpecRunner.html" target="_blank">http://localhost:8080/tests/SpecRunner.html</a> when you already started the server with grunt.
+              When you write some tests you can check their execution on the following url <a href="http://localhost:8080/tests/SpecRunner.html" target="_blank">http://localhost:8080/tests/SpecRunner.html</a>.
             </p>
+            <p class="alert alert-warning">
+              NOTE: Be sure that you have started the server with Grunt before trying to visit the web tests runner.
+              <a href="#scrollspy-contribute-lets-build-the-code">How to start Grunt?</a>
+            </p>
+
+            <br />
+            <h2 id="scrollspy-license">License</h2>
+            <p>MTR Datepicker is open source and available under the GPL license.</p>
 
           </div><!-- /.contribute -->
 
@@ -248,13 +419,25 @@ Waiting...
             </ol>
 
             <h4>API</h4>
+            <ol class="nav nav-pills nav-stacked list-unstyled">
+              <li><a href="#scrollspy-api-init">Init</a></li>
+                <li><a href="#scrollspy-api-init-default"> &nbsp; Default</a></li>
+                <li><a href="#scrollspy-api-init-starting-date"> &nbsp; Set starting date</a></li>
+                <li><a href="#scrollspy-api-init-only-future-dates"> &nbsp; Only future dates</a></li>
+                <li><a href="#scrollspy-api-init-smart-ampm"> &nbsp; Smart AM/PM switching</a></li>
+              <li><a href="#scrollspy-api-events">Events</a></li>
+                <li><a href="#scrollspy-api-events-on-change"> &nbsp; On Change</a></li>
+                <li><a href="#scrollspy-api-events-before-change"> &nbsp; Before Change</a></li>
+            </ol>
+
             <h4>Contribute</h4>
             <ol class="nav nav-pills nav-stacked list-unstyled">
               <li><a href="#scrollspy-our-guidlines">Our guidelines</a></li>
               <li><a href="#scrollspy-how-to-build">How to build</a></li>
-              <li><a href="#scrollspy-how-to-build-get-the-source"> &nbsp; Get the source</a></li>
-              <li><a href="#scrollspy-how-to-build-run-the-tests"> &nbsp; Run the tests</a></li>
-              <li><a href="#scrollspy-how-to-build-write-some-tests"> &nbsp; Write some tests</a></li>
+                <li><a href="#scrollspy-how-to-build-get-the-source"> &nbsp; Get the source</a></li>
+                <li><a href="#scrollspy-how-to-build-run-the-tests"> &nbsp; Run the tests</a></li>
+                <li><a href="#scrollspy-how-to-build-write-some-tests"> &nbsp; Write some tests</a></li>
+              <li><a href="#scrollspy-license">License</a></li>
             </ol>
 
           </div>
@@ -264,8 +447,10 @@ Waiting...
       </div><!-- /.row -->
 
       <footer class="footer">
-        <p class="pull-left">&copy; 2015 MTR Design</p>
         <a href="http://mtr-design.com/" class="pull-right" target="_blank"><img src="/images/mtr_logo.png" /></a>
+        <p class="pull-left">MTR Datepicker is open source and available under the GPL license.</p>
+        <div class="clearfix"></div>
+        <p class="pull-left">Powerd by <a href="http://www.mtr-design.com" target="_blank">MTR Design</a> &copy; 2015</p>
       </footer>
 
     </div> <!-- /container -->
@@ -279,11 +464,6 @@ Waiting...
     <script src="libs/highlightjs/highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
-    <!-- 
-    <script type="text/javascript" src="scripts/mtr-datepicker.js"></script>
-    -->
-    <!-- --> 
-    <script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1446478502238"></script>
     <script type="text/javascript" src="scripts/demo.js"></script>
     <!-- -->
 

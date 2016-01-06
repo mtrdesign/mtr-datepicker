@@ -1,8 +1,9 @@
 {
   "name": "mtr-datepicker",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "authors": [
-    "Valentin Kirilov <valentin.kirilov@mtr-design.com>"
+    "Valentin Kirilov <valentin.kirilov@mtr-design.com>",
+    "MTR Design <datepicker@mtr-design.com>"
   ],
   "description": "The pure JavaScript ultimate datepicker",
   "main": "dist/mtr-datepicker.min.js",
@@ -21,6 +22,8 @@
     "Gruntfile.js",
     "dev.sh",
     "index.html",
+    "dev.html",
+    "docs.html",
     ".coveralls.yml",
     ".travis.yml",
     "karma.conf.js",
