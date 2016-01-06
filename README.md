@@ -3,7 +3,7 @@ The pure JavaScript ultimate datepicker
 
 <p align="center">
   <a href="http://mtrdesign.github.io/mtr-datepicker/" target="_blank">
-    <img src="https://raw.githubusercontent.com/mtr-design/mtr-datepicker/gh-pages/images/mtr-datepicker-screen.png" alt="MTR Datepicker - Screen"/>
+    <img src="https://raw.githubusercontent.com/mtrdesign/mtr-datepicker/gh-pages/images/mtr-datepicker-screen.png" alt="MTR Datepicker - Screen"/>
   </a>
 </p>
 
