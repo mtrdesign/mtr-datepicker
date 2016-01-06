@@ -60,7 +60,8 @@ describe('MTR Datepicker: When the "smart am pm" option is enabled ', function()
       var expectedValue = '12 PM';
 
       spyEvent = spyOnEvent(arrowDownElement, 'click');
-      $(arrowDownElement).trigger( "click" );
+      var clickEvent = createClickEvent();
+      arrowDownElement[0].dispatchEvent(clickEvent);
       
       var datepickerValue = datepicker.format('HH A');
 
