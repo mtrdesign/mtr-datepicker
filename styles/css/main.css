@@ -104,7 +104,7 @@
 .mtr-datepicker .mtr-clearfix {
   clear: both !important;
 }
-.mtr-datepicker .mtr-error {
+.mtr-datepicker .mtr-error-message {
   width: 80% !important;
   position: absolute !important;
   top: 20%;
