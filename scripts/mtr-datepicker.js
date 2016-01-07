@@ -196,26 +196,28 @@ function MtrDatepicker(inputConfig) {
 		// Validate minutes
 		if (input.minutes) {
 			// Validate data type
-			if (input.minutes.min && !isNumber(input.minutes.min)) {
+			if (input.minutes.min !== undefined && !isNumber(input.minutes.min)) {
 				console.error('Invalid argument: minutes.min should be a number.');
 				result = false;
 			}
-			if (input.minutes.max && !isNumber(input.minutes.max)) {
+			if (input.minutes.max !== undefined && !isNumber(input.minutes.max)) {
 				console.error('Invalid argument: minutes.max should be a number.');
 				result = false;
 			}
-			if (input.minutes.step && !isNumber(input.minutes.step)) {
+			if (input.minutes.step !== undefined && !isNumber(input.minutes.step)) {
 				console.error('Invalid argument: minutes.step should be a number.');
 				result = false;
 			}
 
 			// Validate the range
-			if (input.minutes.min && input.minutes.max && input.minutes.max < input.minutes.min) {
+			if (input.minutes.min !== undefined && input.minutes.max !== undefined && input.minutes.max < input.minutes.min) {
 				console.error('Invalid argument: minutes.max should be larger than minutes.min.');
 				result = false;	
 			}
 
-			if (input.minutes.min && input.minutes.max && input.minutes.step && input.minutes.step > (input.minutes.max - input.minutes.min)) {
+			if (input.minutes.min !== undefined 
+				&& input.minutes.max !== undefined
+				&& input.minutes.step !== undefined && (input.minutes.step > (input.minutes.max - input.minutes.min))) {
 				console.error('Invalid argument: minutes.step should be less than minutes.max-minutes.min.');
 				result = false;	
 			}
@@ -1271,39 +1273,6 @@ function MtrDatepicker(inputConfig) {
 
 		currentHours = (currentHours === 0) ? 12 : currentHours;
 
-		/* Deprecating for now, can be cleared after a few commits
-		// Get the closest minutes
-		var defaultMinutes = config.defaultValues.minutes;
-		for (var iMinutes = 0; iMinutes < defaultMinutes.length; iMinutes++) {
-			var currentValue = defaultMinutes[iMinutes],
-					nextValue;
-			
-			if (iMinutes+1 === defaultMinutes.length) {
-				nextValue = defaultMinutes[0];
-			}
-			else {
-				nextValue = defaultMinutes[iMinutes+1];
-			}
-
-			if (currentMinutes === currentValue) {
-				// The minutes values is the same as the default value
-				break;
-			}
-			else if (currentMinutes > currentValue && currentMinutes < nextValue) {
-				// The minutes values will assign the next possible values from the list
-				currentMinutes = nextValue;
-				break;
-			}
-			else if (currentMinutes > currentValue && currentMinutes > nextValue && iMinutes === defaultMinutes.length-1) {
-				// The next possible values is in the next hour, so change the hours
-				currentMinutes = nextValue;
-				currentHours += 1;
-				break;
-			}
-		}
-
-		*/
-
 		setHours(currentHours);
 		setMinutes(currentMinutes);
 		setMonth(currentMonth);
@@ -1697,18 +1666,13 @@ function MtrDatepicker(inputConfig) {
 	 * @param  {String} input [description]
 	 * @return {String}       [description]
 	 *
-	 * M
-	 * MMM
-	 * D
-	 * Y
-	 * YY
-	 * YYYY
+	 * M,MM, MMM
+	 * d,D
+	 * Y,YY, YYYY
 	 *
-	 * h
-	 * hh
-	 * m
-	 * mm
-	 * a
+	 * h, hh
+	 * m, mm
+	 * a, AA
 	 */
 	var format = function(input) {
 		var currentHours = getHours();

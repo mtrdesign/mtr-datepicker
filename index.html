@@ -13,12 +13,12 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="styles/css/cosmo.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="demo/cosmo.bootstrap.min.css">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.min.css?rel=1452087981865" />
-    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.default-theme.min.css?rel=1452087981865" />
-    <link rel="stylesheet" type="text/css" href="styles/css/jumbotron-narrow.css" />
+    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.min.css?rel=1452178387800" />
+    <link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.default-theme.min.css?rel=1452178387801" />
+    <link rel="stylesheet" type="text/css" href="demo/jumbotron-narrow.css" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -48,8 +48,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li role="presentation"><a href="http://mtrdesign.github.io/mtr-datepicker/dev.html#demo">Demo</a></li>
-            <li role="presentation"><a href="http://mtrdesign.github.io/mtr-datepicker/docs.html">Docs</a></li>
+            <li role="presentation"><a href="demo.html#demo">Demo</a></li>
+            <li role="presentation"><a href="docs.html">Docs</a></li>
             <li role="presentation"><a href="https://github.com/mtrdesign/mtr-datepicker" target="_blank">GitHub</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -63,7 +63,7 @@
         <p class="lead">The pure JavaScript datepicker library</p>
         <p>
           <a class="btn btn-lg btn-success" href="https://github.com/mtrdesign/mtr-datepicker/archive/master.zip" role="button">Download</a>
-          <a class="btn btn-lg btn-default" href="http://mtrdesign.github.io/mtr-datepicker/docs.html" role="button">Documentation</a>
+          <a class="btn btn-lg btn-default" href="docs.html" role="button">Documentation</a>
         </p>
         <hr />
         <p class="visible-lg visible-md hidden-sm hidden-xs">
@@ -126,7 +126,7 @@
             <li>And more..</li>
           </ul>
           <br />
-          <a href="dev.html" type="button" class="btn btn-default">More demos</a>
+          <a href="demo.html" type="button" class="btn btn-default">More demos</a>
         </div>
 
       </div>
@@ -146,12 +146,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="libs/bootstrap/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1452087981866"></script>
+    <script type="text/javascript" src="dist/mtr-datepicker.min.js?rel=1452178387801"></script>
 
     <script type="text/javascript">
       var demoDatepicker = new MtrDatepicker({
         target: 'datepicker-demo'
       });
+    </script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72115428-1', 'auto');
+      ga('send', 'pageview');
+
     </script>
 
   </body>
