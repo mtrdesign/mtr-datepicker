@@ -13,12 +13,12 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="styles/css/flatly.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="demo/flatly.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="libs/highlightjs/styles/xcode.css">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="styles/css/jumbotron-narrow.css" />
-    <link rel="stylesheet" type="text/css" href="styles/css/blog.css" />
+    <link rel="stylesheet" type="text/css" href="demo/jumbotron-narrow.css" />
+    <link rel="stylesheet" type="text/css" href="demo/blog.css" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -48,8 +48,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li role="presentation"><a href="http://mtrdesign.github.io/mtr-datepicker/dev.html#demo">Demo</a></li>
-            <li role="presentation" class="active"><a href="http://mtrdesign.github.io/mtr-datepicker/docs.html">Docs</a></li>
+            <li role="presentation"><a href="demo.html#demo">Demo</a></li>
+            <li role="presentation" class="active"><a href="docs.html">Docs</a></li>
             <li role="presentation"><a href="https://github.com/mtrdesign/mtr-datepicker" target="_blank">GitHub</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -68,7 +68,7 @@
               MTR Datepicker is a library written in pure JavaScript which allows you to create great looking and lightweight datepickers for you web apps. It is supported by all of the modern internet browsers and comes with a few customizable themes.<br />
               <br />
               Use these docs to learn how to use it. If you are interested in that "How it is made?"
-              you can check the <a href="http://mtrdesign.github.io/mtr-datepicker/docs/MtrDatepicker.html" target="_blank">jsdocs</a> or directly dive into the 
+              you can check the <a href="docs/MtrDatepicker.html" target="_blank">jsdocs</a> or directly dive into the 
               <a href="https://github.com/mtrdesign/mtr-datepicker/blob/master/scripts/mtr-datepicker.js" target="_blank">code</a>. We appreciate your feedback so you can contact us
               aways in the <a href="https://github.com/mtrdesign/mtr-datepicker/issues" target="_blank">issues</a> section. And don't forget to check the
               <a href="#scrollspy-contribute">Contributions guide</a>, maybe you can help us to make the datepicker better.
@@ -96,7 +96,7 @@
             <h3 id="scrollspy-installation-load-the-library">Load the library</h3>
             <p>
               First you need to load the styles of the datepicker. Put the following lines in 
-              the <strong>head</strong> section of your html file or template:
+              the <code>head</code> section of your html file or template:
             </p>
             
             <pre><code class="html">
@@ -104,7 +104,7 @@
 &lt;link rel="stylesheet" type="text/css" href="dist/mtr-datepicker.default-theme.min.css"&gt;
             </code></pre>
 
-            <p>Then you should load the JavaScript, we suggest you to put the lines at the bottom of the <strong>body</strong> section of your html file or template. That is all, now you are ready to initialize your first datepicker.</p>
+            <p>Then you should load the JavaScript, we suggest you to put the lines at the bottom of the <code>body</code> section of your html file or template. That is all, now you are ready to initialize your first datepicker.</p>
 
             <pre><code class="html">
 &lt;script type="text/javascript" src="dist/mtr-datepicker.min.js"&gt;&lt;/script&gt;
@@ -208,7 +208,7 @@ var myDatepicker = new MtrDatepicker(config);
             <h3 id="scrollspy-api-init-only-future-dates">Only future dates</h3>
             <p>
               Sometimes you need the users to be able to select only dates in the future. 
-              Don't worry, mtr-datepicker has build-in feature for this, just pass the <strong>future</strong> parameter
+              Don't worry, mtr-datepicker has build-in feature for this, just pass the <code>future</code> parameter
               during the initialization and it is done.
             </p>
 
@@ -228,7 +228,7 @@ var myDatepicker = new MtrDatepicker(config);
             <h3 id="scrollspy-api-init-smart-ampm">Smart AM/PM swithing</h3>
             <p>
               Maybe you have noticed that when the hours are changing the AM/PM switch is not affected.
-              Make your datepicker smarter and initialize it with the <strong>smartHours</strong> parameter and
+              Make your datepicker smarter and initialize it with the <code>smartHours</code> parameter and
               the AM/PM switch will change automatically with changes of the hours slider.
             </p>
 
@@ -242,6 +242,96 @@ var myDatepicker = new MtrDatepicker(config);
   };
   var myDatepicker = new MtrDatepicker(config);
 &lt;/script&gt;
+            </code></pre>
+
+            <br />
+            <h2 id="scrollspy-api-output">Output</h2>
+            <p>
+              Now, when you already know how to init the datepicker in the way you want we should 
+              show you how to get the selected date in the best format for you. The datepicker is written 
+              in JavaScript and because of this we support all of the default methods for getting output of a date.
+              Here is a complete list with all of the function which you can use and of course a simple example:
+              <ul>
+                <li><code>toDateString()</code> - Wed Sep 23 2015</li>
+                <li><code>toGMTString()</code> - Wed, 23 Sep 2015 08:43:47 GMT</li>
+                <li><code>toISOString()</code> - 2015-09-23T08:43:47.284Z</li>
+                <li><code>toLocaleDateString()</code> - 9/23/2015</li>
+                <li><code>toLocaleString()</code> - 9/23/2015, 11:43:47 AM</li>
+                <li><code>toLocaleTimeString()</code> - 11:43:47 AM</li>
+                <li><code>toString()</code> - Wed Sep 23 2015 11:43:47 GMT+0300 (EEST)</li>
+                <li><code>toTimeString()</code> - 11:43:47 GMT+0300 (EEST)</li>
+                <li><code>toUTCString()</code> - Wed, 23 Sep 2015 08:43:47 GMT</li>
+              </ul>
+            </p>
+
+            <pre><code>
+&lt;script&gt;
+  var config = {
+    target: 'mtr-datepicker',
+  };
+  var myDatepicker = new MtrDatepicker(config);
+  var datepickerOutput = myDatepicker.toLocaleString();
+
+  console.log(datepickerOutput);
+&lt;/script&gt;           
+            </code></pre>
+            
+            <br />
+            <h3 id="scrollspy-api-output-format">format()</h3>
+            <p>
+              If you need more specific data from the datepicker you can use the <code>format()</code> method.
+              Maybe you are familiar with it from other languages and libraries. You can specify the format of the output data, just pass it as a string. Here is a list of all supported parameters and their meaning:
+              <ul>
+                <li>Months</li>
+                <ul>
+                  <li><code>M</code> - month without leading zero (1-12)</li>
+                  <li><code>MM</code> - month with leading zero (01-12)</li>
+                  <li><code>MMM</code> - month name (Jan-Dec)</li>
+                </ul>
+
+                <li>Dates</li>
+                <ul>
+                  <li><code>D</code> - date without leading zero (1-31)</li>
+                  <li><code>DD</code> - month with leading zero (01-31)</li>
+                </ul>
+
+                <li>Years</li>
+                <ul>
+                  <li><code>Y, YYYY</code> - year with 4 digits</li>
+                  <li><code>YY</code> - year with 2 digits</li>  
+                </ul>
+
+                <li>Hours</li>
+                <ul>
+                  <li><code>h</code> - hour without leading zero (1-12)</li>
+                  <li><code>hh</code> - hour with leading zero (01-12)</li>
+                </ul>
+
+                <li>Minutes</li>
+                <ul>
+                  <li><code>m</code> - minutes without leading zero (0-59)</li>
+                  <li><code>mm</code> - minutes with leading zero (00-59)</li>                  
+                </ul>
+
+                <li>AM/PM</li>
+                <ul>
+                  <li><code>a</code> - am/pm</li>
+                  <li><code>A</code> - AM/PM</li>
+                </ul>
+              </ul>
+
+              Here are some simple examples how to use the <code>format()</code> function:
+            </p>
+            <pre><code>
+&lt;script&gt;
+  var config = {
+    target: 'mtr-datepicker',
+  };
+  var myDatepicker = new MtrDatepicker(config);
+  var datepickerOutput = myDatepicker.format('D.M.Y h:m A');
+
+  console.log(datepickerOutput);
+&lt;/script&gt;  
             </code></pre>
 
             <br />
@@ -357,7 +447,7 @@ git clone https://github.com/[YOUR-USERNAME]/mtr-datepicker.git
             <p>
               That's all, you are ready to make changes in the code. Probably you'll want to build the source and see in action 
               the changes which you made. As we said in the beginning, the datepicker is build with Grunt and comes with a setup for this.
-              Just type the following command in your Terminal or CMD and then open <a href="http://localhost:8080/dev.html" target="_blank">http://localhost:8080/dev.html</a> in your browser.
+              Just type the following command in your Terminal or CMD and then open <a href="http://localhost:8080/demo.html" target="_blank">http://localhost:8080/demo.html</a> in your browser.
             </p>
 
             <pre><code>
@@ -425,6 +515,8 @@ Waiting...
                 <li><a href="#scrollspy-api-init-starting-date"> &nbsp; Set starting date</a></li>
                 <li><a href="#scrollspy-api-init-only-future-dates"> &nbsp; Only future dates</a></li>
                 <li><a href="#scrollspy-api-init-smart-ampm"> &nbsp; Smart AM/PM switching</a></li>
+              <li><a href="#scrollspy-api-output">Output</a></li>
+                <li><a href="#scrollspy-api-output-format"> &nbsp; format()</a></li>
               <li><a href="#scrollspy-api-events">Events</a></li>
                 <li><a href="#scrollspy-api-events-on-change"> &nbsp; On Change</a></li>
                 <li><a href="#scrollspy-api-events-before-change"> &nbsp; Before Change</a></li>
@@ -464,17 +556,22 @@ Waiting...
     <script src="libs/highlightjs/highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
-    <script type="text/javascript" src="scripts/demo.js"></script>
+    <script type="text/javascript" src="demo/docs.js"></script>
     <!-- -->
 
     <script type="text/javascript">
-      var demoDatepicker = MtrDatepickerDemo.init({
-        target: 'datepicker-demo-custom'
-      }, {
-        exportFormats: 'datepicker-demo-custom-export-formats',
-        customizeFuture: 'datepicker-demo-input-customize-future',
-        customizeSmartAmPm: 'datepicker-demo-input-customize-smart-ampm',
-      });
+     
+    </script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72115428-1', 'auto');
+      ga('send', 'pageview');
+
     </script>
 
   </body>
