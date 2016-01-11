@@ -14,6 +14,7 @@
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
+  box-sizing: border-box;
 }
 .mtr-datepicker .mtr-input-slider {
   width: 50px !important;
@@ -58,14 +59,12 @@
   border: none !important;
   height: 45px !important;
   font-size: 15px !important;
-  font-size: 1.5rem !important;
 }
 .mtr-datepicker .mtr-input-slider .mtr-content .mtr-values .mtr-default-value-holder,
 .mtr-datepicker .mtr-input-slider .mtr-content .mtr-values .mtr-default-value {
   height: 45px !important;
   line-height: 45px !important;
   font-size: 15px !important;
-  font-size: 1.5rem !important;
 }
 .mtr-datepicker .mtr-input-slider .mtr-content .mtr-values .mtr-default-value.has-name,
 .mtr-datepicker .mtr-input-slider .mtr-content .mtr-values .mtr-default-value-name {
@@ -77,18 +76,16 @@
 }
 .mtr-datepicker .mtr-input-slider .mtr-content .mtr-values .mtr-default-value-name {
   font-size: 10px !important;
-  font-size: 1rem !important;
 }
 .mtr-datepicker .mtr-input-slider .mtr-content::-webkit-scrollbar {
   display: none !important;
 }
 .mtr-datepicker .mtr-input-radio {
-  margin: 14px 10px !important;
+  margin: 20px 10px !important;
   padding-top: 20px !important;
   position: relative !important;
   float: left !important;
   font-size: 13px !important;
-  font-size: 1.3rem !important;
 }
 .mtr-datepicker .mtr-input-radio label {
   position: relative !important;
