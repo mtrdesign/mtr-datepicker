@@ -14,6 +14,7 @@
   -moz-user-select: none !important;
   -ms-user-select: none !important;
   user-select: none !important;
+  box-sizing: border-box;
 }
 .mtr-datepicker .mtr-input-slider {
   width: 50px !important;
@@ -58,14 +59,12 @@
   border: none !important;
   height: 45px !important;
   font-size: 15px !important;
-  font-size: 1.5rem !important;
 }
 .mtr-datepicker .mtr-input-slider .mtr-content .mtr-values .mtr-default-value-holder,
 .mtr-datepicker .mtr-input-slider .mtr-content .mtr-values .mtr-default-value {
   height: 45px !important;
   line-height: 45px !important;
   font-size: 15px !important;
-  font-size: 1.5rem !important;
 }
 .mtr-datepicker .mtr-input-slider .mtr-content .mtr-values .mtr-default-value.has-name,
 .mtr-datepicker .mtr-input-slider .mtr-content .mtr-values .mtr-default-value-name {
@@ -77,18 +76,16 @@
 }
 .mtr-datepicker .mtr-input-slider .mtr-content .mtr-values .mtr-default-value-name {
   font-size: 10px !important;
-  font-size: 1rem !important;
 }
 .mtr-datepicker .mtr-input-slider .mtr-content::-webkit-scrollbar {
   display: none !important;
 }
 .mtr-datepicker .mtr-input-radio {
-  margin: 14px 10px !important;
+  margin: 20px 10px !important;
   padding-top: 20px !important;
   position: relative !important;
   float: left !important;
   font-size: 13px !important;
-  font-size: 1.3rem !important;
 }
 .mtr-datepicker .mtr-input-radio label {
   position: relative !important;
@@ -124,6 +121,7 @@
   -moz-user-select: none !important !important;
   -ms-user-select: none !important !important;
   user-select: none !important !important;
+  box-sizing: border-box !important;
 }
 #cb_et3iVBwv661RY .mtr-input-slider {
   width: 50px !important;
@@ -168,14 +166,12 @@
   border: none !important !important;
   height: 45px !important;
   font-size: 15px !important;
-  font-size: 1.5rem !important;
 }
 #cb_et3iVBwv661RY .mtr-input-slider .mtr-content .mtr-values .mtr-default-value-holder,
 #cb_et3iVBwv661RY .mtr-input-slider .mtr-content .mtr-values .mtr-default-value {
   height: 45px !important;
   line-height: 45px !important;
   font-size: 15px !important;
-  font-size: 1.5rem !important;
 }
 #cb_et3iVBwv661RY .mtr-input-slider .mtr-content .mtr-values .mtr-default-value.has-name,
 #cb_et3iVBwv661RY .mtr-input-slider .mtr-content .mtr-values .mtr-default-value-name {
@@ -187,18 +183,16 @@
 }
 #cb_et3iVBwv661RY .mtr-input-slider .mtr-content .mtr-values .mtr-default-value-name {
   font-size: 10px !important;
-  font-size: 1rem !important;
 }
 #cb_et3iVBwv661RY .mtr-input-slider .mtr-content::-webkit-scrollbar {
   display: none !important !important;
 }
 #cb_et3iVBwv661RY .mtr-input-radio {
-  margin: 14px 10px !important;
+  margin: 20px 10px !important;
   padding-top: 20px !important;
   position: relative !important !important;
   float: left !important !important;
   font-size: 13px !important;
-  font-size: 1.3rem !important;
 }
 #cb_et3iVBwv661RY .mtr-input-radio label {
   position: relative !important !important;
@@ -281,13 +275,17 @@
 #cb_et3iVBwv661RY .mtr-content .mtr-input {
   background: #ff8612 !important;
   font-family: "Helvetica" !important;
-  font-size: 12px !important !important;
-  font-size: 1.2rem !important !important;
+  /*
+			font-size: 12px !important;
+			font-size: 1.2rem !important;
+			*/
 }
 #cb_et3iVBwv661RY .mtr-content .mtr-values .mtr-default-value {
   color: #ffffff !important;
-  font-size: 12px !important !important;
-  font-size: 1.2rem !important !important;
+  /*
+				font-size: 12px !important;
+				font-size: 1.2rem !important;
+				*/
   font-family: "Helvetica" !important;
 }
 #cb_et3iVBwv661RY .mtr-content .mtr-values .mtr-default-value,
@@ -298,14 +296,18 @@
 }
 #cb_et3iVBwv661RY .mtr-content .mtr-values .mtr-default-value.has-name {
   padding-top: 10px !important !important;
-  font-size: 12px !important !important;
-  font-size: 1.2rem !important !important;
+  /*
+				font-size: 12px !important;
+				font-size: 1.2rem !important;
+				*/
   font-family: "Helvetica" !important;
 }
 #cb_et3iVBwv661RY .mtr-content .mtr-values .mtr-default-value-name {
   padding-top: 2px !important !important;
-  font-size: 7px !important !important;
-  font-size: 0.7rem !important !important;
+  /*
+				font-size: 7px !important;
+				font-size: 0.7rem !important;
+				*/
   font-family: "Helvetica" !important;
 }
 #cb_et3iVBwv661RY .mtr-input-radio label {
@@ -430,14 +432,18 @@
 #cb_et3iVBwv661RY .mtr-datepicker .mtr-content .mtr-input {
   background: #ff8612 !important;
   font-family: "Helvetica" !important;
-  font-size: 12px !important;
-  font-size: 1.2rem !important;
+  /*
+			font-size: 12px !important;
+			font-size: 1.2rem !important;
+			*/
 }
 .mtr-datepicker .mtr-content .mtr-values .mtr-default-value,
 #cb_et3iVBwv661RY .mtr-datepicker .mtr-content .mtr-values .mtr-default-value {
   color: #ffffff !important;
-  font-size: 12px !important;
-  font-size: 1.2rem !important;
+  /*
+				font-size: 12px !important;
+				font-size: 1.2rem !important;
+				*/
   font-family: "Helvetica" !important;
 }
 .mtr-datepicker .mtr-content .mtr-values .mtr-default-value,
@@ -452,15 +458,19 @@
 .mtr-datepicker .mtr-content .mtr-values .mtr-default-value.has-name,
 #cb_et3iVBwv661RY .mtr-datepicker .mtr-content .mtr-values .mtr-default-value.has-name {
   padding-top: 10px !important;
-  font-size: 12px !important;
-  font-size: 1.2rem !important;
+  /*
+				font-size: 12px !important;
+				font-size: 1.2rem !important;
+				*/
   font-family: "Helvetica" !important;
 }
 .mtr-datepicker .mtr-content .mtr-values .mtr-default-value-name,
 #cb_et3iVBwv661RY .mtr-datepicker .mtr-content .mtr-values .mtr-default-value-name {
   padding-top: 2px !important;
-  font-size: 7px !important;
-  font-size: 0.7rem !important;
+  /*
+				font-size: 7px !important;
+				font-size: 0.7rem !important;
+				*/
   font-family: "Helvetica" !important;
 }
 .mtr-datepicker .mtr-input-radio label,
