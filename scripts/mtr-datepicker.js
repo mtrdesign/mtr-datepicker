@@ -7,7 +7,7 @@
  * @param {Object} inputConfig used for user configurations
  */
 function MtrDatepicker(inputConfig) {
-	
+
 
 
 
@@ -57,7 +57,7 @@ function MtrDatepicker(inputConfig) {
 		smartHours: false,			// Make auto swicth between AM/PM when moving from 11AM to 12PM
 		future: false,					// Validate the date to be only in the future
 		validateAfter: true,		// perform the future validation after the date change
-		
+
 		transitionDelay: 100,
 		transitionValidationDelay: 500,
 		references: { // Used to store references to the main elements
@@ -87,9 +87,9 @@ function MtrDatepicker(inputConfig) {
 			5: "Fri",
 			6: "Sat",
 		}
-	};																							
+	};
 
-	// The main element which holds the datepicker 
+	// The main element which holds the datepicker
 	var targetElement;
 
 	var values = {
@@ -142,7 +142,7 @@ function MtrDatepicker(inputConfig) {
 		setConfig(inputConfig);
 
 		targetElement = byId(config.targetElement);
-		
+
 		setDatesRange();
 
 		createMarkup();
@@ -158,11 +158,11 @@ function MtrDatepicker(inputConfig) {
 	 */
 	var setConfig = function(input) {
 		config.targetElement = input.target;
-		
+
 		values.date = input.timestamp ? new Date(input.timestamp) : new Date();
 		values.date.setSeconds(0);
 		values.timestamp = values.date.getTime();
-		
+
 		config.animations = input.animations !== undefined ? input.animations : config.animations;
 		config.future = input.future !== undefined ? input.future : config.future;
 		config.validateAfter = input.validateAfter !== undefined ? input.validateAfter : config.validateAfter;
@@ -192,7 +192,7 @@ function MtrDatepicker(inputConfig) {
 
 	var validateInputConfig = function(input) {
 		var result = true;
-		
+
 		// Validate minutes
 		if (input.minutes) {
 			// Validate data type
@@ -212,14 +212,14 @@ function MtrDatepicker(inputConfig) {
 			// Validate the range
 			if (input.minutes.min !== undefined && input.minutes.max !== undefined && input.minutes.max < input.minutes.min) {
 				console.error('Invalid argument: minutes.max should be larger than minutes.min.');
-				result = false;	
+				result = false;
 			}
 
-			if (input.minutes.min !== undefined 
+			if (input.minutes.min !== undefined
 				&& input.minutes.max !== undefined
 				&& input.minutes.step !== undefined && (input.minutes.step > (input.minutes.max - input.minutes.min))) {
 				console.error('Invalid argument: minutes.step should be less than minutes.max-minutes.min.');
-				result = false;	
+				result = false;
 			}
 		}
 
@@ -240,7 +240,7 @@ function MtrDatepicker(inputConfig) {
 		}
 
 		return result;
-	}
+	};
 
 	var attachEvents = function() {
 
@@ -311,8 +311,8 @@ function MtrDatepicker(inputConfig) {
 			values: config.defaultValues.months,
 			valuesNames: config.monthsNames,
 			value: getMonth()
-		}); 
-		
+		});
+
 		var dateElement = createSliderInput({
 			name: 'dates',
 			values: config.defaultValues.dates,
@@ -325,7 +325,7 @@ function MtrDatepicker(inputConfig) {
 			values: config.defaultValues.years,
 			value: getYear()
 		});
-		
+
 		var rowDate = document.createElement('div');
 		rowDate.className = 'mtr-row';
 
@@ -335,12 +335,12 @@ function MtrDatepicker(inputConfig) {
 		rowDate.appendChild(monthElement);
 		rowDate.appendChild(dateElement);
 		rowDate.appendChild(yearElement);
-		
+
 		targetElement.appendChild(rowDate);
 		targetElement.appendChild(rowClearfixDate);
 
 		setTimestamp(values.timestamp);
-	};	
+	};
 
 	/**
 	 * This function is creating a slider input
@@ -348,15 +348,15 @@ function MtrDatepicker(inputConfig) {
 	 * It is generating the required markup and attaching the needed event listeners
 	 * The returned element is fully functional input field with arrows for navigating
 	 * through the values
-	 * 
-	 * @param  {object} elementConfig 
+	 *
+	 * @param  {object} elementConfig
 	 * @return {HtmlElement}
 	 */
-	
+
 	var createSliderInput = function(elementConfig) {
 		var element = document.createElement('div');
 		element.className = 'mtr-input-slider';
-		config.references[elementConfig.name] = config.targetElement + '-input-' + elementConfig.name; 
+		config.references[elementConfig.name] = config.targetElement + '-input-' + elementConfig.name;
 		element.id = config.references[elementConfig.name];
 
 		// First, let's init the main elements
@@ -368,7 +368,7 @@ function MtrDatepicker(inputConfig) {
 		divContent.className = "mtr-content";
 
 		var inputValue = createInputValue();
-		var divValues = createValues();
+		var divValues = createValues(inputValue);
 
 		// The, let's append them to the element in the correct order
 		element.appendChild(divArrowUp);
@@ -376,12 +376,12 @@ function MtrDatepicker(inputConfig) {
 		// Append holder of the input and values to the main element
 		divContent.appendChild(inputValue);
 		divContent.appendChild(divValues);
-		
+
 		element.appendChild(divContent);
 
 		element.appendChild(divArrowDown);
 
-		// Here are the definitios of the functions which are used to generate the markup 
+		// Here are the definitios of the functions which are used to generate the markup
 		// and to attach the needed event listeners
 
 		function createUpArrow() {
@@ -400,8 +400,8 @@ function MtrDatepicker(inputConfig) {
 					window.clearTimeout(arrowTimeout[elementConfig.name]);
 				}
 
-				arrowTimeout[elementConfig.name] = setTimeout(function() {	
-					removeClass(inputValue, 'arrow-click'); 
+				arrowTimeout[elementConfig.name] = setTimeout(function() {
+					removeClass(inputValue, 'arrow-click');
 					removeClass(divContent, 'mtr-active');
 				}, 1000);
 
@@ -426,7 +426,7 @@ function MtrDatepicker(inputConfig) {
 
 				switch(name) {
 					//case 'hours': setHours(config.defaultValues[name][indexInArray]); break;
-					case 'hours': 
+					case 'hours':
 					 	// Check is we have to make a transform of the hour
 					 	var newHour = config.defaultValues[name][indexInArray];
 					 	if (getIsPm() && newHour !== 12) {
@@ -459,15 +459,15 @@ function MtrDatepicker(inputConfig) {
 					window.clearTimeout(arrowTimeout[elementConfig.name]);
 				}
 
-				arrowTimeout[elementConfig.name] = setTimeout(function() {	
-					removeClass(inputValue, 'arrow-click'); 
+				arrowTimeout[elementConfig.name] = setTimeout(function() {
+					removeClass(inputValue, 'arrow-click');
 					removeClass(divContent, 'mtr-active');
 				}, 1000);
 
 				// Change the value with the prev one
 				var name = elementConfig.name;
 				var currentValue;
-			
+
 				switch(name) {
 					case 'hours': currentValue = getHours(); break;
 					case 'minutes': currentValue = getMinutes(); break;
@@ -485,13 +485,13 @@ function MtrDatepicker(inputConfig) {
 
 				switch(name) {
 					//case 'hours': setHours(config.defaultValues[name][indexInArray]); break;
-					 case 'hours': 
+					 case 'hours':
 					 	// Check is we have to make a transform of the hour
 					 	var newHour = config.defaultValues[name][indexInArray];
 					 	if (getIsPm() && newHour !== 12) {
 					 		newHour += 12;
 					 	}
-					 	setHours(newHour); 
+					 	setHours(newHour);
 					 	break;
 					case 'minutes': setMinutes(config.defaultValues[name][indexInArray]); break;
 					case 'dates': setDate(config.defaultValues[name][indexInArray]); break;
@@ -514,11 +514,11 @@ function MtrDatepicker(inputConfig) {
 			inputValue.addEventListener('blur', function(e) {
 				// Blur event has to be calles after specific ammount of time
 				// because it can be cause from an arrow button. In this case
-				// we shouldn't apple the blur event body	
+				// we shouldn't apple the blur event body
 				setTimeout(function() {
 					blurEvent();
 				}, 500);
-			
+
 				function blurEvent() {
 					if (!targetElement) {
 						return;
@@ -575,13 +575,13 @@ function MtrDatepicker(inputConfig) {
 			}, false);
 
 			// On wheel scroll we should change the value in the input
-			inputValue.addEventListener('wheel', function(e) {
+			inputValue.addEventListener('wheel ', function(e) {
 				e.preventDefault();
 				e.stopPropagation();
 
 				// If the user is using the mouse wheel the values should be changed
 				var target = e.target;
-				var wheelData = e.wheelDeltaY;
+				var wheelData = e.wheelDeltaY ? e.wheelDeltaY : (e.deltaY * -1);
 
 				var oldValue = parseInt(inputValue.value),
 						newValue;
@@ -596,7 +596,7 @@ function MtrDatepicker(inputConfig) {
 					configMax++;
 				}
 
-				if (wheelData > 0) { // Scroll up
+				if (direction > 0) { // Scroll up
 					if (oldValue < configMax) {
 						newValue = oldValue + configStep;
 					}
@@ -617,61 +617,48 @@ function MtrDatepicker(inputConfig) {
 				return false;
 			}, false);
 
-			// On keybard press we should accept the new value
-			inputValue.addEventListener('keypress', function(e) {
-				var keyCode = e.keyCode || e.which; 				
-				var allowed = [9, 13, 27, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57];
-				
-				// Not working in Firefox
-				// if (allowed.indexOf(keyCode) === -1) {
-				// 	e.preventDefault();
-				// 	return false;
-				// }
-
-				if (keyCode >= 97 && keyCode <= 119) {
-					e.preventDefault();
-					return false;
-				}
-
-				switch(keyCode) {
-					case 13: // enter
-					case 27: // escape
-						inputValue.blur();
-						return false;
-
-					case 9: // tab
-						break;
-
-					default:
-						if (inputValue.value.length === config[elementConfig.name].maxlength && allowed.indexOf(keyCode) > -1) {
-							e.preventDefault();
-							return false;
-						}
-						break;
-				}
-			}, false);
-			
-			return inputValue;	
+			return inputValue;
 		}
-		
-		function createValues() {
+
+		function createValues(inputValue) {
 			var divValues = createElementValues(elementConfig);
+
+			// On swipe, we should cgange the value in the input
+			divValues.addEventListener('touchstart', function(e) {
+				handleTouchStart(e);
+			}, false);
+			divValues.addEventListener('touchmove', function(e) {
+				handleTouchMove(e, function(direction) {
+					var parent = divValues.parentElement.parentElement,
+							arrow;
+
+					if (direction > 0) { // Scroll up
+						arrow = qSelect(parent, '.mtr-arrow.up');
+					}
+					else { // Scroll down
+						arrow = qSelect(parent, '.mtr-arrow.down');
+					}
+
+					arrow.click();
+				});
+			}, false);
+
 			return divValues;
 		}
-		
+
 		return element;
 	};
 
 	/**
 	 * Create HtmlElement with a radio button control
-	 * 
-	 * @param  {object} elementConfig [description]
-	 * @return {HtmlElement}               [description]
+	 *
+	 * @param  {object} elementConfig
+	 * @return {HtmlElement}
 	 */
 	var createRadioInput = function(elementConfig) {
 		var element = document.createElement('div');
 		element.className = 'mtr-input-radio';
-		config.references[elementConfig.name] = config.targetElement + '-input-' + elementConfig.name; 
+		config.references[elementConfig.name] = config.targetElement + '-input-' + elementConfig.name;
 		element.id = config.references[elementConfig.name];
 
 		var formHolder = document.createElement('form');
@@ -697,7 +684,7 @@ function MtrDatepicker(inputConfig) {
 			var innerHtmlSpanValue = document.createElement('span');
 			innerHtmlSpanValue.className = 'value';
 			innerHtmlSpanValue.appendChild(document.createTextNode(labelValue));
-			
+
 			var innerHtmlSpanRadio = document.createElement('span');
 			innerHtmlSpanRadio.className = 'radio';
 
@@ -733,14 +720,14 @@ function MtrDatepicker(inputConfig) {
 	};
 
 	/**
-	 * This function is creating a new set of HtmlElement which 
+	 * This function is creating a new set of HtmlElement which
 	 * contains the default values for a specific input
-	 * 
-	 * @param  {obect} elementConfig 
+	 *
+	 * @param  {obect} elementConfig
 	 * @return {HtmlElement}
 	 */
 	var createElementValues = function(elementConfig) {
-			
+
 		var divValues = document.createElement('div');
 		divValues.className = 'mtr-values';
 
@@ -782,7 +769,7 @@ function MtrDatepicker(inputConfig) {
 			// Show the input field for manual setup
 			var parent = divValues.parentElement,
 					inputValue = qSelect(parent, '.mtr-input');
-			
+
 			// If we are working with months we have to incement the value
 			// because the months are starting from 0
 			if (inputValue.className.indexOf('months') > -1) {
@@ -807,7 +794,7 @@ function MtrDatepicker(inputConfig) {
 			var parent = target.parentElement.parentElement.parentElement.parentElement; // value -> values -> content -> input slider
 			var values = qSelect(parent, '.mtr-values');
 			var input = qSelect(parent, '.mtr-input');
-			var wheelData = e.wheelDeltaY;
+			var wheelData = e.wheelDeltaY ? e.wheelDeltaY : (e.deltaY * -1); // Firefox doesn't support wheelDataY, so we are using deltaY and cghanging the sign of the value
 
 			var arrow;
 
@@ -822,7 +809,7 @@ function MtrDatepicker(inputConfig) {
 				clearWheelTimeout();
 			}, 100);
 
-			arrow.click();	
+			arrow.click();
 			return false;
 		}, false);
 
@@ -860,9 +847,9 @@ function MtrDatepicker(inputConfig) {
 	 * Updating the date when a month or year is changed
 	 * It should realculate the dates in the specific month and check
 	 * the postition of the date (if it's bigger than the last date of the month)
-	 * 
-	 * @param  {Number} newMonth [description]
-	 * @param  {NUmber} newYar   [description]
+	 *
+	 * @param  {Number} newMonth
+	 * @param  {NUmber} newYar
 	 */
 	var updateDate = function(newMonth, newYear) {
 		newMonth = newMonth !== undefined ? newMonth : getMonth();
@@ -890,7 +877,7 @@ function MtrDatepicker(inputConfig) {
 		value = parseInt(value);
 
 		// Strict, the value is exact in the array
-		return config.defaultValues[type].indexOf(value) > -1 ? true : false; 
+		return config.defaultValues[type].indexOf(value) > -1 ? true : false;
 	};
 
 	/**
@@ -898,11 +885,11 @@ function MtrDatepicker(inputConfig) {
 	 *
 	 * If the config.feature is enabled this function will prevent selecting dates
 	 * in the past
-	 * 
-	 * @param  {String} target   
-	 * @param  {Number} newValue 
-	 * @param  {Number} oldValue 
-	 * @return {boolean}          
+	 *
+	 * @param  {String} target
+	 * @param  {Number} newValue
+	 * @param  {Number} oldValue
+	 * @return {boolean}
 	 */
 	var validateChange = function(target, newValue, oldValue) {
 		if (config.future === false)
@@ -912,7 +899,7 @@ function MtrDatepicker(inputConfig) {
 				datePicker = new Date(values.date.getTime());
 
 		switch(target) {
-			case 'hour':	
+			case 'hour':
 				var isAm = getIsAm();
 				if (isAm && newValue === 12) {
 					newValue = 0;
@@ -920,7 +907,7 @@ function MtrDatepicker(inputConfig) {
 				// else if (!isAm && newValue < 12) {
 				// 	newValue += 12;
 				// }
-				datePicker.setHours(newValue); 
+				datePicker.setHours(newValue);
 				break;
 			case 'minute':	datePicker.setMinutes(newValue); break;
 			case 'ampm':
@@ -949,7 +936,7 @@ function MtrDatepicker(inputConfig) {
 			case 'month':	datePicker.setMonth(newValue); break;
 			case 'year':	datePicker.setFullYear(newValue); break;
 		}
-		
+
 		dateNow.setSeconds(0);
 		dateNow.setMilliseconds(0);
 		datePicker.setSeconds(0);
@@ -1078,18 +1065,18 @@ function MtrDatepicker(inputConfig) {
 
 			if (browser.isSafari) {
 				setTimeout(function() {
-					setRadioFormValue(config.references.ampm, oldValue);	
+					setRadioFormValue(config.references.ampm, oldValue);
 				}, 10);
-				
+
 			}
 			return false;
 		}
 		executeChangeEvents('ampm', 'beforeChange', setAmPm, oldValue);
 		// TODO: validate
 
-		var currentHours = values.date.getHours(); 
-		var currentHoursCalculates = getHours(); 
-		
+		var currentHours = values.date.getHours();
+		var currentHoursCalculates = getHours();
+
 		var currentIsAm = getIsAm();
 
 		if (currentIsAm !== setAmPm) {
@@ -1110,7 +1097,7 @@ function MtrDatepicker(inputConfig) {
 		executeChangeEvents('ampm', 'afterChange', setAmPm, oldValue);
 		return true;
 	};
-	
+
 	var setRadioFormValue = function(reference, setAmPm) {
 		var divRadioInput = byId(reference);
 		var formRadio = qSelect(divRadioInput, 'form');
@@ -1132,13 +1119,13 @@ function MtrDatepicker(inputConfig) {
 		else {
 			radioPm.setAttribute('checked', '');
 			radioPm.checked = true;
-			radioAm.removeAttribute('checked');	
+			radioAm.removeAttribute('checked');
 		}
-	}
+	};
 
 	var getIsAm = function() {
 		var currentHours = values.date.getHours();
-		return (currentHours >= 0 && currentHours <= 11) ? true : false; 
+		return (currentHours >= 0 && currentHours <= 11) ? true : false;
 		//return values.date.toLocaleTimeString().indexOf('AM') > -1 ? 1 : 0;
 		//return values.ampm;
 	};
@@ -1226,7 +1213,7 @@ function MtrDatepicker(inputConfig) {
 		}
 		executeChangeEvents('year', 'beforeChange', newYear, oldValue);
 		// TODO: Validate input
-		updateDate(undefined, newYear); 
+		updateDate(undefined, newYear);
 		updateInputSlider(config.references.years, newYear, preventAnimation);
 
 		if (config.validateAfter && !isChangeValid) {
@@ -1292,7 +1279,7 @@ function MtrDatepicker(inputConfig) {
 	/**
 	 * Update the value of the input slider
 	 * @param  {string} reference id to the specific element
-	 * @param  {integer} newValue  
+	 * @param  {integer} newValue
 	 */
 	var updateInputSlider = function(reference, newValue, preventAnimation) {
 		var element = byId(reference);
@@ -1364,19 +1351,19 @@ function MtrDatepicker(inputConfig) {
 		});
 
 		switch (target) {
-			case 'hour': 
+			case 'hour':
 			case 'minute':
-			case 'ampm': 
+			case 'ampm':
 				events[changeEvent].time.forEach(function(callback) {
 					callbackFunction(callback);
-				});			
+				});
 				break;
-			case 'day': 
+			case 'day':
 			case 'month':
-			case 'year': 
+			case 'year':
 				events[changeEvent].date.forEach(function(callback) {
 					callbackFunction(callback);
-				});			
+				});
 				break;
 		}
 
@@ -1385,7 +1372,7 @@ function MtrDatepicker(inputConfig) {
 	/*****************************************************************************
 	 * Some Aliases
 	 ****************************************************************************/
-	
+
 	function byId(selector) {
 		return document.getElementById(selector);
 	}
@@ -1403,7 +1390,7 @@ function MtrDatepicker(inputConfig) {
 
 	/**
 	 * A simple function which makes a clone of a specific JS Object
-	 * @param  {Object} obj 
+	 * @param  {Object} obj
 	 * @return {Object}
 	 */
 	function clone(obj) {
@@ -1478,8 +1465,8 @@ function MtrDatepicker(inputConfig) {
 
 	/**
 	 * Create array of values for a specific range with a givvent step
-	 * @param  {object} settings 
-	 * @return {array}          
+	 * @param  {object} settings
+	 * @return {array}
 	 */
 	function createRange(settings) {
 		var from = settings.min,
@@ -1601,9 +1588,63 @@ function MtrDatepicker(inputConfig) {
    * @return {Number}
    */
   var roundUpTimestamp = function(timestamp) {
-   var border = 10 * 60 * 1000; // 10 minutes
-   var delta = (border - (timestamp % border)) % timestamp;
-   return (timestamp + delta);
+   	var border = config.minutes.step * 60 * 1000;
+   	var delta = 0;
+
+   	// We should round up the timestamp only of the minutes step is not set to 1
+   	if (config.minutes.step > 1) {
+   		delta = (border - (timestamp % border)) % timestamp;
+   	}
+
+   	return (timestamp + delta);
+	};
+
+	/**
+	 * Touch Support
+	 * http://stackoverflow.com/questions/2264072/detect-a-finger-swipe-through-javascript-on-the-iphone-and-android
+	 */
+
+	var xDown = null;
+	var yDown = null;
+
+	function handleTouchStart(evt) {
+    xDown = evt.touches[0].clientX;
+    yDown = evt.touches[0].clientY;
+	}
+
+	/**
+	 * @param  {Event} evt
+	 * @return {Number}
+	 */
+	function handleTouchMove(evt, callback) {
+    if (!xDown || !yDown) {
+      return;
+    }
+
+    var xUp = evt.touches[0].clientX;
+    var yUp = evt.touches[0].clientY;
+
+    var xDiff = xDown - xUp;
+    var yDiff = yDown - yUp;
+
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+      if ( xDiff > 0 ) {
+        /* left swipe */
+      } else {
+        /* right swipe */
+      }
+    } else {
+      if ( yDiff > 0 ) {
+        /* up swipe */
+        callback(1);
+      } else {
+        /* down swipe */
+        callback(-1);
+      }
+    }
+    /* reset values */
+    xDown = null;
+    yDown = null;
 	}
 
 	/*****************************************************************************
@@ -1663,8 +1704,8 @@ function MtrDatepicker(inputConfig) {
 
 	/**
 	 * Return datetime in specific format
-	 * @param  {String} input [description]
-	 * @return {String}       [description]
+	 * @param  {String} input
+	 * @return {String}
 	 *
 	 * M,MM, MMM
 	 * d,D
@@ -1678,10 +1719,10 @@ function MtrDatepicker(inputConfig) {
 		var currentHours = getHours();
 		var currentMinutes = getMinutes();
 		var currentAmPm = getIsAm();
-		
+
 		var currentDate = getDate();
 		var currentMonth = getMonth() + 1;
-		var currentYear = getYear();		
+		var currentYear = getYear();
 
 		// Dates
 		input = specialReplace(input, 'DD', prependZero(currentDate));
@@ -1701,7 +1742,7 @@ function MtrDatepicker(inputConfig) {
 		// Minutes
 		input = specialReplace(input, 'mm', prependZero(currentMinutes));
 		input = specialReplace(input, 'm', getMinutes());
-		
+
 		// Am Pm
 		input = specialReplace(input, 'a', currentAmPm ? 'am' : 'pm');
 		input = specialReplace(input, 'A', currentAmPm ? 'AM' : 'PM');
@@ -1772,7 +1813,7 @@ function MtrDatepicker(inputConfig) {
 
 	this.init = init;
 	this.setConfig = setConfig;
-	
+
 	// Closing these interfaces, use format, instead of them
 	// this.getHours = getHours;
 	// this.getMinutes = getMinutes;

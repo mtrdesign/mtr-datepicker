@@ -57,10 +57,19 @@ $(document).ready(function() {
 		setSidebar();
 	});
 
-	$('a').click(function(){
-	  $('html, body').animate({
-	      scrollTop: $( $.attr(this, 'href') ).offset().top - 80
-	  }, 500);
+	// Add anchors to the sections
+	anchors.add('.blog-post > h2');
+	anchors.add('.blog-post h3');
+	anchors.add('.anchored');
+
+	$('a, a.anchorjs-link ').on('click', function() {
+		console.log('Click');
+		var href = $.attr(this, 'href');
+	  $('html, body').stop().animate({
+	      scrollTop: $(href).offset().top - 80
+	  }, 500, function() {
+			window.location.hash = href;
+	  });
 	  return false;
 	});
 
