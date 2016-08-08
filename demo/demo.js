@@ -27,10 +27,10 @@ var MtrDatepickerDemo = (function() {
 	 * Dump the datepicker date in different formats
 	 */
 	function datepickerChange(resultElement, datepicker) {
-		var result = 
+		var result =
 			datepicker.toDateString() + '<br />' +
 			datepicker.toLocaleDateString() + '<br /><br />' +
-			
+
 			datepicker.toTimeString() + '<br />' +
       datepicker.getFullTime() + '<br />' +
       datepicker.format('M/D/YYYY hh:mm A') + '<br />' +
@@ -49,9 +49,9 @@ var MtrDatepickerDemo = (function() {
         config.timestamp = dateNow.getTime();
       }
       else {
-        delete config.timestamp; 
+        delete config.timestamp;
       }
-      
+
       datepicker = new MtrDatepicker(config);
 		}, false);
 	}
@@ -67,37 +67,37 @@ var MtrDatepickerDemo = (function() {
 	}
 
 	function initCustomizeMinutes(datepicker, selectors, config) {
-		
+
 		var elements = {
 			checkboxElement: document.getElementById(selectors.customizeMinutes),
 			minElement: document.getElementById(selectors.customizeMinutesMin),
 			maxElement: document.getElementById(selectors.customizeMinutesMax),
 			stepElement: document.getElementById(selectors.customizeMinutesStep)
-		}
+		};
 
 		customizeMinMaxStep(elements, 'minutes', datepicker, config);
 	}
 
 	function initCustomizeMonths(datepicker, selectors, config) {
-		
+
 		var elements = {
 			checkboxElement: document.getElementById(selectors.customizeMonths),
 			minElement: document.getElementById(selectors.customizeMonthsMin),
 			maxElement: document.getElementById(selectors.customizeMonthsMax),
 			stepElement: document.getElementById(selectors.customizeMonthsStep)
-		}
+		};
 
 		customizeMinMaxStep(elements, 'months', datepicker, config);
 	}
 
 	function initCustomizeYears(datepicker, selectors, config) {
-		
+
 		var elements = {
 			checkboxElement: document.getElementById(selectors.customizeYears),
 			minElement: document.getElementById(selectors.customizeYearsMin),
 			maxElement: document.getElementById(selectors.customizeYearsMax),
 			stepElement: document.getElementById(selectors.customizeYearsStep)
-		}
+		};
 
 		customizeMinMaxStep(elements, 'years', datepicker, config);
 	}
@@ -125,7 +125,7 @@ var MtrDatepickerDemo = (function() {
 					min: parseInt(elements.minElement.value),
 					max: parseInt(elements.maxElement.value),
 					step: parseInt(elements.stepElement.value),
-				}
+				};
 			}
 			else {
 				delete config[type];

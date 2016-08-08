@@ -1,6 +1,6 @@
 {
   "name": "mtr-datepicker",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "authors": [
     "Valentin Kirilov <valentin.kirilov@mtr-design.com>",
     "MTR Design <datepicker@mtr-design.com>"
@@ -27,6 +27,7 @@
     ".coveralls.yml",
     ".travis.yml",
     "karma.conf.js",
-    "package.json"
+    "package.json",
+    "apple-touch-icon.png"
   ]
 }

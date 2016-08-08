@@ -27,7 +27,7 @@ There are two possible ways to include the mtr-datepicker library in your projec
 Or if you prefer to be up-to-date with our latest releases with a package manager you can use Bower, just type in your Terminal or CMD the following command:
 
 ```bash
-bower install --save https://github.com/mtrdesign/mtr-datepicker.git
+bower install --save mtr-datepicker
 ```
 
 #### Load the library
