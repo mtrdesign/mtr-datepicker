@@ -16,6 +16,7 @@
     "images",
     "scripts",
     "docs",
+    "demo",
     "styles",
     "test",
     "tests",
@@ -23,11 +24,13 @@
     "dev.sh",
     "index.html",
     "dev.html",
+    "demo.html",
     "docs.html",
     ".coveralls.yml",
     ".travis.yml",
     "karma.conf.js",
     "package.json",
-    "apple-touch-icon.png"
+    "apple-touch-icon.png",
+    "releases"
   ]
 }
