@@ -15,7 +15,7 @@ Use these docs to learn how to use it or if you need more details go to the offi
 
 ## Demo
 
-A simple preview of the datepicker is available [here](http://mtrdesign.github.io/mtr-datepicker/dev.html). You can customize the datepicker and make it works the way you want.
+A simple preview of the datepicker is available [here](http://mtrdesign.github.io/mtr-datepicker/demo.html). You can customize the datepicker and make it works the way you want.
 
 ## Documentation
 
@@ -28,6 +28,12 @@ Or if you prefer to be up-to-date with our latest releases with a package manage
 
 ```bash
 bower install --save mtr-datepicker
+```
+
+Or if you are an NPM fan you can use it to install the lib
+
+```
+npm install --save mtr-datepicker
 ```
 
 #### Load the library

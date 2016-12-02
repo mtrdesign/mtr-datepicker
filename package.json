@@ -1,9 +1,13 @@
 {
   "name": "mtr-datepicker",
-  "private": true,
-  "version": "0.0.1",
+  "private": false,
+  "version": "0.3.3",
   "description": "The pure JavaScript ultimate datepicker",
   "license": "MIT",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/mtrdesign/mtr-datepicker.git"
+  },
   "dependencies": {},
   "scripts": {
     "start": "grunt",
