@@ -8,9 +8,6 @@
  */
 function MtrDatepicker(inputConfig) {
 
-
-
-
 	/**
 	 * The real implementation of the library starts here
 	 */
@@ -18,7 +15,7 @@ function MtrDatepicker(inputConfig) {
 	var self = this;
 
 	// The main configuration properties
-	// All of them can be overided by the ini method
+	// All of them can be overided by the init method
 	var config = {
 		targetElement: null,
 		defaultValues: {
@@ -53,8 +50,8 @@ function MtrDatepicker(inputConfig) {
 			step: 1,
 			maxlength: 4
 		},
-		animations: true,				// Deprecated for now, but resposible for the transition of the sliders - animated or static
-		smartHours: false,			// Make auto swicth between AM/PM when moving from 11AM to 12PM
+		animations: true,				// Responsible for the transition of the sliders - animated or static
+		smartHours: false,			// Make auto swicth between AM/PM when moving from 11AM to 12PM or backwards
 		future: false,					// Validate the date to be only in the future
 		validateAfter: true,		// perform the future validation after the date change
 
@@ -113,6 +110,7 @@ function MtrDatepicker(inputConfig) {
 		'month': [],
 		'year': [],
 	};
+
 	var events = {
 		'onChange': clone(defaultChangeEventsCategories),
 		'beforeChange': clone(defaultChangeEventsCategories),
@@ -223,13 +221,146 @@ function MtrDatepicker(inputConfig) {
 			}
 		}
 
-		// TODO: Validate other input data
+		if (input.hours) {
+			// Validate data type
+			if (input.hours.min !== undefined && !isNumber(input.hours.min)) {
+				console.error('Invalid argument: hours.min should be a number.');
+				result = false;
+			}
+			if (input.hours.max !== undefined && !isNumber(input.hours.max)) {
+				console.error('Invalid argument: hours.max should be a number.');
+				result = false;
+			}
+			if (input.hours.step !== undefined && !isNumber(input.hours.step)) {
+				console.error('Invalid argument: hours.step should be a number.');
+				result = false;
+			}
 
+			// Validate the range
+			if (input.hours.min !== undefined && input.hours.max !== undefined && input.hours.max < input.hours.min) {
+				console.error('Invalid argument: hours.max should be larger than hours.min.');
+				result = false;
+			}
+
+			if (input.hours.min !== undefined
+				&& input.hours.max !== undefined
+				&& input.hours.step !== undefined && (input.hours.step > (input.hours.max - input.hours.min))) {
+				console.error('Invalid argument: hours.step should be less than hours.max-hours.min.');
+				result = false;
+			}
+		}
+
+		if (input.dates) {
+			// Validate data type
+			if (input.dates.min !== undefined && !isNumber(input.dates.min)) {
+				console.error('Invalid argument: dates.min should be a number.');
+				result = false;
+			}
+			if (input.dates.max !== undefined && !isNumber(input.dates.max)) {
+				console.error('Invalid argument: dates.max should be a number.');
+				result = false;
+			}
+			if (input.dates.step !== undefined && !isNumber(input.dates.step)) {
+				console.error('Invalid argument: dates.step should be a number.');
+				result = false;
+			}
+
+			// Validate the range
+			if (input.dates.min !== undefined && input.dates.max !== undefined && input.dates.max < input.dates.min) {
+				console.error('Invalid argument: dates.max should be larger than dates.min.');
+				result = false;
+			}
+
+			if (input.dates.min !== undefined
+				&& input.dates.max !== undefined
+				&& input.dates.step !== undefined && (input.dates.step > (input.dates.max - input.dates.min))) {
+				console.error('Invalid argument: dates.step should be less than dates.max-dates.min.');
+				result = false;
+			}
+		}
+
+		if (input.months) {
+			// Validate data type
+			if (input.months.min !== undefined && !isNumber(input.months.min)) {
+				console.error('Invalid argument: months.min should be a number.');
+				result = false;
+			}
+			if (input.months.max !== undefined && !isNumber(input.months.max)) {
+				console.error('Invalid argument: months.max should be a number.');
+				result = false;
+			}
+			if (input.months.step !== undefined && !isNumber(input.months.step)) {
+				console.error('Invalid argument: months.step should be a number.');
+				result = false;
+			}
+
+			// Validate the range
+			if (input.months.min !== undefined && input.months.max !== undefined && input.months.max < input.months.min) {
+				console.error('Invalid argument: months.max should be larger than months.min.');
+				result = false;
+			}
+
+			if (input.months.min !== undefined
+				&& input.months.max !== undefined
+				&& input.months.step !== undefined && (input.months.step > (input.months.max - input.months.min))) {
+				console.error('Invalid argument: months.step should be less than months.max-months.min.');
+				result = false;
+			}
+		}
+
+		if (input.years) {
+			// Validate data type
+			if (input.years.min !== undefined && !isNumber(input.years.min)) {
+				console.error('Invalid argument: years.min should be a number.');
+				result = false;
+			}
+			if (input.years.max !== undefined && !isNumber(input.years.max)) {
+				console.error('Invalid argument: years.max should be a number.');
+				result = false;
+			}
+			if (input.years.step !== undefined && !isNumber(input.years.step)) {
+				console.error('Invalid argument: years.step should be a number.');
+				result = false;
+			}
+
+			// Validate the range
+			if (input.years.min !== undefined && input.years.max !== undefined && input.years.max < input.years.min) {
+				console.error('Invalid argument: years.max should be larger than years.min.');
+				result = false;
+			}
+
+			if (input.years.min !== undefined
+				&& input.years.max !== undefined
+				&& input.years.step !== undefined && (input.years.step > (input.years.max - input.years.min))) {
+				console.error('Invalid argument: years.step should be less than years.max-years.min.');
+				result = false;
+			}
+		}
+
+		// Validate input timestamp
+		if (input.timestamp) {
+
+			// If the future dates is enabed, it will be a good idea to check the input timestamp, maybe it is in the past?
+			if (input.future) {
+				var timestampDate = new Date(input.timestamp);
+				var todayDate = new Date();
+
+				console.log(timestampDate);
+				console.log(todayDate);
+
+				if (timestampDate.getTime() < todayDate.getTime()) {
+					console.error('Invalid argument: timestamp should be in the future if the future check is enabled.');
+					result = false;
+				}
+			}
+		}
+
+		// If there are any erros return a new target element with notice for the users
 		if (!result) {
 			targetElement = byId(input.target);
 
 			while (targetElement.firstChild) {
-    		targetElement.removeChild(targetElement.firstChild);
+				targetElement.removeChild(targetElement.firstChild);
 			}
 
 			var errorElement = document.createElement('div');
@@ -272,7 +403,7 @@ function MtrDatepicker(inputConfig) {
 		removeClass(targetElement, 'mtr-datepicker');
 		addClass(targetElement, 'mtr-datepicker');
 		while (targetElement.firstChild) {
-    	targetElement.removeChild(targetElement.firstChild);
+			targetElement.removeChild(targetElement.firstChild);
 		}
 
 		// Create time elements
@@ -961,8 +1092,8 @@ function MtrDatepicker(inputConfig) {
 		var isChangeValid = validateChange('hour', input, oldValue);
 		var isAm = getIsAm();
 
-		// If the smart hourrs are enabled and we want to gto from X Am to 12 PM, we should
-		// deisable the validation
+		// If the smart hourrs are enabled and we want to gto from 11 Am to 12 PM, we should
+		// disable the validation
 		if (config.smartHours && input === 12 && isAm) {
 			isChangeValid = true;
 		}
@@ -997,6 +1128,11 @@ function MtrDatepicker(inputConfig) {
 			if (config.smartHours && newHour === 12 && isAm) {
 				values.timestamp = values.date.setHours(12);
 				setAmPm(false); 	// set to PM
+			}
+			else if (config.smartHours && (newHour === 23 || newHour === 11) && oldValue === 12 && !isAm) {
+				newHour = 11;
+				values.timestamp = values.date.setHours(newHour);
+				setAmPm(true); 	// set to AM
 			}
 			else if (!config.smartHours && newHour === 12 && isAm) {
 				values.timestamp = values.date.setHours(0);

@@ -5,6 +5,7 @@
   <title>MTR Datepicker - Jasmine Spec Runner v2.3.4</title>
 
   <link rel="stylesheet" href="libs/jasmine-core/jasmine.css">
+  <link rel="stylesheet" href="../dist/mtr-datepicker.min.css" />
   <link rel="stylesheet" href="../dist/mtr-datepicker.default-theme.min.css">
 
   <script src="libs/jasmine-core/jasmine.js"></script>
@@ -26,10 +27,16 @@
   <script src="spec/DatesSpec.js"></script>
   <script src="spec/MonthsSpec.js"></script>
   <script src="spec/YearsSpec.js"></script>
-  <script src="spec/FutureOptionSpec.js"></script> 
+  <script src="spec/FutureOptionSpec.js"></script>
   <script src="spec/SmartAmPmOptionSpec.js"></script>
   <script src="spec/OutputSpec.js"></script>
   <script src="spec/ValidateInputSpec.js"></script>
+
+  <style type="text/css">
+    #jasmine-fixtures::after {
+      content: "Please wait..";
+    }
+  </style>
 
 </head>
 

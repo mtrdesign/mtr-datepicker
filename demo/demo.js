@@ -61,7 +61,7 @@ var MtrDatepickerDemo = (function() {
 
 		checkboxElement.addEventListener('change', function() {
 			config.smartHours = checkboxElement.checked;
-      datepicker = new MtrDatepicker(config);
+			datepicker = new MtrDatepicker(config);
 		}, false);
 
 	}
@@ -131,7 +131,7 @@ var MtrDatepickerDemo = (function() {
 				delete config[type];
 			}
 
-      datepicker = new MtrDatepicker(config);
+			datepicker = new MtrDatepicker(config);
 		}
 	}
 

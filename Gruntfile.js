@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
-	pkg : grunt.file.readJSON('package.json'),
+    pkg : grunt.file.readJSON('package.json'),
       less: {
         development: {
           options: {
@@ -14,7 +14,7 @@ module.exports = function(grunt) {
           }
         }
       },
-     
+
       cssmin: {
         options: {
           shorthandCompacting: false,
@@ -46,7 +46,7 @@ module.exports = function(grunt) {
           options: {
             match: [
               // CSS
-              'dist/mtr-datepicker.min.css', 
+              'dist/mtr-datepicker.min.css',
               'dist/mtr-datepicker.default-theme.min.css',
 
               // JS
@@ -88,7 +88,7 @@ module.exports = function(grunt) {
       connect: {
         server: {
           options: {
-            port: 8080,
+            port: 4200,
             hostname: '*',
           }
         }
@@ -125,7 +125,7 @@ module.exports = function(grunt) {
       notify: {
         watch: {
           options: {
-            title: 'Watch Detected', 
+            title: 'Watch Detected',
             message: 'LESS and minification finished.',
           }
         }
@@ -147,8 +147,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
 
     grunt.task.run('notify_hooks');
-    
+
     grunt.registerTask('default', ['less', 'cssmin', 'uglify', 'cachebreaker', 'jsdoc', 'connect', 'watch']);
     grunt.registerTask('coverage', ['coveralls:your_target']);
-    
+
 };

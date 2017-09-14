@@ -1,6 +1,11 @@
 
 # Changelog
 
+## 0.3.5 - 2017-09-04
+
+- Make smart hours smarter. Now the datepicker autmatically switch the PM to AM when you go back from 12 PM to 11 AM
+- Added additional input validations to ensure correct initialization of the datepicker
+
 ## 0.3.3 - 2016-08-08
 
 - Fix bug with the mousewheel on Firefox. 
