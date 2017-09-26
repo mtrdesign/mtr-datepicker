@@ -896,7 +896,7 @@ function MtrDatepicker(inputConfig) {
 		});
 
 		// Attach listeners
-		divValues.addEventListener('click', function() {
+		var inputClickEventListener = function() {
 			// Show the input field for manual setup
 			var parent = divValues.parentElement,
 					inputValue = qSelect(parent, '.mtr-input');
@@ -909,8 +909,11 @@ function MtrDatepicker(inputConfig) {
 
 			inputValue.style.display = "block";
 			inputValue.focus();
+		};
 
-		}, false);
+		divValues.addEventListener('click', inputClickEventListener, false);
+		divValues.addEventListener('touchstart', inputClickEventListener, false);
+		divValues.addEventListener('touchend', inputClickEventListener, false);
 
 		divValues.addEventListener('wheel', function(e) {
 			e.preventDefault();

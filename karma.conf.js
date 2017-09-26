@@ -29,7 +29,7 @@ module.exports = function(config) {
       type: 'lcov',
       dir: 'tests/coverage',
       subdir: '.'
-    },  
+    },
 
 
     // test results reporter to use
@@ -96,8 +96,8 @@ module.exports = function(config) {
   if (process.env.WINDOWS) {
     cfg.browsers = ['Chrome', 'Firefox', 'Safari', 'IE'];
   }
-  
-  // We want to run more browsers on Windows envs
+
+  // We want to run specific browsers on Jenkins envs
   if (process.env.JENKINS) {
     cfg.browsers = ['Chrome', 'Firefox'];
   }
