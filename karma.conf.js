@@ -90,6 +90,16 @@ module.exports = function(config) {
   // We want to run specific browsers if we are on the travis env
   if (process.env.TRAVIS) {
     cfg.browsers = ['Chrome_travis_ci', 'Firefox', 'PhantomJS'];
+
+    cfg.logLevel = config.LOG_DISABLE;
+
+    cfg.browserConsoleLogOptions = {
+      level: 'disable'
+    };
+
+    cfg.client = {
+      captureConsole: false
+    };
   }
 
   // We want to run more browsers on Windows envs
