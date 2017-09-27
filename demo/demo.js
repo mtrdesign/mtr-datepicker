@@ -2,8 +2,10 @@
 var MtrDatepickerDemo = (function() {
 
 	var datepickers = [];
+	var exportSettings;
 
 	var init = function(config, settings) {
+		exportSettings = settings;
 		var datepicker = new MtrDatepicker(config);
 		datepickers.push(datepicker);
 
@@ -32,8 +34,8 @@ var MtrDatepickerDemo = (function() {
 			datepicker.toLocaleDateString() + '<br /><br />' +
 
 			datepicker.toTimeString() + '<br />' +
-      datepicker.getFullTime() + '<br />' +
-      datepicker.format('M/D/YYYY hh:mm A') + '<br />' +
+			datepicker.getFullTime() + '<br />' +
+			datepicker.format('M/D/YYYY hh:mm A') + '<br />' +
 			datepicker.format('YYYY-MM-DD HH:mm') + '<br />';
 
 		resultElement.innerHTML = result;
@@ -52,7 +54,7 @@ var MtrDatepickerDemo = (function() {
         delete config.timestamp;
       }
 
-      datepicker = new MtrDatepicker(config);
+      datepicker = init(config, exportSettings);
 		}, false);
 	}
 
@@ -61,7 +63,7 @@ var MtrDatepickerDemo = (function() {
 
 		checkboxElement.addEventListener('change', function() {
 			config.smartHours = checkboxElement.checked;
-			datepicker = new MtrDatepicker(config);
+			datepicker = init(config, exportSettings);
 		}, false);
 
 	}
@@ -131,7 +133,7 @@ var MtrDatepickerDemo = (function() {
 				delete config[type];
 			}
 
-			datepicker = new MtrDatepicker(config);
+			datepicker = init(config, exportSettings);
 		}
 	}
 

@@ -31,7 +31,6 @@ module.exports = function(config) {
       subdir: '.'
     },
 
-
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
@@ -90,12 +89,6 @@ module.exports = function(config) {
   // We want to run specific browsers if we are on the travis env
   if (process.env.TRAVIS) {
     cfg.browsers = ['Chrome_travis_ci', 'Firefox', 'PhantomJS'];
-
-    cfg.logLevel = config.LOG_DISABLE;
-
-    cfg.browserConsoleLogOptions = {
-      level: 'disable'
-    };
 
     cfg.client = {
       captureConsole: false
