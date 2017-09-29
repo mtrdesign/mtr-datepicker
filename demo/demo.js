@@ -18,6 +18,7 @@ var MtrDatepickerDemo = (function() {
 
 		initCustomizeFuture(datepicker, settings.customizeFuture, config);
 		initCustomizeSmartAmPm(datepicker, settings.customizeSmartAmPm, config);
+		initCustomizeDisableAmPm(datepicker, settings.customizeDisableAmPm, config);
 		initCustomizeMinutes(datepicker, settings, config);
 		initCustomizeMonths(datepicker, settings, config);
 		initCustomizeYears(datepicker, settings, config);
@@ -66,6 +67,15 @@ var MtrDatepickerDemo = (function() {
 			datepicker = init(config, exportSettings);
 		}, false);
 
+	}
+
+	function initCustomizeDisableAmPm(datepicker, checkbox, config) {
+		var checkboxElement = document.getElementById(checkbox);
+
+		checkboxElement.addEventListener('change', function() {
+			config.disableAmPm = checkboxElement.checked;
+			datepicker = init(config, exportSettings);
+		}, false);
 	}
 
 	function initCustomizeMinutes(datepicker, selectors, config) {

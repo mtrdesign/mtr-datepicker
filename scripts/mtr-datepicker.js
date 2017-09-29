@@ -53,6 +53,7 @@ function MtrDatepicker(inputConfig) {
 		animations: true,				// Responsible for the transition of the sliders - animated or static
 		smartHours: false,			// Make auto swicth between AM/PM when moving from 11AM to 12PM or backwards
 		future: false,					// Validate the date to be only in the future
+		disableAmPm: false,     // Disable the 12 hours time format and go to a full 24 hours experience
 		validateAfter: true,		// perform the future validation after the date change
 
 		transitionDelay: 100,
@@ -75,6 +76,7 @@ function MtrDatepicker(inputConfig) {
 			10: "Nov",
 			11: "Dec",
 		},
+
 		daysNames: {
 			0: "Sun",
 			1: "Mon",
@@ -165,6 +167,13 @@ function MtrDatepicker(inputConfig) {
 		config.future = input.future !== undefined ? input.future : config.future;
 		config.validateAfter = input.validateAfter !== undefined ? input.validateAfter : config.validateAfter;
 		config.smartHours = input.smartHours !== undefined ? input.smartHours : config.smartHours;
+		config.disableAmPm = input.disableAmPm !== undefined ? input.disableAmPm : config.disableAmPm;
+
+		// Change the defauls if the AM/PM is disabled
+		if (config.disableAmPm) {
+			config.hours.min = 0;
+			config.hours.max = 23;
+		}
 
 		// Override minutes
 		config.minutes.min = (input.minutes !== undefined && input.minutes.min !== undefined) ? parseInt(input.minutes.min) : config.minutes.min;
@@ -213,9 +222,10 @@ function MtrDatepicker(inputConfig) {
 				result = false;
 			}
 
-			if (input.minutes.min !== undefined
-				&& input.minutes.max !== undefined
-				&& input.minutes.step !== undefined && (input.minutes.step > (input.minutes.max - input.minutes.min))) {
+			if (input.minutes.min !== undefined &&
+				input.minutes.max !== undefined &&
+				input.minutes.step !== undefined &&
+				(input.minutes.step > (input.minutes.max - input.minutes.min))) {
 				console.error('Invalid argument: minutes.step should be less than minutes.max-minutes.min.');
 				result = false;
 			}
@@ -242,9 +252,10 @@ function MtrDatepicker(inputConfig) {
 				result = false;
 			}
 
-			if (input.hours.min !== undefined
-				&& input.hours.max !== undefined
-				&& input.hours.step !== undefined && (input.hours.step > (input.hours.max - input.hours.min))) {
+			if (input.hours.min !== undefined &&
+				input.hours.max !== undefined &&
+				input.hours.step !== undefined &&
+				(input.hours.step > (input.hours.max - input.hours.min))) {
 				console.error('Invalid argument: hours.step should be less than hours.max-hours.min.');
 				result = false;
 			}
@@ -271,9 +282,10 @@ function MtrDatepicker(inputConfig) {
 				result = false;
 			}
 
-			if (input.dates.min !== undefined
-				&& input.dates.max !== undefined
-				&& input.dates.step !== undefined && (input.dates.step > (input.dates.max - input.dates.min))) {
+			if (input.dates.min !== undefined &&
+				input.dates.max !== undefined &&
+				input.dates.step !== undefined &&
+				(input.dates.step > (input.dates.max - input.dates.min))) {
 				console.error('Invalid argument: dates.step should be less than dates.max-dates.min.');
 				result = false;
 			}
@@ -300,9 +312,10 @@ function MtrDatepicker(inputConfig) {
 				result = false;
 			}
 
-			if (input.months.min !== undefined
-				&& input.months.max !== undefined
-				&& input.months.step !== undefined && (input.months.step > (input.months.max - input.months.min))) {
+			if (input.months.min !== undefined &&
+				input.months.max !== undefined &&
+				input.months.step !== undefined &&
+				(input.months.step > (input.months.max - input.months.min))) {
 				console.error('Invalid argument: months.step should be less than months.max-months.min.');
 				result = false;
 			}
@@ -329,9 +342,9 @@ function MtrDatepicker(inputConfig) {
 				result = false;
 			}
 
-			if (input.years.min !== undefined
-				&& input.years.max !== undefined
-				&& input.years.step !== undefined && (input.years.step > (input.years.max - input.years.min))) {
+			if (input.years.min !== undefined &&
+				input.years.max !== undefined &&
+				input.years.step !== undefined && (input.years.step > (input.years.max - input.years.min))) {
 				console.error('Invalid argument: years.step should be less than years.max-years.min.');
 				result = false;
 			}
@@ -344,9 +357,6 @@ function MtrDatepicker(inputConfig) {
 			if (input.future) {
 				var timestampDate = new Date(input.timestamp);
 				var todayDate = new Date();
-
-				console.log(timestampDate);
-				console.log(todayDate);
 
 				if (timestampDate.getTime() < todayDate.getTime()) {
 					console.error('Invalid argument: timestamp should be in the future if the future check is enabled.');
@@ -419,9 +429,12 @@ function MtrDatepicker(inputConfig) {
 			value: getMinutes()
 		});
 
-		var amPmElement = createRadioInput({
-			name: 'ampm',
-		});
+		var amPmElement;
+		if (!config.disableAmPm) {
+			amPmElement = createRadioInput({
+				name: 'ampm',
+			});
+		}
 
 		var rowTime = document.createElement('div');
 		rowTime.className = 'mtr-row';
@@ -431,7 +444,10 @@ function MtrDatepicker(inputConfig) {
 
 		rowTime.appendChild(hoursElement);
 		rowTime.appendChild(minutesElement);
-		rowTime.appendChild(amPmElement);
+
+		if (!config.disableAmPm) {
+			rowTime.appendChild(amPmElement);
+		}
 
 		targetElement.appendChild(rowTime);
 		targetElement.appendChild(rowClearfixTime);
@@ -560,7 +576,7 @@ function MtrDatepicker(inputConfig) {
 					case 'hours':
 					 	// Check is we have to make a transform of the hour
 					 	var newHour = config.defaultValues[name][indexInArray];
-					 	if (getIsPm() && newHour !== 12) {
+					 	if (!config.disableAmPm && (getIsPm() && newHour !== 12)) {
 					 		newHour += 12;
 					 	}
 					 	setHours(newHour);
@@ -619,7 +635,7 @@ function MtrDatepicker(inputConfig) {
 					 case 'hours':
 					 	// Check is we have to make a transform of the hour
 					 	var newHour = config.defaultValues[name][indexInArray];
-					 	if (getIsPm() && newHour !== 12) {
+					 	if (!config.disableAmPm && (getIsPm() && newHour !== 12)) {
 					 		newHour += 12;
 					 	}
 					 	setHours(newHour);
@@ -1026,8 +1042,9 @@ function MtrDatepicker(inputConfig) {
 	 * @return {boolean}
 	 */
 	var validateChange = function(target, newValue, oldValue) {
-		if (config.future === false)
+		if (config.future === false) {
 			return true;
+		}
 
 		var dateNow = new Date(),
 				datePicker = new Date(values.date.getTime());
@@ -1097,7 +1114,7 @@ function MtrDatepicker(inputConfig) {
 
 		// If the smart hourrs are enabled and we want to gto from 11 Am to 12 PM, we should
 		// disable the validation
-		if (config.smartHours && input === 12 && isAm) {
+		if (!config.disableAmPm && (config.smartHours && input === 12 && isAm)) {
 			isChangeValid = true;
 		}
 
@@ -1107,7 +1124,7 @@ function MtrDatepicker(inputConfig) {
 		}
 		executeChangeEvents('hour', 'beforeChange', input, oldValue);
 		var newHour = input;
-		if (input > 12) {
+		if (!config.disableAmPm && input > 12) {
 			input -= 12; 			// reduce the values with 12 hours
 		}
 
@@ -1117,7 +1134,7 @@ function MtrDatepicker(inputConfig) {
 			showInputSliderError(config.references.hours);
 
 			setTimeout(function() {
-				if (oldValue > 12) {
+				if (!config.disableAmPm && oldValue > 12) {
 					oldValue -= 12;
 				}
 				updateInputSlider(config.references.hours, oldValue, preventAnimation);
@@ -1128,23 +1145,23 @@ function MtrDatepicker(inputConfig) {
 		}
 		else {
 			values.timestamp = values.date.setHours(newHour);
-			if (config.smartHours && newHour === 12 && isAm) {
+			if (!config.disableAmPm && (config.smartHours && newHour === 12 && isAm)) {
 				values.timestamp = values.date.setHours(12);
 				setAmPm(false); 	// set to PM
 			}
-			else if (config.smartHours && (newHour === 23 || newHour === 11) && oldValue === 12 && !isAm) {
+			else if (!config.disableAmPm && (config.smartHours && (newHour === 23 || newHour === 11) && oldValue === 12 && !isAm)) {
 				newHour = 11;
 				values.timestamp = values.date.setHours(newHour);
 				setAmPm(true); 	// set to AM
 			}
-			else if (!config.smartHours && newHour === 12 && isAm) {
+			else if (!config.disableAmPm && (!config.smartHours && newHour === 12 && isAm)) {
 				values.timestamp = values.date.setHours(0);
 			}
 			else {
 				values.timestamp = values.date.setHours(newHour);
 			}
 
-			if (newHour > 12) {
+			if (!config.disableAmPm && newHour > 12) {
 				newHour -= 12; 			// reduce the values with 12 hours
 				setAmPm(false); 	// set to PM
 			}
@@ -1155,13 +1172,18 @@ function MtrDatepicker(inputConfig) {
 	};
 
 	var getHours = function() {
-		var currentHours = values.date.getHours(),
-				isAm = getIsAm();
+		var currentHours = values.date.getHours();
 
-		if (currentHours === 12 || currentHours === 0) {
-			return 12;
+		if (!config.disableAmPm) {
+			var isAm = getIsAm();
+			if (currentHours === 12 || currentHours === 0) {
+				return 12;
+			}
+			return (currentHours < 12 && isAm) ? currentHours : currentHours - 12;
 		}
-		return (currentHours < 12 && isAm) ? currentHours : currentHours - 12;
+		else {
+			return currentHours;
+		}
 	};
 
 	var setMinutes = function(input, preventAnimation) {
@@ -1198,6 +1220,11 @@ function MtrDatepicker(inputConfig) {
 	};
 
 	var setAmPm = function(setAmPm) {
+
+		if (config.disableAmPm) {
+     return;
+    }
+
 		var oldValue = getIsAm();
 		if (!validateChange('ampm', setAmPm, oldValue)) {
 			showInputRadioError(config.references.ampm, setAmPm);
@@ -1238,6 +1265,12 @@ function MtrDatepicker(inputConfig) {
 	};
 
 	var setRadioFormValue = function(reference, setAmPm) {
+
+		// If the AM/PM is disabled we don't have t do anything here
+    if (config.disableAmPm) {
+     return;
+    }
+
 		var divRadioInput = byId(reference);
 		var formRadio = qSelect(divRadioInput, 'form');
 
@@ -1905,11 +1938,16 @@ function MtrDatepicker(inputConfig) {
 		}
 
 		function transformAmPm(hours, ampm) {
-			if (hours === 12) {
-				return ampm ? 0 : 12;
-			}
-			return ampm ? hours : hours + 12;
-		}
+      if (!config.disableAmPm) {
+        if (hours === 12) {
+          return ampm ? 0 : 12;
+        }
+        return ampm ? hours : hours + 12;
+      }
+      else {
+        return hours;
+      }
+    }
 
 		return input;
 	};
