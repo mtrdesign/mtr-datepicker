@@ -1,12 +1,21 @@
 {
   "name": "mtr-datepicker",
   "private": false,
-  "version": "0.3.3",
+  "version": "0.3.7",
   "description": "The pure JavaScript ultimate datepicker",
   "license": "MIT",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/mtrdesign/mtr-datepicker.git"
+  "homepage": "http://mtrdesign.github.io/mtr-datepicker/",
+  "keywords": "datepicker, mtr datepicker, mtr design, pure javascript, javascript datepicker, js datepicker",
+  "author": {
+    "name": "MTR Design",
+    "url": " http://www.mtr-design.com"
+  },
+  "contributors": [
+    "Valentin Kirilov <valentin.kirilov@mtr-design.com> (valkirilov.github.io)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mtrdesign/mtr-datepicker.git"
   },
   "dependencies": {},
   "scripts": {

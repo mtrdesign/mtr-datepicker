@@ -1,5 +1,5 @@
 describe('MTR Datepicker: AM/PM ', function() {
-  
+
   var datepickerSelectorName = 'datepicker';
   var datepickerSelector = '#' + datepickerSelectorName;
   var datepicker;
@@ -20,7 +20,7 @@ describe('MTR Datepicker: AM/PM ', function() {
     it('format("a") should return the current state AM/PM', function() {
       var currentDate = new Date();
       var currentHours = currentDate.getHours();
-      var currentDatepickerHours = datepicker.format('H')
+      var currentDatepickerHours = datepicker.format('H');
       var datepickerAmPm = datepicker.format('a');
       var expectedAmPm;
 
@@ -33,10 +33,10 @@ describe('MTR Datepicker: AM/PM ', function() {
       }
 
       if (currentHours >= 0 && currentHours <= 11) {
-        expectedAmPm = 'am'
+        expectedAmPm = 'am';
       }
       else if (currentHours >= 12 && currentHours <= 23) {
-        expectedAmPm = 'pm'
+        expectedAmPm = 'pm';
       }
 
       expect(datepickerAmPm).toEqual(expectedAmPm);
