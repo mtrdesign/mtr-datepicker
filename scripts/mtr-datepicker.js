@@ -53,6 +53,7 @@ function MtrDatepicker(inputConfig) {
 		animations: true,				// Responsible for the transition of the sliders - animated or static
 		smartHours: false,			// Make auto swicth between AM/PM when moving from 11AM to 12PM or backwards
 		future: false,					// Validate the date to be only in the future
+		disableAmPm: false,     // Disable the 12 hours time format and go to a full 24 hours experience
 		validateAfter: true,		// perform the future validation after the date change
 		utcTimezone: 0,					// change the local timezone to a specific one
 
@@ -76,6 +77,7 @@ function MtrDatepicker(inputConfig) {
 			10: "Nov",
 			11: "Dec",
 		},
+
 		daysNames: {
 			0: "Sun",
 			1: "Mon",
@@ -84,7 +86,9 @@ function MtrDatepicker(inputConfig) {
 			4: "Thu",
 			5: "Fri",
 			6: "Sat",
-		}
+		},
+
+		timezones: null
 	};
 
 	// The main element which holds the datepicker
@@ -162,16 +166,28 @@ function MtrDatepicker(inputConfig) {
 		config.future = input.future !== undefined ? input.future : config.future;
 		config.validateAfter = input.validateAfter !== undefined ? input.validateAfter : config.validateAfter;
 		config.smartHours = input.smartHours !== undefined ? input.smartHours : config.smartHours;
+		config.disableAmPm = input.disableAmPm !== undefined ? input.disableAmPm : config.disableAmPm;
+
+		// Change the defauls if the AM/PM is disabled
+		if (config.disableAmPm) {
+			config.hours.min = 0;
+			config.hours.max = 23;
+		}
 
 		values.date = input.timestamp ? new Date(input.timestamp) : new Date();
 		values.date.setSeconds(0);
 
 		config.utcTimezone = input.utcTimezone !== undefined ? input.utcTimezone : (values.date.getTimezoneOffset() / 60 * -1);
-		console.log(config.utcTimezone);
 		var localTimezoneOffsetTimestamp = values.date.getTime() + (values.date.getTimezoneOffset() * 60 * 1000);
 		var timezoneOffsetTimestamp = localTimezoneOffsetTimestamp + (config.utcTimezone * 60 * 60 * 1000);
 		values.date = new Date(timezoneOffsetTimestamp);
 		values.timestamp = values.date.getTime();
+
+		if (input.utcTimezone !== undefined) {
+			loadJSON('./dist/timezones.json', function(response) {
+				config.timezones = JSON.parse(response);
+			});
+		}
 
 		// Override minutes
 		config.minutes.min = (input.minutes !== undefined && input.minutes.min !== undefined) ? parseInt(input.minutes.min) : config.minutes.min;
@@ -220,9 +236,10 @@ function MtrDatepicker(inputConfig) {
 				result = false;
 			}
 
-			if (input.minutes.min !== undefined
-				&& input.minutes.max !== undefined
-				&& input.minutes.step !== undefined && (input.minutes.step > (input.minutes.max - input.minutes.min))) {
+			if (input.minutes.min !== undefined &&
+				input.minutes.max !== undefined &&
+				input.minutes.step !== undefined &&
+				(input.minutes.step > (input.minutes.max - input.minutes.min))) {
 				console.error('Invalid argument: minutes.step should be less than minutes.max-minutes.min.');
 				result = false;
 			}
@@ -249,9 +266,10 @@ function MtrDatepicker(inputConfig) {
 				result = false;
 			}
 
-			if (input.hours.min !== undefined
-				&& input.hours.max !== undefined
-				&& input.hours.step !== undefined && (input.hours.step > (input.hours.max - input.hours.min))) {
+			if (input.hours.min !== undefined &&
+				input.hours.max !== undefined &&
+				input.hours.step !== undefined &&
+				(input.hours.step > (input.hours.max - input.hours.min))) {
 				console.error('Invalid argument: hours.step should be less than hours.max-hours.min.');
 				result = false;
 			}
@@ -278,9 +296,10 @@ function MtrDatepicker(inputConfig) {
 				result = false;
 			}
 
-			if (input.dates.min !== undefined
-				&& input.dates.max !== undefined
-				&& input.dates.step !== undefined && (input.dates.step > (input.dates.max - input.dates.min))) {
+			if (input.dates.min !== undefined &&
+				input.dates.max !== undefined &&
+				input.dates.step !== undefined &&
+				(input.dates.step > (input.dates.max - input.dates.min))) {
 				console.error('Invalid argument: dates.step should be less than dates.max-dates.min.');
 				result = false;
 			}
@@ -307,9 +326,10 @@ function MtrDatepicker(inputConfig) {
 				result = false;
 			}
 
-			if (input.months.min !== undefined
-				&& input.months.max !== undefined
-				&& input.months.step !== undefined && (input.months.step > (input.months.max - input.months.min))) {
+			if (input.months.min !== undefined &&
+				input.months.max !== undefined &&
+				input.months.step !== undefined &&
+				(input.months.step > (input.months.max - input.months.min))) {
 				console.error('Invalid argument: months.step should be less than months.max-months.min.');
 				result = false;
 			}
@@ -336,9 +356,9 @@ function MtrDatepicker(inputConfig) {
 				result = false;
 			}
 
-			if (input.years.min !== undefined
-				&& input.years.max !== undefined
-				&& input.years.step !== undefined && (input.years.step > (input.years.max - input.years.min))) {
+			if (input.years.min !== undefined &&
+				input.years.max !== undefined &&
+				input.years.step !== undefined && (input.years.step > (input.years.max - input.years.min))) {
 				console.error('Invalid argument: years.step should be less than years.max-years.min.');
 				result = false;
 			}
@@ -351,9 +371,6 @@ function MtrDatepicker(inputConfig) {
 			if (input.future) {
 				var timestampDate = new Date(input.timestamp);
 				var todayDate = new Date();
-
-				console.log(timestampDate);
-				console.log(todayDate);
 
 				if (timestampDate.getTime() < todayDate.getTime()) {
 					console.error('Invalid argument: timestamp should be in the future if the future check is enabled.');
@@ -426,9 +443,12 @@ function MtrDatepicker(inputConfig) {
 			value: getMinutes()
 		});
 
-		var amPmElement = createRadioInput({
-			name: 'ampm',
-		});
+		var amPmElement;
+		if (!config.disableAmPm) {
+			amPmElement = createRadioInput({
+				name: 'ampm',
+			});
+		}
 
 		var rowTime = document.createElement('div');
 		rowTime.className = 'mtr-row';
@@ -438,7 +458,10 @@ function MtrDatepicker(inputConfig) {
 
 		rowTime.appendChild(hoursElement);
 		rowTime.appendChild(minutesElement);
-		rowTime.appendChild(amPmElement);
+
+		if (!config.disableAmPm) {
+			rowTime.appendChild(amPmElement);
+		}
 
 		targetElement.appendChild(rowTime);
 		targetElement.appendChild(rowClearfixTime);
@@ -565,13 +588,13 @@ function MtrDatepicker(inputConfig) {
 				switch(name) {
 					//case 'hours': setHours(config.defaultValues[name][indexInArray]); break;
 					case 'hours':
-					 	// Check is we have to make a transform of the hour
-					 	var newHour = config.defaultValues[name][indexInArray];
-					 	if (getIsPm() && newHour !== 12) {
-					 		newHour += 12;
-					 	}
-					 	setHours(newHour);
-					 	break;
+						// Check is we have to make a transform of the hour
+						var newHour = config.defaultValues[name][indexInArray];
+						if (!config.disableAmPm && (getIsPm() && newHour !== 12)) {
+							newHour += 12;
+						}
+						setHours(newHour);
+						break;
 					case 'minutes': setMinutes(config.defaultValues[name][indexInArray]); break;
 					case 'dates': setDate(config.defaultValues[name][indexInArray]); break;
 					case 'months': setMonth(config.defaultValues[name][indexInArray]); break;
@@ -624,13 +647,13 @@ function MtrDatepicker(inputConfig) {
 				switch(name) {
 					//case 'hours': setHours(config.defaultValues[name][indexInArray]); break;
 					 case 'hours':
-					 	// Check is we have to make a transform of the hour
-					 	var newHour = config.defaultValues[name][indexInArray];
-					 	if (getIsPm() && newHour !== 12) {
-					 		newHour += 12;
-					 	}
-					 	setHours(newHour);
-					 	break;
+						// Check is we have to make a transform of the hour
+						var newHour = config.defaultValues[name][indexInArray];
+						if (!config.disableAmPm && (getIsPm() && newHour !== 12)) {
+							newHour += 12;
+						}
+						setHours(newHour);
+						break;
 					case 'minutes': setMinutes(config.defaultValues[name][indexInArray]); break;
 					case 'dates': setDate(config.defaultValues[name][indexInArray]); break;
 					case 'months': setMonth(config.defaultValues[name][indexInArray]); break;
@@ -903,7 +926,7 @@ function MtrDatepicker(inputConfig) {
 		});
 
 		// Attach listeners
-		divValues.addEventListener('click', function() {
+		var inputClickEventListener = function() {
 			// Show the input field for manual setup
 			var parent = divValues.parentElement,
 					inputValue = qSelect(parent, '.mtr-input');
@@ -916,8 +939,11 @@ function MtrDatepicker(inputConfig) {
 
 			inputValue.style.display = "block";
 			inputValue.focus();
+		};
 
-		}, false);
+		divValues.addEventListener('click', inputClickEventListener, false);
+		divValues.addEventListener('touchstart', inputClickEventListener, false);
+		divValues.addEventListener('touchend', inputClickEventListener, false);
 
 		divValues.addEventListener('wheel', function(e) {
 			e.preventDefault();
@@ -1102,7 +1128,7 @@ function MtrDatepicker(inputConfig) {
 
 		// If the smart hourrs are enabled and we want to gto from 11 Am to 12 PM, we should
 		// disable the validation
-		if (config.smartHours && input === 12 && isAm) {
+		if (!config.disableAmPm && (config.smartHours && input === 12 && isAm)) {
 			isChangeValid = true;
 		}
 
@@ -1112,7 +1138,7 @@ function MtrDatepicker(inputConfig) {
 		}
 		executeChangeEvents('hour', 'beforeChange', input, oldValue);
 		var newHour = input;
-		if (input > 12) {
+		if (!config.disableAmPm && input > 12) {
 			input -= 12; 			// reduce the values with 12 hours
 		}
 
@@ -1122,7 +1148,7 @@ function MtrDatepicker(inputConfig) {
 			showInputSliderError(config.references.hours);
 
 			setTimeout(function() {
-				if (oldValue > 12) {
+				if (!config.disableAmPm && oldValue > 12) {
 					oldValue -= 12;
 				}
 				updateInputSlider(config.references.hours, oldValue, preventAnimation);
@@ -1133,23 +1159,23 @@ function MtrDatepicker(inputConfig) {
 		}
 		else {
 			values.timestamp = values.date.setHours(newHour);
-			if (config.smartHours && newHour === 12 && isAm) {
+			if (!config.disableAmPm && (config.smartHours && newHour === 12 && isAm)) {
 				values.timestamp = values.date.setHours(12);
 				setAmPm(false); 	// set to PM
 			}
-			else if (config.smartHours && (newHour === 23 || newHour === 11) && oldValue === 12 && !isAm) {
+			else if (!config.disableAmPm && (config.smartHours && (newHour === 23 || newHour === 11) && oldValue === 12 && !isAm)) {
 				newHour = 11;
 				values.timestamp = values.date.setHours(newHour);
 				setAmPm(true); 	// set to AM
 			}
-			else if (!config.smartHours && newHour === 12 && isAm) {
+			else if (!config.disableAmPm && (!config.smartHours && newHour === 12 && isAm)) {
 				values.timestamp = values.date.setHours(0);
 			}
 			else {
 				values.timestamp = values.date.setHours(newHour);
 			}
 
-			if (newHour > 12) {
+			if (!config.disableAmPm && newHour > 12) {
 				newHour -= 12; 			// reduce the values with 12 hours
 				setAmPm(false); 	// set to PM
 			}
@@ -1160,13 +1186,18 @@ function MtrDatepicker(inputConfig) {
 	};
 
 	var getHours = function() {
-		var currentHours = values.date.getHours(),
-				isAm = getIsAm();
+		var currentHours = values.date.getHours();
 
-		if (currentHours === 12 || currentHours === 0) {
-			return 12;
+		if (!config.disableAmPm) {
+			var isAm = getIsAm();
+			if (currentHours === 12 || currentHours === 0) {
+				return 12;
+			}
+			return (currentHours < 12 && isAm) ? currentHours : currentHours - 12;
 		}
-		return (currentHours < 12 && isAm) ? currentHours : currentHours - 12;
+		else {
+			return currentHours;
+		}
 	};
 
 	var setMinutes = function(input, preventAnimation) {
@@ -1203,6 +1234,11 @@ function MtrDatepicker(inputConfig) {
 	};
 
 	var setAmPm = function(setAmPm) {
+
+		if (config.disableAmPm) {
+		 return;
+		}
+
 		var oldValue = getIsAm();
 		if (!validateChange('ampm', setAmPm, oldValue)) {
 			showInputRadioError(config.references.ampm, setAmPm);
@@ -1243,6 +1279,12 @@ function MtrDatepicker(inputConfig) {
 	};
 
 	var setRadioFormValue = function(reference, setAmPm) {
+
+		// If the AM/PM is disabled we don't have t do anything here
+		if (config.disableAmPm) {
+		 return;
+		}
+
 		var divRadioInput = byId(reference);
 		var formRadio = qSelect(divRadioInput, 'form');
 
@@ -1468,8 +1510,8 @@ function MtrDatepicker(inputConfig) {
 
 	var showInputRadioError = function(reference, value) {
 		if (typeof value === 'boolean') {
-            value = value === true ? 1 : 0;
-        }
+						value = value === true ? 1 : 0;
+				}
 
 		var element = byId(reference);
 		var divContent = qSelect(element, '.mtr-input[value="'+value+'"]');
@@ -1527,7 +1569,7 @@ function MtrDatepicker(inputConfig) {
 
 	function getRelativeOffset(parent, child) {
 		if (parent && child) {
-		 	return child.offsetTop - parent.offsetTop;
+			return child.offsetTop - parent.offsetTop;
 		}
 		return 0;
 	}
@@ -1538,30 +1580,30 @@ function MtrDatepicker(inputConfig) {
 	 * @return {Object}
 	 */
 	function clone(obj) {
-    var copy;
+		var copy;
 
-    // Handle the 3 simple types, and null or undefined
-    if (null == obj || "object" != typeof obj) return obj;
+		// Handle the 3 simple types, and null or undefined
+		if (null == obj || "object" != typeof obj) return obj;
 
-    // Handle Array
-    if (obj instanceof Array) {
-        copy = [];
-        for (var i = 0, len = obj.length; i < len; i++) {
-            copy[i] = clone(obj[i]);
-        }
-        return copy;
-    }
+		// Handle Array
+		if (obj instanceof Array) {
+				copy = [];
+				for (var i = 0, len = obj.length; i < len; i++) {
+						copy[i] = clone(obj[i]);
+				}
+				return copy;
+		}
 
-    // Handle Object
-    if (obj instanceof Object) {
-        copy = {};
-        for (var attr in obj) {
-            if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
-        }
-        return copy;
-    }
+		// Handle Object
+		if (obj instanceof Object) {
+				copy = {};
+				for (var attr in obj) {
+						if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+				}
+				return copy;
+		}
 
-    throw new Error("Unable to copy obj! Its type isn't supported.");
+		throw new Error("Unable to copy obj! Its type isn't supported.");
 	}
 
 	/**
@@ -1574,11 +1616,11 @@ function MtrDatepicker(inputConfig) {
 			return;
 		}
 
-	  if (element.className.indexOf(className) > -1) {
-	    return;
-	  }
+		if (element.className.indexOf(className) > -1) {
+			return;
+		}
 
-	  element.className += ' ' + className;
+		element.className += ' ' + className;
 	}
 
 	/**
@@ -1587,15 +1629,15 @@ function MtrDatepicker(inputConfig) {
 	 * @param {string} className
 	 */
 	function removeClass(element, className) {
-	  if (!element) {
+		if (!element) {
 			return;
 		}
 
-	  if (element.className.indexOf(className) === -1) {
-	    return;
-	  }
+		if (element.className.indexOf(className) === -1) {
+			return;
+		}
 
-	  element.className = element.className.replace(new RegExp(className, 'g'), '');
+		element.className = element.className.replace(new RegExp(className, 'g'), '');
 	}
 
 	/**
@@ -1604,7 +1646,7 @@ function MtrDatepicker(inputConfig) {
 	 * @return {Boolean}
 	 */
 	function isNumber(input){
-   return Number(input) === input && input % 1 === 0;
+	 return Number(input) === input && input % 1 === 0;
 	}
 
 	/**
@@ -1652,95 +1694,95 @@ function MtrDatepicker(inputConfig) {
 	}
 
 	/**
-    Smoothly scroll element to the given target (element.scrollTop)
-    for the given duration
+		Smoothly scroll element to the given target (element.scrollTop)
+		for the given duration
 
-    Returns a promise that's fulfilled when done, or rejected if
-    interrupted
- 	*/
+		Returns a promise that's fulfilled when done, or rejected if
+		interrupted
+	*/
 	var smooth_scroll_to = function(element, target, duration) {
-    target = Math.round(target);
-    duration = Math.round(duration);
-    if (duration < 0) {
-      return;
-    }
-    if (duration === 0) {
-      element.scrollTop = target;
-      return;
-    }
+		target = Math.round(target);
+		duration = Math.round(duration);
+		if (duration < 0) {
+			return;
+		}
+		if (duration === 0) {
+			element.scrollTop = target;
+			return;
+		}
 
-    var start_time = Date.now();
-    var end_time = start_time + duration;
+		var start_time = Date.now();
+		var end_time = start_time + duration;
 
-    var start_top = element.scrollTop;
-    var distance = target - start_top;
+		var start_top = element.scrollTop;
+		var distance = target - start_top;
 
-    // https://coderwall.com/p/hujlhg/smooth-scrolling-without-jquery
-    // based on http://en.wikipedia.org/wiki/Smoothstep
-    var smooth_step = function(start, end, point) {
-      if(point <= start) { return 0; }
-      if(point >= end) { return 1; }
-      var x = (point - start) / (end - start); // interpolation
-      return x*x*(3 - 2*x);
-    };
+		// https://coderwall.com/p/hujlhg/smooth-scrolling-without-jquery
+		// based on http://en.wikipedia.org/wiki/Smoothstep
+		var smooth_step = function(start, end, point) {
+			if(point <= start) { return 0; }
+			if(point >= end) { return 1; }
+			var x = (point - start) / (end - start); // interpolation
+			return x*x*(3 - 2*x);
+		};
 
-    // This is to keep track of where the element's scrollTop is
-    // supposed to be, based on what we're doing
-    var previous_top = element.scrollTop;
+		// This is to keep track of where the element's scrollTop is
+		// supposed to be, based on what we're doing
+		var previous_top = element.scrollTop;
 
-    // This is like a think function from a game loop
-    var scroll_frame = function() {
-      if(element.scrollTop != previous_top) {
-        //reject("interrupted");
-        return;
-      }
+		// This is like a think function from a game loop
+		var scroll_frame = function() {
+			if(element.scrollTop != previous_top) {
+				//reject("interrupted");
+				return;
+			}
 
-      // set the scrollTop for this frame
-      var now = Date.now();
-      var point = smooth_step(start_time, end_time, now);
-      var frameTop = Math.round(start_top + (distance * point));
-      element.scrollTop = frameTop;
+			// set the scrollTop for this frame
+			var now = Date.now();
+			var point = smooth_step(start_time, end_time, now);
+			var frameTop = Math.round(start_top + (distance * point));
+			element.scrollTop = frameTop;
 
-      // check if we're done!
-      if(now >= end_time) {
-        return;
-      }
+			// check if we're done!
+			if(now >= end_time) {
+				return;
+			}
 
-      // If we were supposed to scroll but didn't, then we
-      // probably hit the limit, so consider it done; not
-      // interrupted.
-      if(element.scrollTop === previous_top && element.scrollTop !== frameTop) {
-        return;
-      }
-      previous_top = element.scrollTop;
+			// If we were supposed to scroll but didn't, then we
+			// probably hit the limit, so consider it done; not
+			// interrupted.
+			if(element.scrollTop === previous_top && element.scrollTop !== frameTop) {
+				return;
+			}
+			previous_top = element.scrollTop;
 
-      // schedule next frame for execution
-      setTimeout(function() {
-        scroll_frame();
-      }, 0);
-    };
+			// schedule next frame for execution
+			setTimeout(function() {
+				scroll_frame();
+			}, 0);
+		};
 
-    // boostrap the animation process
-    setTimeout(function() {
-      scroll_frame();
-    }, 0);
-  };
+		// boostrap the animation process
+		setTimeout(function() {
+			scroll_frame();
+		}, 0);
+	};
 
-  /**
-   * Round up a timestamp to the closest monutes (11:35 to 11:40)
-   * @param  {Number} timestamp
-   * @return {Number}
-   */
-  var roundUpTimestamp = function(timestamp) {
-   	var border = config.minutes.step * 60 * 1000;
-   	var delta = 0;
+	/**
+	 * Round up a timestamp to the closest monutes (11:35 to 11:40)
+	 * @param  {Number} timestamp
+	 * @return {Number}
+	 */
+	var roundUpTimestamp = function(timestamp) {
+		var border = config.minutes.step * 60 * 1000;
+		var delta = 0;
 
-   	// We should round up the timestamp only of the minutes step is not set to 1
-   	if (config.minutes.step > 1) {
-   		delta = (border - (timestamp % border)) % timestamp;
-   	}
+		// We should round up the timestamp only of the minutes step is not set to 1
+		if (config.minutes.step > 1) {
+			delta = (border - (timestamp % border)) % timestamp;
+		}
 
-   	return (timestamp + delta);
+		return (timestamp + delta);
 	};
 
 	/**
@@ -1752,8 +1794,8 @@ function MtrDatepicker(inputConfig) {
 	var yDown = null;
 
 	function handleTouchStart(evt) {
-    xDown = evt.touches[0].clientX;
-    yDown = evt.touches[0].clientY;
+		xDown = evt.touches[0].clientX;
+		yDown = evt.touches[0].clientY;
 	}
 
 	/**
@@ -1761,34 +1803,47 @@ function MtrDatepicker(inputConfig) {
 	 * @return {Number}
 	 */
 	function handleTouchMove(evt, callback) {
-    if (!xDown || !yDown) {
-      return;
-    }
+		if (!xDown || !yDown) {
+			return;
+		}
 
-    var xUp = evt.touches[0].clientX;
-    var yUp = evt.touches[0].clientY;
+		var xUp = evt.touches[0].clientX;
+		var yUp = evt.touches[0].clientY;
 
-    var xDiff = xDown - xUp;
-    var yDiff = yDown - yUp;
+		var xDiff = xDown - xUp;
+		var yDiff = yDown - yUp;
 
-    if (Math.abs(xDiff) > Math.abs(yDiff)) {
-      if ( xDiff > 0 ) {
-        /* left swipe */
-      } else {
-        /* right swipe */
-      }
-    } else {
-      if ( yDiff > 0 ) {
-        /* up swipe */
-        callback(1);
-      } else {
-        /* down swipe */
-        callback(-1);
-      }
-    }
-    /* reset values */
-    xDown = null;
-    yDown = null;
+		if (Math.abs(xDiff) > Math.abs(yDiff)) {
+			if ( xDiff > 0 ) {
+				/* left swipe */
+			} else {
+				/* right swipe */
+			}
+		} else {
+			if ( yDiff > 0 ) {
+				/* up swipe */
+				callback(1);
+			} else {
+				/* down swipe */
+				callback(-1);
+			}
+		}
+		/* reset values */
+		xDown = null;
+		yDown = null;
+	}
+
+	function loadJSON(filename, callback) {
+		var xobj = new XMLHttpRequest();
+				xobj.overrideMimeType("application/json");
+		xobj.open('GET', filename, true);
+		xobj.onreadystatechange = function () {
+			if (xobj.readyState == 4 && xobj.status == "200") {
+				// Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+				callback(xobj.responseText);
+			}
+		};
+		xobj.send(null);
 	}
 
 	/*****************************************************************************
@@ -1833,11 +1888,34 @@ function MtrDatepicker(inputConfig) {
 
 	// "Wed Sep 23 2015 11:43:47 GMT+0300 (EEST)"
 	var toString = function() {
+
+		if (config.timezones) {
+			return toDateString() + ' ' + toTimeString();
+		}
+
 		return values.date.toString();
 	};
 
 	// 11:43:47 GMT+0300 (EEST)"
 	var toTimeString = function() {
+		if (config.timezones) {
+			var timezone = config.timezones.filter(function(timezone) {
+				if (timezone.offset === config.utcTimezone) {
+					return true;
+				}
+
+				return false;
+			});
+			var toReturn = '',
+					timeString = values.date.toTimeString().split(' ');
+
+			toReturn += timeString[0];
+			toReturn += ' GMT' + (timezone[0].offset > 0 ? '+' : '') + (Math.abs(timezone[0].offset) < 10 ? '0' : '') + timezone[0].offset + '00';
+			toReturn += ' (' + timezone[0].abbr + ')';
+
+			return toReturn;
+		}
+
 		return values.date.toTimeString();
 	};
 
@@ -1910,10 +1988,15 @@ function MtrDatepicker(inputConfig) {
 		}
 
 		function transformAmPm(hours, ampm) {
-			if (hours === 12) {
-				return ampm ? 0 : 12;
+			if (!config.disableAmPm) {
+				if (hours === 12) {
+					return ampm ? 0 : 12;
+				}
+				return ampm ? hours : hours + 12;
 			}
-			return ampm ? hours : hours + 12;
+			else {
+				return hours;
+			}
 		}
 
 		return input;
@@ -1945,7 +2028,7 @@ function MtrDatepicker(inputConfig) {
 		};
 
 		if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
-   		browser.isSafari = true;
+			browser.isSafari = true;
 		}
 
 		return browser;

@@ -63,12 +63,16 @@ $(document).ready(function() {
 	anchors.add('.anchored');
 
 	$('a, a.anchorjs-link ').on('click', function() {
-		console.log('Click');
 		var href = $.attr(this, 'href');
 	  $('html, body').stop().animate({
-	      scrollTop: $(href).offset().top - 80
+	    scrollTop: $(href).offset().top - 80
 	  }, 500, function() {
-			window.location.hash = href;
+			if(history.pushState) {
+				history.pushState(null, null, href);
+			}
+			else {
+				location.hash = href;
+			}
 	  });
 	  return false;
 	});

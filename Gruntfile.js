@@ -33,7 +33,7 @@ module.exports = function(grunt) {
         options: {
           beautify: true,
         },
-        my_target: {
+        lib_target: {
           files: {
             'dist/mtr-datepicker.min.js': ['scripts/mtr-datepicker.js']
           }
@@ -70,6 +70,19 @@ module.exports = function(grunt) {
 
       jshint: {
         all: ['scripts/*.js', 'test/spec/**/*.js']
+      },
+
+      copy: {
+        main: {
+          files: [
+            {
+              expand: true,
+              cwd: 'scripts',
+              src: ['timezones.json'],
+              dest: 'dist/'
+            },
+          ],
+        },
       },
 
       watch: {
@@ -145,10 +158,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-karma-coveralls');
     grunt.loadNpmTasks('grunt-coveralls');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.task.run('notify_hooks');
 
-    grunt.registerTask('default', ['less', 'cssmin', 'uglify', 'cachebreaker', 'jsdoc', 'connect', 'watch']);
+    grunt.registerTask('default', ['less', 'cssmin', 'uglify', 'copy', 'cachebreaker', 'jsdoc', 'connect', 'watch']);
     grunt.registerTask('coverage', ['coveralls:your_target']);
 
 };

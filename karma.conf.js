@@ -29,8 +29,7 @@ module.exports = function(config) {
       type: 'lcov',
       dir: 'tests/coverage',
       subdir: '.'
-    },  
-
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -90,14 +89,18 @@ module.exports = function(config) {
   // We want to run specific browsers if we are on the travis env
   if (process.env.TRAVIS) {
     cfg.browsers = ['Chrome_travis_ci', 'Firefox', 'PhantomJS'];
+
+    cfg.client = {
+      captureConsole: false
+    };
   }
 
   // We want to run more browsers on Windows envs
   if (process.env.WINDOWS) {
     cfg.browsers = ['Chrome', 'Firefox', 'Safari', 'IE'];
   }
-  
-  // We want to run more browsers on Windows envs
+
+  // We want to run specific browsers on Jenkins envs
   if (process.env.JENKINS) {
     cfg.browsers = ['Chrome', 'Firefox'];
   }

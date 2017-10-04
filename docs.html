@@ -263,6 +263,26 @@ var myDatepicker = new MtrDatepicker(config);
             </code></pre>
 
             <br />
+            <h3 id="api-init-disable-ampm">Disable AM/PM (use 24 hours time fromat)</h3>
+            <p>
+              If you want to use the full 24 hours time format you can disable the AM/PM behavior easily.
+              Just initialzie your datepicker with the <code>disableAmPm</code> parameter and
+              the AM/PM switch will be not present anymore.
+            </p>
+
+            <pre><code>
+&lt;div id="disable-ampm-mtr-datepicker"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  var config = {
+    target: 'disable-ampm-mtr-datepicker',
+    disableAmPm: true
+  };
+  var myDatepicker = new MtrDatepicker(config);
+&lt;/script&gt;
+            </code></pre>
+
+            <br />
             <h2 id="api-output">Output</h2>
             <p>
               Now, when you already know how to init the datepicker in the way you want we should
@@ -533,6 +553,7 @@ Waiting...
                 <li><a href="#api-init-starting-date"> &nbsp; Set starting date</a></li>
                 <li><a href="#api-init-only-future-dates"> &nbsp; Only future dates</a></li>
                 <li><a href="#api-init-smart-ampm"> &nbsp; Smart AM/PM switching</a></li>
+                <li><a href="#api-init-disable-ampm"> &nbsp; Disable AM/PM (24 hours time format)</a></li>
               <li><a href="#api-output">Output</a></li>
                 <li><a href="#api-output-format"> &nbsp; format()</a></li>
               <li><a href="#api-events">Events</a></li>
