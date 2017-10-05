@@ -37,6 +37,11 @@ module.exports = function(grunt) {
           files: {
             'dist/mtr-datepicker.min.js': ['scripts/mtr-datepicker.js']
           }
+        },
+        timezones_target: {
+          files: {
+            'dist/mtr-datepicker-timezones.min.js': ['scripts/mtr-datepicker-timezones.js']
+          }
         }
       },
 
@@ -70,19 +75,6 @@ module.exports = function(grunt) {
 
       jshint: {
         all: ['scripts/*.js', 'test/spec/**/*.js']
-      },
-
-      copy: {
-        main: {
-          files: [
-            {
-              expand: true,
-              cwd: 'scripts',
-              src: ['timezones.json'],
-              dest: 'dist/'
-            },
-          ],
-        },
       },
 
       watch: {
@@ -162,7 +154,7 @@ module.exports = function(grunt) {
 
     grunt.task.run('notify_hooks');
 
-    grunt.registerTask('default', ['less', 'cssmin', 'uglify', 'copy', 'cachebreaker', 'jsdoc', 'connect', 'watch']);
+    grunt.registerTask('default', ['less', 'cssmin', 'uglify', 'cachebreaker', 'jsdoc', 'connect', 'watch']);
     grunt.registerTask('coverage', ['coveralls:your_target']);
 
 };

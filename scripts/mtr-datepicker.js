@@ -122,6 +122,10 @@ function MtrDatepicker(inputConfig) {
 		'afterChange': clone(defaultChangeEventsCategories)
 	};
 
+	var plugins = {
+
+	};
+
 	// Keep the wheel scroll in a timeout
 	var wheelTimeout = null;
 
@@ -177,9 +181,19 @@ function MtrDatepicker(inputConfig) {
 		values.date = input.timestamp ? new Date(input.timestamp) : new Date();
 		values.date.setSeconds(0);
 
-		config.utcTimezone = input.utcTimezone !== undefined ? input.utcTimezone : (values.date.getTimezoneOffset() / 60 * -1);
+		if (input.utcTimezone !== undefined) {
+			// We are sure that the timezones plugin is loaded because we've made a check in the input validation
+			plugins.timezones = new MtrDatepickerTimezones();
+			config.utcTimezone = plugins.timezones.getTimezone(input.utcTimezone);
+		}
+		else {
+			config.utcTimezone = {
+				offset: input.utcTimezone !== undefined ? input.utcTimezone : (values.date.getTimezoneOffset() / 60 * -1)
+			};
+		}
+
 		var localTimezoneOffsetTimestamp = values.date.getTime() + (values.date.getTimezoneOffset() * 60 * 1000);
-		var timezoneOffsetTimestamp = localTimezoneOffsetTimestamp + (config.utcTimezone * 60 * 60 * 1000);
+		var timezoneOffsetTimestamp = localTimezoneOffsetTimestamp + (config.utcTimezone.offset * 60 * 60 * 1000);
 		values.date = new Date(timezoneOffsetTimestamp);
 		values.timestamp = values.date.getTime();
 
@@ -377,6 +391,11 @@ function MtrDatepicker(inputConfig) {
 					result = false;
 				}
 			}
+		}
+
+		if (input.utcTimezone !== undefined && typeof MtrDatepickerTimezones !== 'function') {
+			console.error('In order to use the timezones feature you should load the mtr-datepicker-timezones.min.js first.');
+			result = false;
 		}
 
 		// If there are any erros return a new target element with notice for the users
@@ -1898,20 +1917,13 @@ function MtrDatepicker(inputConfig) {
 
 	// 11:43:47 GMT+0300 (EEST)"
 	var toTimeString = function() {
-		if (config.timezones) {
-			var timezone = config.timezones.filter(function(timezone) {
-				if (timezone.offset === config.utcTimezone) {
-					return true;
-				}
-
-				return false;
-			});
+		if (plugins.timezones) {
 			var toReturn = '',
 					timeString = values.date.toTimeString().split(' ');
 
 			toReturn += timeString[0];
-			toReturn += ' GMT' + (timezone[0].offset > 0 ? '+' : '') + (Math.abs(timezone[0].offset) < 10 ? '0' : '') + timezone[0].offset + '00';
-			toReturn += ' (' + timezone[0].abbr + ')';
+			toReturn += ' GMT' + (config.utcTimezone.offset > 0 ? '+' : '') + (Math.abs(config.utcTimezone.offset) < 10 ? '0' : '') + config.utcTimezone.offset + '00';
+			toReturn += ' (' + config.utcTimezone.abbr + ')';
 
 			return toReturn;
 		}
