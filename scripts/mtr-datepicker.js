@@ -197,12 +197,6 @@ function MtrDatepicker(inputConfig) {
 		values.date = new Date(timezoneOffsetTimestamp);
 		values.timestamp = values.date.getTime();
 
-		if (input.utcTimezone !== undefined) {
-			loadJSON('./dist/timezones.json', function(response) {
-				config.timezones = JSON.parse(response);
-			});
-		}
-
 		// Override minutes
 		config.minutes.min = (input.minutes !== undefined && input.minutes.min !== undefined) ? parseInt(input.minutes.min) : config.minutes.min;
 		config.minutes.max = (input.minutes !== undefined && input.minutes.max !== undefined) ? parseInt(input.minutes.max) : config.minutes.max;
@@ -1852,19 +1846,6 @@ function MtrDatepicker(inputConfig) {
 		yDown = null;
 	}
 
-	function loadJSON(filename, callback) {
-		var xobj = new XMLHttpRequest();
-				xobj.overrideMimeType("application/json");
-		xobj.open('GET', filename, true);
-		xobj.onreadystatechange = function () {
-			if (xobj.readyState == 4 && xobj.status == "200") {
-				// Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-				callback(xobj.responseText);
-			}
-		};
-		xobj.send(null);
-	}
-
 	/*****************************************************************************
 	 * PUBLIC API
 	 *
@@ -1907,8 +1888,7 @@ function MtrDatepicker(inputConfig) {
 
 	// "Wed Sep 23 2015 11:43:47 GMT+0300 (EEST)"
 	var toString = function() {
-
-		if (config.timezones) {
+		if (plugins.timezones) {
 			return toDateString() + ' ' + toTimeString();
 		}
 
@@ -1922,7 +1902,7 @@ function MtrDatepicker(inputConfig) {
 					timeString = values.date.toTimeString().split(' ');
 
 			toReturn += timeString[0];
-			toReturn += ' GMT' + (config.utcTimezone.offset > 0 ? '+' : '') + (Math.abs(config.utcTimezone.offset) < 10 ? '0' : '') + config.utcTimezone.offset + '00';
+				toReturn += ' GMT' + (config.utcTimezone.offset > 0 ? '+' : '-') + (Math.abs(config.utcTimezone.offset) < 10 ? '0' : '') + Math.abs(config.utcTimezone.offset) + '00';
 			toReturn += ' (' + config.utcTimezone.abbr + ')';
 
 			return toReturn;
@@ -1948,6 +1928,7 @@ function MtrDatepicker(inputConfig) {
 	 * h, hh
 	 * m, mm
 	 * a, AA
+	 * Z, ZZ
 	 */
 	var format = function(input) {
 		var currentHours = getHours();
@@ -1957,6 +1938,7 @@ function MtrDatepicker(inputConfig) {
 		var currentDate = getDate();
 		var currentMonth = getMonth() + 1;
 		var currentYear = getYear();
+		var currentTimezone = config.utcTimezone.offset;
 
 		// Dates
 		input = specialReplace(input, 'DD', prependZero(currentDate));
@@ -1985,6 +1967,9 @@ function MtrDatepicker(inputConfig) {
 		input = specialReplace(input, 'MMM', config.monthsNames[currentMonth-1]);
 		input = specialReplace(input, 'MM', prependZero(currentMonth));
 		input = specialReplace(input, 'M', currentMonth);
+
+		input = specialReplace(input, 'ZZ', (currentTimezone > 0 ? '+' : '-') + prependZero(Math.abs(currentTimezone)) + ':00');
+		input = specialReplace(input, 'Z', (currentTimezone > 0 ? '+' : '-') + Math.abs(currentTimezone) + ':00');
 
 		input = input.split('#%#').join('');
 
