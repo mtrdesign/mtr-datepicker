@@ -1,5 +1,5 @@
 describe('MTR Datepicker: After init', function() {
-  
+
   var datepickerSelectorName = 'datepicker';
   var datepickerSelector = '#' + datepickerSelectorName;
   var datepicker;

@@ -398,6 +398,7 @@ var myDatepicker = new MtrDatepicker(config);
             </p>
 
             <pre><code>
+&lt;script&gt;
 var config = {
   target: 'mtr-datepicker',
 };
@@ -406,6 +407,7 @@ var demoDatepicker = new MtrDatepicker(config);
 demoDatepicker.onChange('time', function() {
   // put you code here
 });
+&lt;/script&gt;
             </code></pre>
 
             <br />
@@ -417,6 +419,7 @@ demoDatepicker.onChange('time', function() {
             </p>
 
             <pre><code>
+&lt;script&gt;
 var config = {
   target: 'mtr-datepicker',
 };
@@ -425,9 +428,97 @@ var demoDatepicker = new MtrDatepicker(config);
 demoDatepicker.beforeChange('date', function() {
   // put you code here
 });
+&lt;/script&gt;
             </code></pre>
 
           </div><!-- /.API -->
+
+          <div id="plugings" class="blog-post">
+            <h2 class="blog-post-title">Plugins</h2>
+            <p>
+              Sometimes you need more flexability and powerfull features in order to use the datepicker in your project.
+              Here comes our plugings - developed to extend the datepicker with new features which are not built by default.
+              For now we don't offer rich choice but the number of our plugins will increase in the future.
+            </p>
+
+            <br />
+            <h2 id="plugins-timezones">Timezones</h2>
+            <p>
+              Our timezones plugin extends the datepicker in order to use it
+              with different timezones. As you already may know - JavaScript doesn't
+              support timezones at all.. or it support some type of a timezones behavior
+              but it's not what you expect. The idea of our datepicker is to use
+              only pure JS so we cannot use any third party libraries and we have done the tricky
+              job with this plugin.
+            </p>
+
+            <h3 id="plugins-timezones-how-to-use">How to use</h3>
+            <p>
+              In order to use our timezones plugin you should load it before the
+              datepicker itself. Then you can use the datepicker constructor to
+              set the required timezone. To do that you have 3 different ways described
+              bellow. Just to be sure that you loaded the plugin the correct way -
+              here is a brief example:
+            </p>
+
+            <pre><code>
+&lt;script type="text/javascript" src="dist/mtr-datepicker-timezones.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="dist/mtr-datepicker.min.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  datepicker = new MtrDatepicker({
+    target: 'datepicker',
+    utcTimezone: 'Europe/London'
+  });
+&lt;/script&gt;
+            </code></pre>
+
+            <h3 id="plugins-timezones-utc-init">UTC Init</h3>
+            <p>
+              On of the ways to init the datepicker to work with a specific timezone
+              is to pass its UTC string representation to the constructor using the
+              <code>utcTimezone</code> parameter. Here is a brief example how to do that:
+            </p>
+
+            <pre><code>
+&lt;script&gt;
+  datepicker = new MtrDatepicker({
+    target: 'datepicker',
+    utcTimezone: 'DST'
+  });
+&lt;/script&gt;
+            </code></pre>
+
+            <h3 id="plugins-timezones-timezone-init">Timezone init</h3>
+            <p>
+              You can use a string representation of the timezone too, again combinate it
+              with the <code>utcTimezone</code> parameter:
+            </p>
+
+            <pre><code>
+&lt;script&gt;
+  datepicker = new MtrDatepicker({
+    target: 'datepicker',
+    utcTimezone: 'Europe/Sofia'
+  });
+&lt;/script&gt;
+            </code></pre>
+
+            <h3 id="plugins-timezones-utc-offset-init">UTC offset init</h3>
+            <p>
+              The <code>utcTimezone</code> can accept one more input type - a number
+              representation of the timezone offset according to UTC:
+            </p>
+
+            <pre><code>
+&lt;script&gt;
+  datepicker = new MtrDatepicker({
+    target: 'datepicker',
+    utcTimezone: -6
+  });
+&lt;/script&gt;
+            </code></pre>
+          </div>
 
           <div id="contribute" class="blog-post">
             <h2 class="blog-post-title">Contribute</h2>
@@ -559,6 +650,15 @@ Waiting...
               <li><a href="#api-events">Events</a></li>
                 <li><a href="#api-events-on-change"> &nbsp; On Change</a></li>
                 <li><a href="#api-events-before-change"> &nbsp; Before Change</a></li>
+            </ol>
+
+            <h4>Plugins</h4>
+            <ol class="nav nav-pills nav-stacked list-unstyled">
+              <li><a href="#plugins-timezones">Timezones</a></li>
+                <li><a href="#plugins-timezones-how-to-use"> &nbsp; How to use</a></li>
+                <li><a href="#plugins-timezones-utc-init"> &nbsp; UTC init</a></li>
+                <li><a href="#plugins-timezones-timezone-init"> &nbsp; Timezone init</a></li>
+                <li><a href="#plugins-timezones-utc-offset-init"> &nbsp; UTC offset init</a></li>
             </ol>
 
             <h4>Contribute</h4>
