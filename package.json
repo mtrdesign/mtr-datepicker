@@ -1,7 +1,7 @@
 {
   "name": "mtr-datepicker",
   "private": false,
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "The pure JavaScript ultimate datepicker",
   "license": "MIT",
   "homepage": "http://mtrdesign.github.io/mtr-datepicker/",
