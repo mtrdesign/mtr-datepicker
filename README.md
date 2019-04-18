@@ -19,7 +19,7 @@ A simple preview of the datepicker is available [here](http://mtrdesign.github.i
 
 ## Documentation
 
-###Installation
+### Installation
 
 #### Get the code
 There are two possible ways to include the mtr-datepicker library in your project. You can download the latest stable release form the official site and include it in your templates. 
