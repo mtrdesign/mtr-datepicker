@@ -20,7 +20,7 @@
     "test": "npm run lint && npm run jasmine"
   },
   "devDependencies": {
-    "eslint": "~2.11.1",
+    "eslint": "~6.6.0",
     "jasmine-core": "~2.4.1",
     "karma": "~0.13.22",
     "karma-cli": "~1.0.0",
