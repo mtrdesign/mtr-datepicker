@@ -95,7 +95,7 @@ module.exports = function(config) {
   // We want to run specific browsers if we are on the travis env
   if (process.env.TRAVIS) {
     // cfg.browsers = ['Chrome_travis_ci', 'Firefox', 'PhantomJS'];
-    cfg.browsers = ['ChromeHeadlessNoSandbox', 'Firefox', 'PhantomJS'];
+    cfg.browsers = ['Firefox'];
 
     cfg.client = {
       captureConsole: false
