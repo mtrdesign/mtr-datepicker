@@ -23,7 +23,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.max string should not init the datepicker', function() {
@@ -34,7 +34,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.step string should not init the datepicker', function() {
@@ -45,7 +45,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.min shoud be less than .max -> should not init the datepicker', function() {
@@ -57,7 +57,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.step > .max - .min -> should not init the datepicker', function() {
@@ -70,7 +70,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
   });
 
@@ -83,7 +83,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.max string should not init the datepicker', function() {
@@ -94,7 +94,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.step string should not init the datepicker', function() {
@@ -105,7 +105,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.min shoud be less than .max -> should not init the datepicker', function() {
@@ -117,7 +117,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.step > .max - .min -> should not init the datepicker', function() {
@@ -130,7 +130,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
   });
 
@@ -143,7 +143,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.max string should not init the datepicker', function() {
@@ -154,7 +154,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.step string should not init the datepicker', function() {
@@ -165,7 +165,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.min shoud be less than .max -> should not init the datepicker', function() {
@@ -177,7 +177,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.step > .max - .min -> should not init the datepicker', function() {
@@ -190,7 +190,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
   });
 
@@ -203,7 +203,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.max string should not init the datepicker', function() {
@@ -214,7 +214,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.step string should not init the datepicker', function() {
@@ -225,7 +225,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.min shoud be less than .max -> should not init the datepicker', function() {
@@ -237,7 +237,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.step > .max - .min -> should not init the datepicker', function() {
@@ -250,7 +250,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
   });
 
@@ -263,7 +263,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.max string should not init the datepicker', function() {
@@ -274,7 +274,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.step string should not init the datepicker', function() {
@@ -285,7 +285,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.min shoud be less than .max -> should not init the datepicker', function() {
@@ -297,7 +297,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
 
     it('.step > .max - .min -> should not init the datepicker', function() {
@@ -310,7 +310,7 @@ describe('MTR Datepicker: Should validate user input for', function() {
         }
       });
 
-      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occured during the initialization of the datepicker.</div>'));
+      expect(loadedFixtures).toContainHtml(jQuery('<div class=" mtr-error-message">An error has occurred during the initialization of the datepicker.</div>'));
     });
   });
 

@@ -50,16 +50,16 @@ function MtrDatepicker(inputConfig) {
 			step: 1,
 			maxlength: 4
 		},
-		animations: true,				// Responsible for the transition of the sliders - animated or static
-		smartHours: false,			// Make auto swicth between AM/PM when moving from 11AM to 12PM or backwards
-		future: false,					// Validate the date to be only in the future
-		disableAmPm: false,     // Disable the 12 hours time format and go to a full 24 hours experience
+		animations: true,			// Responsible for the transition of the sliders - animated or static
+		smartHours: false,			// Make auto switch between AM/PM when moving from 11AM to 12PM or backwards
+		future: false,				// Validate the date to be only in the future
+		disableAmPm: false,			// Disable the 12 hours time format and go to a full 24 hours experience
 		validateAfter: true,		// perform the future validation after the date change
-		utcTimezone: 0,					// change the local timezone to a specific one
+		utcTimezone: 0,				// change the local timezone to a specific one
 
 		transitionDelay: 100,
 		transitionValidationDelay: 500,
-		references: { // Used to store references to the main elements
+		references: { 				// Used to store references to the main elements
 			hours: null
 		},
 
@@ -172,7 +172,7 @@ function MtrDatepicker(inputConfig) {
 		config.smartHours = input.smartHours !== undefined ? input.smartHours : config.smartHours;
 		config.disableAmPm = input.disableAmPm !== undefined ? input.disableAmPm : config.disableAmPm;
 
-		// Change the defauls if the AM/PM is disabled
+		// Change the defaults if the AM/PM is disabled
 		if (config.disableAmPm) {
 			config.hours.min = 0;
 			config.hours.max = 23;
@@ -193,7 +193,8 @@ function MtrDatepicker(inputConfig) {
 		}
 
 		var localTimezoneOffsetTimestamp = values.date.getTime() + (values.date.getTimezoneOffset() * 60 * 1000);
-		var timezoneOffsetTimestamp = localTimezoneOffsetTimestamp + (config.utcTimezone.offset * 60 * 60 * 1000);
+		var timezoneOffsetTimestamp = localTimezoneOffsetTimestamp + (config.utcTimezone.offset * 60 * 60 * 1000);	
+
 		values.date = new Date(timezoneOffsetTimestamp);
 		values.timestamp = values.date.getTime();
 
@@ -392,7 +393,7 @@ function MtrDatepicker(inputConfig) {
 			result = false;
 		}
 
-		// If there are any erros return a new target element with notice for the users
+		// If there are any errors return a new target element with notice for the users
 		if (!result) {
 			targetElement = byId(input.target);
 
@@ -402,7 +403,7 @@ function MtrDatepicker(inputConfig) {
 
 			var errorElement = document.createElement('div');
 			addClass(errorElement, 'mtr-error-message');
-			errorElement.appendChild(document.createTextNode('An error has occured during the initialization of the datepicker.'));
+			errorElement.appendChild(document.createTextNode('An error has occurred during the initialization of the datepicker.'));
 
 			targetElement.appendChild(errorElement);
 		}
@@ -1854,7 +1855,7 @@ function MtrDatepicker(inputConfig) {
 
 	// Here is a set of the default Date function
 	// We are providing them because the user are familiar with them and
-	// maybe this way they will implemet this library easily in their system
+	// maybe this way they will implement this library easily in their system
 
 	// "Wed Sep 23 2015"
 	var toDateString = function() {
@@ -1863,7 +1864,13 @@ function MtrDatepicker(inputConfig) {
 
 	// "Wed, 23 Sep 2015 08:43:47 GMT"
 	var toGMTString = function() {
-		return values.date.toGMTString();
+		// Remove the offsets of the timezone
+		var localTimezoneOffsetTimestamp = values.date.getTime() - (values.date.getTimezoneOffset() * 60 * 1000);
+		var timezoneOffsetTimestamp = localTimezoneOffsetTimestamp - (config.utcTimezone.offset * 60 * 60 * 1000);	
+
+		var date = new Date(timezoneOffsetTimestamp);
+
+		return date.toGMTString();
 	};
 
 	// "2015-09-23T08:43:47.284Z"
