@@ -1,6 +1,10 @@
 
 # Changelog
 
+## 0.3.9 - 2020-06-25
+
+- Bugs fixes and improvements related with the timezones
+
 ## 0.3.8 - 2017-11-15
 
 - Added basic timezones support

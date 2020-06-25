@@ -24,16 +24,16 @@ A simple preview of the datepicker is available [here](http://mtrdesign.github.i
 #### Get the code
 There are two possible ways to include the mtr-datepicker library in your project. You can download the latest stable release form the official site and include it in your templates. 
 
-Or if you prefer to be up-to-date with our latest releases with a package manager you can use Bower, just type in your Terminal or CMD the following command:
+Or if you prefer to be up-to-date with our latest releases with a package manager you can use NPM, just type in your Terminal or CMD the following command:
 
-```bash
-bower install --save mtr-datepicker
+```
+npm install --save mtr-datepicker
 ```
 
 Or if you are an NPM fan you can use it to install the lib
 
 ```
-npm install --save mtr-datepicker
+yarn add mtr-datepicker
 ```
 
 #### Load the library
