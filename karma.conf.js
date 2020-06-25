@@ -39,10 +39,6 @@ module.exports = function(config) {
     plugins: [
       'karma-chrome-launcher',
       'karma-firefox-launcher',
-      'karma-opera-launcher',
-      'karma-safari-launcher',
-      'karma-ie-launcher',
-      'karma-phantomjs-launcher',
       'karma-jquery',
       'karma-jasmine-jquery',
       'karma-jasmine',
@@ -64,22 +60,14 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'Firefox', 'PhantomJS'],
+    browsers: ['Chrome', 'Firefox'],
 
     customLaunchers: {
-      Chrome_travis_ci: {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
-      },
       customLaunchers: {
         ChromeHeadlessNoSandbox: {
           base: 'ChromeHeadless',
           flags: ['--no-sandbox']
         }
-      },
-      Opera_no_welcome_page: {
-        base: 'Opera',
-        flags: ['--no-welcome-page']
       }
     },
 
@@ -88,28 +76,17 @@ module.exports = function(config) {
     singleRun: true,
 
     // Concurrency level
-    // how many browser should be started simultanous
+    // how many browser should be started simultaneous
     concurrency: 1
   };
 
   // We want to run specific browsers if we are on the travis env
   if (process.env.TRAVIS) {
-    // cfg.browsers = ['Chrome_travis_ci', 'Firefox', 'PhantomJS'];
-    cfg.browsers = ['Firefox'];
+    cfg.browsers = ['ChromeHeadless', 'Firefox'];
 
     cfg.client = {
       captureConsole: false
     };
-  }
-
-  // We want to run more browsers on Windows envs
-  if (process.env.WINDOWS) {
-    cfg.browsers = ['Chrome', 'Firefox', 'Safari', 'IE'];
-  }
-
-  // We want to run specific browsers on Jenkins envs
-  if (process.env.JENKINS) {
-    cfg.browsers = ['Chrome', 'Firefox'];
   }
 
   config.set(cfg);
