@@ -1,4 +1,3 @@
-dist: xenial
 language: node_js
 node_js:
   - "stable"
@@ -7,16 +6,17 @@ os:
 sudo: required
 addons:
   chrome: stable
-  firefox: latest
+  firefox: stable
 env:
   global:
     - MOZ_HEADLESS=1
-before_install:
-  - export CHROME_BIN=chromium-browser
-  - export FIREFOX_BIN=firefox
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost & ⋮
+cache:
+  npm: true
+  directories:
+    - node_modules
+install:
+  - npm
 script:
-  - npm install
   - node_modules/karma/bin/karma start karma.conf.js --single-run
 after_script: node_modules/grunt-cli/bin/grunt coverage
 notifications:
