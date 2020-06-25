@@ -90,7 +90,7 @@ describe('MTR Datepicker: When timezones plugin is enabled', function() {
     });
 
     it('of toUTCString should print Sun, 21 Nov 2010 19:30:00 GMT', function() {
-      var expectedDateString = 'Sun, 21 Nov 2010 20:30:00 GMT';
+      var expectedDateString = 'Sun, 21 Nov 2010 19:30:00 GMT';
       var datepickerDateString = datepicker.toUTCString();
 
       expect(datepickerDateString).toEqual(expectedDateString);

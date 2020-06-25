@@ -1920,7 +1920,13 @@ function MtrDatepicker(inputConfig) {
 
 	// "Wed, 23 Sep 2015 08:43:47 GMT"
 	var toUTCString = function() {
-		return values.date.toUTCString();
+		// Remove the offsets of the timezone
+		var localTimezoneOffsetTimestamp = values.date.getTime() - (values.date.getTimezoneOffset() * 60 * 1000);
+		var timezoneOffsetTimestamp = localTimezoneOffsetTimestamp - (config.utcTimezone.offset * 60 * 60 * 1000);	
+
+		var date = new Date(timezoneOffsetTimestamp);
+
+		return date.toUTCString();
 	};
 
 	/**
