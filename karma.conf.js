@@ -71,6 +71,12 @@ module.exports = function(config) {
         base: 'Chrome',
         flags: ['--no-sandbox']
       },
+      customLaunchers: {
+        ChromeHeadlessNoSandbox: {
+          base: 'ChromeHeadless',
+          flags: ['--no-sandbox']
+        }
+      },
       Opera_no_welcome_page: {
         base: 'Opera',
         flags: ['--no-welcome-page']
@@ -89,6 +95,7 @@ module.exports = function(config) {
   // We want to run specific browsers if we are on the travis env
   if (process.env.TRAVIS) {
     cfg.browsers = ['Chrome_travis_ci', 'Firefox', 'PhantomJS'];
+    cfg.browsers = ['ChromeHeadlessNoSandbox', 'Firefox', 'PhantomJS'];
 
     cfg.client = {
       captureConsole: false
