@@ -6,17 +6,15 @@ os:
 sudo: required
 addons:
   chrome: stable
-  firefox: stable
+  firefox: latest
 env:
   global:
     - MOZ_HEADLESS=1
 cache:
-  npm: true
   directories:
     - node_modules
-install:
-  - npm
 script:
+  - npm install
   - node_modules/karma/bin/karma start karma.conf.js --single-run
 after_script: node_modules/grunt-cli/bin/grunt coverage
 notifications:
