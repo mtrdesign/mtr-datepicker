@@ -1,64 +1,65 @@
-describe('MTR Datepicker: After init', function() {
-
+describe('MTR Datepicker: After init', function () {
   var datepickerSelectorName = 'datepicker';
   var datepickerSelector = '#' + datepickerSelectorName;
   var datepicker;
 
-  beforeEach(function() {
+  beforeEach(function () {
     setBaseFixtures();
 
+    // eslint-disable-next-line no-unused-vars
     datepicker = new MtrDatepicker({
       target: 'datepicker'
     });
   });
 
-  function setBaseFixtures() {
-    var datepickerFixture = setFixtures('<div id="datepicker"></div>');
+  function setBaseFixtures () {
+    setFixtures('<div id="datepicker"></div>');
   }
 
-  it('should have .mtr-datepicker class to the target element', function() {
+  it('should have .mtr-datepicker class to the target element', function () {
     var datepickerElement = $(datepickerSelector);
+
     expect(datepickerElement).toHaveClass('mtr-datepicker');
   });
 
-  it('should have input slider for the hours', function() {
+  it('should have input slider for the hours', function () {
     var datepickerElement = $(datepickerSelector);
-    var expectedElement = datepickerSelector+'-input-hours.mtr-input-slider';
+    var expectedElement = datepickerSelector + '-input-hours.mtr-input-slider';
 
     expect(datepickerElement).toContainElement(expectedElement);
   });
 
-  it('should have input slider for the minutes', function() {
+  it('should have input slider for the minutes', function () {
     var datepickerElement = $(datepickerSelector);
-    var expectedElement = datepickerSelector+'-input-minutes.mtr-input-slider';
+    var expectedElement = datepickerSelector + '-input-minutes.mtr-input-slider';
 
     expect(datepickerElement).toContainElement(expectedElement);
   });
 
-  it('should have input radio for the AM/PM', function() {
+  it('should have input radio for the AM/PM', function () {
     var datepickerElement = $(datepickerSelector);
-    var expectedElement = datepickerSelector+'-input-ampm.mtr-input-radio';
+    var expectedElement = datepickerSelector + '-input-ampm.mtr-input-radio';
 
     expect(datepickerElement).toContainElement(expectedElement);
   });
 
-  it('should have input slider for the dates', function() {
+  it('should have input slider for the dates', function () {
     var datepickerElement = $(datepickerSelector);
-    var expectedElement = datepickerSelector+'-input-dates.mtr-input-slider';
+    var expectedElement = datepickerSelector + '-input-dates.mtr-input-slider';
 
     expect(datepickerElement).toContainElement(expectedElement);
   });
 
-  it('should have input slider for the months', function() {
+  it('should have input slider for the months', function () {
     var datepickerElement = $(datepickerSelector);
-    var expectedElement = datepickerSelector+'-input-months.mtr-input-slider';
+    var expectedElement = datepickerSelector + '-input-months.mtr-input-slider';
 
     expect(datepickerElement).toContainElement(expectedElement);
   });
 
-  it('should have input slider for the years', function() {
+  it('should have input slider for the years', function () {
     var datepickerElement = $(datepickerSelector);
-    var expectedElement = '#'+datepickerSelectorName+'-input-years.mtr-input-slider';
+    var expectedElement = '#' + datepickerSelectorName + '-input-years.mtr-input-slider';
 
     expect(datepickerElement).toContainElement(expectedElement);
   });

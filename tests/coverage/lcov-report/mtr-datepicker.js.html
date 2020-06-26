@@ -5964,8 +5964,8 @@ function MtrDatepicker(inputConfig) {
 <span class="cstat-no" title="statement not covered" >			return;</span>
 		}
 &nbsp;
-		var start_time = Date.now();
-		var end_time = start_time + duration;
+		var startTime = Date.now();
+		var end_time = startTime + duration;
 &nbsp;
 		var start_top = element.scrollTop;
 		var distance = target - start_top;
@@ -5992,7 +5992,7 @@ function MtrDatepicker(inputConfig) {
 &nbsp;
 			// set the scrollTop for this frame
 			var now = Date.now();
-			var point = smooth_step(start_time, end_time, now);
+			var point = smooth_step(startTime, end_time, now);
 			var frameTop = Math.round(start_top + (distance * point));
 			element.scrollTop = frameTop;
 &nbsp;

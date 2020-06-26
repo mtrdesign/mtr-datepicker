@@ -30,7 +30,7 @@ Or if you prefer to be up-to-date with our latest releases with a package manage
 npm install --save mtr-datepicker
 ```
 
-Or if you are an NPM fan you can use it to install the lib
+Or if you are fan of YARN you can use it to install the lib
 
 ```
 yarn add mtr-datepicker
