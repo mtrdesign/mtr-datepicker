@@ -1265,6 +1265,8 @@ function MtrDatepicker (inputConfig) {
       return;
     }
 
+    setAmPm = !!setAmPm;
+
     var oldValue = getIsAm();
     if (!validateChange('ampm', setAmPm, oldValue)) {
       showInputRadioError(config.references.ampm, setAmPm);

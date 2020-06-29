@@ -19,7 +19,11 @@ module.exports = {
     MtrDatepickerTimezones: true,
     jQuery: true,
     $: true,
-    setFixtures: true
+    setFixtures: true,
+    spyOnEvent: true,
+    createClickEvent: true,
+    createCustomEvent: true,
+    createWheelEvent: true
   },
   rules: {
     semi: 'off'

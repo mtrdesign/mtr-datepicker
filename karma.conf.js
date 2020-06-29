@@ -1,4 +1,4 @@
-module.exports = function(config) {
+module.exports = function (config) {
   var cfg = {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -10,7 +10,6 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'scripts/*.js',
-      //'tests/libs/jquery-1.11.3.min.js',
       'tests/libs/mixins.js',
       'tests/spec/**/*Spec.js'
     ],
@@ -22,7 +21,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      "scripts/*.js": ["coverage"]
+      'scripts/*.js': ['coverage']
     },
 
     coverageReporter: {
@@ -61,7 +60,7 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['ChromeHeadless', 'FirefoxHeadless'],
-    
+
     // Or if you want to see the browser interactions
     // browsers: ['Chrome', 'Firefox'],
 

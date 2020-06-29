@@ -11,7 +11,7 @@ The pure JavaScript ultimate datepicker
 
 MTR Datepicker is a library written in pure JavaScript which allows you to create great looking and lightweight datepickers for you web apps. It is supported by all of the modern internet browsers and comes with a few customizable themes.
 
-Use these docs to learn how to use it or if you need more details go to the official [Documentation](http://mtrdesign.github.io/mtr-datepicker/docs.html). If you are interested in that "How it is made?" you can check the [jsdocs](http://mtrdesign.github.io/mtr-datepicker/docs/MtrDatepicker.html) or directly dive into the [code](https://github.com/mtrdesign/mtr-datepicker/blob/master/scripts/mtr-datepicker.js). We appreciate your feedback so you can contact us aways in the [issues](https://github.com/mtrdesign/mtr-datepicker/issues) section. And don't forget to check the [Contributions guide](http://mtrdesign.github.io/mtr-datepicker/docs.html#scrollspy-contribute), maybe you can help us to make the datepicker better.
+Use these docs to learn how to use it or if you need more details go to the official [Documentation](http://mtrdesign.github.io/mtr-datepicker/docs.html). If you are interested in that "How it is made?" you can check the [jsdocs](http://mtrdesign.github.io/mtr-datepicker/docs/MtrDatepicker.html) or directly dive into the [code](https://github.com/mtrdesign/mtr-datepicker/blob/master/scripts/mtr-datepicker.js). We appreciate your feedback so you can contact us always in the [issues](https://github.com/mtrdesign/mtr-datepicker/issues) section. And don't forget to check the [Contributions guide](http://mtrdesign.github.io/mtr-datepicker/docs.html#scrollspy-contribute), maybe you can help us to make the datepicker better.
 
 ## Demo
 

@@ -1,10 +1,9 @@
-describe('MTR Datepicker: Dates ', function() {
-  
+describe('MTR Datepicker: Dates ', function () {
   var datepickerSelectorName = 'datepicker';
   var datepickerSelector = '#' + datepickerSelectorName;
   var datepicker;
 
-  beforeEach(function() {
+  beforeEach(function () {
     setBaseFixtures();
 
     datepicker = new MtrDatepicker({
@@ -12,12 +11,12 @@ describe('MTR Datepicker: Dates ', function() {
     });
   });
 
-  function setBaseFixtures() {
-    var datepickerFixture = setFixtures('<div id="datepicker"></div>');
+  function setBaseFixtures () {
+    setFixtures('<div id="datepicker"></div>');
   }
 
-  describe('getter', function() {
-    it('format("D") should return the current date', function() {
+  describe('getter', function () {
+    it('format("D") should return the current date', function () {
       var currentDate = new Date();
       var datepickerDay = datepicker.format('D');
 
@@ -29,12 +28,10 @@ describe('MTR Datepicker: Dates ', function() {
 
       expect(datepickerDay).toEqual(currentDay.toString());
     });
-
   });
 
-  describe('setter', function() {
-
-    it('setDate() should work when you try to assign value 13', function() {
+  describe('setter', function () {
+    it('setDate() should work when you try to assign value 13', function () {
       var newDateValue = 13;
       datepicker.setDate(newDateValue);
 
@@ -43,9 +40,9 @@ describe('MTR Datepicker: Dates ', function() {
       expect(datepickerDate).toEqual(newDateValue.toString());
     });
 
-    it('format("DD") should return the current date with 2 digits', function() {
+    it('format("DD") should return the current date with 2 digits', function () {
       var currentDate = new Date();
-  
+
       if (currentDate.getHours() === 23 && currentDate.getMinutes() >= 50) {
         currentDate.setDate(currentDate.getDate() + 1);
       }
@@ -56,16 +53,16 @@ describe('MTR Datepicker: Dates ', function() {
 
       expect(datepickerDateValue).toEqual(expectedDateValue.toString());
     });
-
   });
 
-  describe('click event', function() {
-
+  describe('click event', function () {
     var spyEvent;
     var datepickerElement;
     var arrowUpElement;
+    var arrowDownElement;
+    var inputElement;
 
-    beforeEach(function() {
+    beforeEach(function () {
       datepickerElement = $(datepickerSelector);
 
       arrowUpElement = datepickerElement.find(datepickerSelector + '-input-dates .mtr-arrow.up');
@@ -73,19 +70,19 @@ describe('MTR Datepicker: Dates ', function() {
       inputElement = datepickerElement.find(datepickerSelector + '-input-dates input.mtr-input.dates');
     });
 
-    it('on the upper arrow to be triggered', function() {
+    it('on the upper arrow to be triggered', function () {
       spyEvent = spyOnEvent(arrowUpElement, 'click');
       var clickEvent = createClickEvent();
       arrowUpElement[0].dispatchEvent(clickEvent);
-           
+
       expect('click').toHaveBeenTriggeredOn(arrowUpElement);
       expect(spyEvent).toHaveBeenTriggered();
     });
 
     /**
-     * To be valid the result should be checked using getter, DOM attribute and DOM vissible element
+     * To be valid the result should be checked using getter, DOM attribute and DOM visible element
      */
-    it('on the upper arrow should change the date from 3 to 4', function() {
+    it('on the upper arrow should change the date from 3 to 4', function () {
       var initDateValue = 3;
       var expectedDateValue = '4';
 
@@ -96,16 +93,15 @@ describe('MTR Datepicker: Dates ', function() {
       arrowUpElement[0].dispatchEvent(clickEvent);
 
       var datepickerGetterValue = datepicker.format('D');
-      
+
       expect(datepickerGetterValue).toEqual(expectedDateValue);
       expect(inputElement).toHaveAttr('data-old-value', expectedDateValue);
-
     });
 
     /**
-     * To be valid the result should be checked using getter, DOM attribute and DOM vissible element
+     * To be valid the result should be checked using getter, DOM attribute and DOM visible element
      */
-    it('2 times on the upper arrow should change the date from 8 to 10', function() {
+    it('2 times on the upper arrow should change the date from 8 to 10', function () {
       var initDateValue = 8;
       var expectedDateValue = 10;
 
@@ -117,11 +113,58 @@ describe('MTR Datepicker: Dates ', function() {
       arrowUpElement[0].dispatchEvent(clickEvent);
 
       var datepickerGetterValue = datepicker.format('D');
-      
+
       expect(datepickerGetterValue).toEqual(expectedDateValue.toString());
       expect(inputElement).toHaveAttr('data-old-value', expectedDateValue.toString());
     });
 
-  });
+    it('on the down arrow to be triggered', function () {
+      spyEvent = spyOnEvent(arrowDownElement, 'click');
+      var clickEvent = createClickEvent();
+      arrowDownElement[0].dispatchEvent(clickEvent);
 
+      expect('click').toHaveBeenTriggeredOn(arrowDownElement);
+      expect(spyEvent).toHaveBeenTriggered();
+    });
+
+    /**
+     * To be valid the result should be checked using getter, DOM attribute and DOM visible element
+     */
+    it('on the down arrow should change the date from 3 to 2', function () {
+      var initDateValue = 3;
+      var expectedDateValue = '2';
+
+      datepicker.setDate(initDateValue);
+
+      spyEvent = spyOnEvent(arrowDownElement, 'click');
+      var clickEvent = createClickEvent();
+      arrowDownElement[0].dispatchEvent(clickEvent);
+
+      var datepickerGetterValue = datepicker.format('D');
+
+      expect(datepickerGetterValue).toEqual(expectedDateValue);
+      expect(inputElement).toHaveAttr('data-old-value', expectedDateValue);
+    });
+
+    /**
+     * To be valid the result should be checked using getter, DOM attribute and DOM visible element
+     */
+    it('3 times on the upper arrow should change the date from 8 to 5', function () {
+      var initDateValue = 8;
+      var expectedDateValue = 5;
+
+      datepicker.setDate(initDateValue);
+
+      spyEvent = spyOnEvent(arrowDownElement, 'click');
+      var clickEvent = createClickEvent();
+      arrowDownElement[0].dispatchEvent(clickEvent);
+      arrowDownElement[0].dispatchEvent(clickEvent);
+      arrowDownElement[0].dispatchEvent(clickEvent);
+
+      var datepickerGetterValue = datepicker.format('D');
+
+      expect(datepickerGetterValue).toEqual(expectedDateValue.toString());
+      expect(inputElement).toHaveAttr('data-old-value', expectedDateValue.toString());
+    });
+  });
 });
