@@ -11,7 +11,7 @@ The pure JavaScript ultimate datepicker
 
 MTR Datepicker is a library written in pure JavaScript which allows you to create great looking and lightweight datepickers for you web apps. It is supported by all of the modern internet browsers and comes with a few customizable themes.
 
-Use these docs to learn how to use it or if you need more details go to the official [Documentation](http://mtrdesign.github.io/mtr-datepicker/docs.html). If you are interested in that "How it is made?" you can check the [jsdocs](http://mtrdesign.github.io/mtr-datepicker/docs/MtrDatepicker.html) or directly dive into the [code](https://github.com/mtrdesign/mtr-datepicker/blob/master/scripts/mtr-datepicker.js). We appreciate your feedback so you can contact us aways in the [issues](https://github.com/mtrdesign/mtr-datepicker/issues) section. And don't forget to check the [Contributions guide](http://mtrdesign.github.io/mtr-datepicker/docs.html#scrollspy-contribute), maybe you can help us to make the datepicker better.
+Use these docs to learn how to use it or if you need more details go to the official [Documentation](http://mtrdesign.github.io/mtr-datepicker/docs.html). If you are interested in that "How it is made?" you can check the [jsdocs](http://mtrdesign.github.io/mtr-datepicker/docs/MtrDatepicker.html) or directly dive into the [code](https://github.com/mtrdesign/mtr-datepicker/blob/master/scripts/mtr-datepicker.js). We appreciate your feedback so you can contact us always in the [issues](https://github.com/mtrdesign/mtr-datepicker/issues) section. And don't forget to check the [Contributions guide](http://mtrdesign.github.io/mtr-datepicker/docs.html#scrollspy-contribute), maybe you can help us to make the datepicker better.
 
 ## Demo
 
@@ -19,21 +19,21 @@ A simple preview of the datepicker is available [here](http://mtrdesign.github.i
 
 ## Documentation
 
-###Installation
+### Installation
 
 #### Get the code
 There are two possible ways to include the mtr-datepicker library in your project. You can download the latest stable release form the official site and include it in your templates. 
 
-Or if you prefer to be up-to-date with our latest releases with a package manager you can use Bower, just type in your Terminal or CMD the following command:
-
-```bash
-bower install --save mtr-datepicker
-```
-
-Or if you are an NPM fan you can use it to install the lib
+Or if you prefer to be up-to-date with our latest releases with a package manager you can use NPM, just type in your Terminal or CMD the following command:
 
 ```
 npm install --save mtr-datepicker
+```
+
+Or if you are fan of YARN you can use it to install the lib
+
+```
+yarn add mtr-datepicker
 ```
 
 #### Load the library

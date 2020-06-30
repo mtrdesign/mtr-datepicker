@@ -86,7 +86,7 @@
               Use these docs to learn how to use it. If you are interested in that "How it is made?"
               you can check the <a href="docs/MtrDatepicker.html" target="_blank">jsdocs</a> or directly dive into the
               <a href="https://github.com/mtrdesign/mtr-datepicker/blob/master/scripts/mtr-datepicker.js" target="_blank">code</a>. We appreciate your feedback so you can contact us
-              aways in the <a href="https://github.com/mtrdesign/mtr-datepicker/issues" target="_blank">issues</a> section. And don't forget to check the
+              always in the <a href="https://github.com/mtrdesign/mtr-datepicker/issues" target="_blank">issues</a> section. And don't forget to check the
               <a href="#contribute">Contributions guide</a>, maybe you can help us to make the datepicker better.
             </p>
           </div><!-- /.blog-post about-->
@@ -102,12 +102,12 @@
               stable release form the official site and include it in your templates. <br />
               <br />
               Or if you prefer to be up-to-date with our latest releases with a package manager you
-              can use <a href="http://bower.io/" target="_blank">Bower</a> or <a href="http://npmjs.com/" target="_blank">NPM</a>, just type in your
+              can use <a href="http://npmjs.com/" target="_blank">NPM</a> or <a href="https://classic.yarnpkg.com/en/" target="_blank">Yarn</a>, just type in your
               Terminal or CMD the following command:<br />
 
-              <pre><code>bower install --save mtr-datepicker</code></pre>
-              or
               <pre><code>npm install --save mtr-datepicker</code></pre>
+              or
+              <pre><code>yarn add mtr-datepicker</code></pre>
             </p>
 
             <br />
@@ -243,7 +243,7 @@ var myDatepicker = new MtrDatepicker(config);
             </code></pre>
 
             <br />
-            <h3 id="api-init-smart-ampm">Smart AM/PM swithing</h3>
+            <h3 id="api-init-smart-ampm">Smart AM/PM switching</h3>
             <p>
               Maybe you have noticed that when the hours are changing the AM/PM switch is not affected.
               Make your datepicker smarter and initialize it with the <code>smartHours</code> parameter and
@@ -263,10 +263,10 @@ var myDatepicker = new MtrDatepicker(config);
             </code></pre>
 
             <br />
-            <h3 id="api-init-disable-ampm">Disable AM/PM (use 24 hours time fromat)</h3>
+            <h3 id="api-init-disable-ampm">Disable AM/PM (use 24 hours time format)</h3>
             <p>
               If you want to use the full 24 hours time format you can disable the AM/PM behavior easily.
-              Just initialzie your datepicker with the <code>disableAmPm</code> parameter and
+              Just initialize your datepicker with the <code>disableAmPm</code> parameter and
               the AM/PM switch will be not present anymore.
             </p>
 
@@ -277,6 +277,46 @@ var myDatepicker = new MtrDatepicker(config);
   var config = {
     target: 'disable-ampm-mtr-datepicker',
     disableAmPm: true
+  };
+  var myDatepicker = new MtrDatepicker(config);
+&lt;/script&gt;
+            </code></pre>
+
+            <br />
+            <h3 id="api-init-disable-datepicker">Disable date picker</h3>
+            <p>
+              If you want to use only the time fields you can disable the Date Picker behavior easily.
+              Just initialize your datepicker with the <code>datepicker</code> parameter and
+              control the visibility of the date related fields.
+            </p>
+
+            <pre><code>
+&lt;div id="disable-datepicker-mtr-datepicker"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  var config = {
+    target: 'disable-datepicker-mtr-datepicker',
+    datepicker: false
+  };
+  var myDatepicker = new MtrDatepicker(config);
+&lt;/script&gt;
+            </code></pre>
+
+            <br />
+            <h3 id="api-init-disable-timepicker">Disable time picker</h3>
+            <p>
+              If you want to use only the date fields you can disable the Time Picker behavior easily.
+              Just initialize your datepicker with the <code>timepicker</code> parameter and
+              control the visibility of the time related fields.
+            </p>
+
+            <pre><code>
+&lt;div id="disable-timepicker-mtr-datepicker"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  var config = {
+    target: 'disable-timepicker-mtr-datepicker',
+    timepicker: false
   };
   var myDatepicker = new MtrDatepicker(config);
 &lt;/script&gt;
@@ -433,11 +473,11 @@ demoDatepicker.beforeChange('date', function() {
 
           </div><!-- /.API -->
 
-          <div id="plugings" class="blog-post">
+          <div id="plugins" class="blog-post">
             <h2 class="blog-post-title">Plugins</h2>
             <p>
-              Sometimes you need more flexability and powerfull features in order to use the datepicker in your project.
-              Here comes our plugings - developed to extend the datepicker with new features which are not built by default.
+              Sometimes you need more flexibility and powerful features in order to use the datepicker in your project.
+              Here comes our plugins - developed to extend the datepicker with new features which are not built by default.
               For now we don't offer rich choice but the number of our plugins will increase in the future.
             </p>
 
@@ -534,7 +574,7 @@ demoDatepicker.beforeChange('date', function() {
             </p>
 
             <br />
-            <h2 id="our-guidlines">Our guidelines</h2>
+            <h2 id="our-guidelines">Our guidelines</h2>
             <p>
               Please, if you want to contribute to our project be sure that your code comply with these guidelines:
               <ul>
@@ -604,7 +644,7 @@ Waiting...
               If you want you can add more tests and increase the code coverage of the project, it will be great.
               We are using the <a href="http://jasmine.github.io/" target="_blank">Jasmine</a> framework and running the tests on all
               supported browsers with the <a href="http://karma-runner.github.io/0.13/index.html" target="_blank">Karma</a> runner.
-              Everything is setuped and ready for use but if you are not familiar with writing tests with these tools we suggest you
+              Everything is setup and ready for use but if you are not familiar with writing tests with these tools we suggest you
               to read something about them before you start. <br />
               <br />
               When you write some tests you can check their execution on the following url <a href="http://localhost:8080/tests/SpecRunner.html" target="_blank">http://localhost:8080/tests/SpecRunner.html</a>.
@@ -645,6 +685,8 @@ Waiting...
                 <li><a href="#api-init-only-future-dates"> &nbsp; Only future dates</a></li>
                 <li><a href="#api-init-smart-ampm"> &nbsp; Smart AM/PM switching</a></li>
                 <li><a href="#api-init-disable-ampm"> &nbsp; Disable AM/PM (24 hours time format)</a></li>
+                <li><a href="#api-init-disable-datepicker"> &nbsp; Disable date picker</a></li>
+                <li><a href="#api-init-disable-timepicker"> &nbsp; Disable time picker</a></li>
               <li><a href="#api-output">Output</a></li>
                 <li><a href="#api-output-format"> &nbsp; format()</a></li>
               <li><a href="#api-events">Events</a></li>
@@ -663,7 +705,7 @@ Waiting...
 
             <h4>Contribute</h4>
             <ol class="nav nav-pills nav-stacked list-unstyled">
-              <li><a href="#our-guidlines">Our guidelines</a></li>
+              <li><a href="#our-guidelines">Our guidelines</a></li>
               <li><a href="#how-to-build">How to build</a></li>
                 <li><a href="#how-to-build-get-the-source"> &nbsp; Get the source</a></li>
                 <li><a href="#how-to-build-run-the-tests"> &nbsp; Run the tests</a></li>
@@ -681,7 +723,7 @@ Waiting...
         <a href="http://mtr-design.com/" class="pull-right" target="_blank"><img src="images/mtr_logo.png" /></a>
         <p class="pull-left">MTR Datepicker is open source and available under the GPL license.</p>
         <div class="clearfix"></div>
-        <p class="pull-left">Powered by <a href="http://www.mtr-design.com" target="_blank">MTR Design</a> &copy; 2015 - 2017</p>
+        <p class="pull-left">Powered by <a href="http://www.mtr-design.com" target="_blank">MTR Design</a> &copy; 2015 - 2020</p>
       </footer>
 
     </div> <!-- /container -->
