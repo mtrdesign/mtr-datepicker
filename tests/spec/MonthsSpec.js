@@ -157,12 +157,8 @@ describe('MTR Datepicker: Months ', function () {
       var initMonthValue = 0;
       var expectedMonthValue = 10;
       var expectedMonthName = 'Nov';
-      console.log(datepicker.toString());
 
       datepicker.setMonth(initMonthValue);
-
-      console.log(initMonthValue);
-      console.log(datepicker.toString());
 
       spyEvent = spyOnEvent(arrowDownElement, 'click');
       var clickEvent = createClickEvent();
