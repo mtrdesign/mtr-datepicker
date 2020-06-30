@@ -1,5 +1,4 @@
-describe('MTR Datepicker: When the "smart am pm" option is enabled ', function() {
-
+describe('MTR Datepicker: When the "smart am pm" option is enabled ', function () {
   var datepickerSelectorName = 'datepicker';
   var datepickerSelector = '#' + datepickerSelectorName;
   var datepicker;
@@ -9,7 +8,7 @@ describe('MTR Datepicker: When the "smart am pm" option is enabled ', function()
     hour: null
   };
 
-  beforeEach(function() {
+  beforeEach(function () {
     setBaseFixtures();
 
     current.datetime = new Date();
@@ -22,13 +21,12 @@ describe('MTR Datepicker: When the "smart am pm" option is enabled ', function()
     });
   });
 
-  function setBaseFixtures() {
-    var datepickerFixture = setFixtures('<div id="datepicker"></div>');
+  function setBaseFixtures () {
+    setFixtures('<div id="datepicker"></div>');
   }
 
-  describe('setter', function() {
-
-    it('setHours() should swicth the AM to PM when you go from 11 AM to 12 PM', function() {
+  describe('setter', function () {
+    it('setHours() should switch the AM to PM when you go from 11 AM to 12 PM', function () {
       var initTimestamp = new Date('November 21, 2010 11:11:11');
       datepicker.setTimestamp(initTimestamp.getTime());
 
@@ -43,7 +41,7 @@ describe('MTR Datepicker: When the "smart am pm" option is enabled ', function()
       expect(datepickerAmPm).toEqual(expectedAmPmValue);
     });
 
-    it('setHours() should swicth the PM to AM when you go from 12 PM to 11 AM', function() {
+    it('setHours() should switch the PM to AM when you go from 12 PM to 11 AM', function () {
       var initTimestamp = new Date('November 21, 2010 12:12:12');
       datepicker.setTimestamp(initTimestamp.getTime());
 
@@ -57,25 +55,23 @@ describe('MTR Datepicker: When the "smart am pm" option is enabled ', function()
       expect(datepickerHour).toEqual(expectedHourValue);
       expect(datepickerAmPm).toEqual(expectedAmPmValue);
     });
-
   });
 
-  describe('click event', function() {
-
+  describe('click event', function () {
     var spyEvent;
     var datepickerElement;
     var arrowUpElement;
+    var arrowDownElement;
 
-    beforeEach(function() {
+    beforeEach(function () {
       datepickerElement = $(datepickerSelector);
 
       arrowUpElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-arrow.up');
       arrowDownElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-arrow.down');
-      inputElement = datepickerElement.find(datepickerSelector + '-input-hours input.mtr-input.hours');
     });
 
-    it('on the up arrow should change 11AM to 12PM', function() {
-       var initTimestamp = new Date('November 21, 2010 11:11:11');
+    it('on the up arrow should change 11AM to 12PM', function () {
+      var initTimestamp = new Date('November 21, 2010 11:11:11');
       datepicker.setTimestamp(initTimestamp.getTime());
 
       var expectedValue = '12 PM';
@@ -91,8 +87,8 @@ describe('MTR Datepicker: When the "smart am pm" option is enabled ', function()
       expect(datepickerValue).toBe(expectedValue);
     });
 
-    it('on the down arrow should change 12PM to 11AM', function() {
-       var initTimestamp = new Date('November 21, 2010 12:12:12');
+    it('on the down arrow should change 12PM to 11AM', function () {
+      var initTimestamp = new Date('November 21, 2010 12:12:12');
       datepicker.setTimestamp(initTimestamp.getTime());
 
       var expectedValue = '11 AM';
@@ -107,7 +103,5 @@ describe('MTR Datepicker: When the "smart am pm" option is enabled ', function()
       expect(spyEvent).toHaveBeenTriggered();
       expect(datepickerValue).toBe(expectedValue);
     });
-
   });
-
 });

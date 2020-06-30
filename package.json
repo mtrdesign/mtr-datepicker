@@ -1,11 +1,18 @@
 {
   "name": "mtr-datepicker",
   "private": false,
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "The pure JavaScript ultimate datepicker",
   "license": "MIT",
   "homepage": "http://mtrdesign.github.io/mtr-datepicker/",
-  "keywords": "datepicker, mtr datepicker, mtr design, pure javascript, javascript datepicker, js datepicker",
+  "keywords": [
+    "datepicker",
+    "mtr datepicker",
+    "mtr design",
+    "pure javascript",
+    "javascript datepicker",
+    "js datepicker"
+  ],
   "author": {
     "name": "MTR Design",
     "url": " http://www.mtr-design.com"
@@ -20,10 +27,18 @@
   "dependencies": {},
   "scripts": {
     "start": "grunt",
-    "test": "node node_modules/karma/bin/karma start karma.conf.js"
+    "test": "node node_modules/karma/bin/karma start karma.conf.js",
+    "lint": "npx eslint ."
   },
   "devDependencies": {
     "coveralls": "^3.1.0",
+    "eslint": "^7.3.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jasmine": "^4.1.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "grunt": "^1.1.0",
     "grunt-cache-breaker": "^2.0.1",
     "grunt-cli": "^1.3.2",
@@ -38,6 +53,7 @@
     "grunt-jsdoc": "^2.4.1",
     "grunt-karma-coveralls": "^2.5.4",
     "grunt-notify": "^0.4.5",
+    "husky": "^4.2.5",
     "istanbul": "^0.4.5",
     "jasmine": "^3.5.0",
     "jasmine-core": "^3.5.0",
@@ -50,5 +66,11 @@
     "karma-jasmine-html-reporter": "^1.5.4",
     "karma-jasmine-jquery": "^0.1.1",
     "karma-jquery": "^0.2.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run test"
+    }
   }
 }

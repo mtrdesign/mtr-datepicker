@@ -1,5 +1,4 @@
-describe('MTR Datepicker: When the "disable am pm" option is enabled ', function() {
-
+describe('MTR Datepicker: When the "disable am pm" option is enabled ', function () {
   var datepickerSelectorName = 'datepicker';
   var datepickerSelector = '#' + datepickerSelectorName;
   var datepicker;
@@ -9,7 +8,7 @@ describe('MTR Datepicker: When the "disable am pm" option is enabled ', function
     hour: null
   };
 
-  beforeEach(function() {
+  beforeEach(function () {
     setBaseFixtures();
 
     current.datetime = new Date();
@@ -22,13 +21,12 @@ describe('MTR Datepicker: When the "disable am pm" option is enabled ', function
     });
   });
 
-  function setBaseFixtures() {
-    var datepickerFixture = setFixtures('<div id="datepicker"></div>');
+  function setBaseFixtures () {
+    setFixtures('<div id="datepicker"></div>');
   }
 
-  describe('setter', function() {
-
-    it('setHours() should be able to set the hours to 13', function() {
+  describe('setter', function () {
+    it('setHours() should be able to set the hours to 13', function () {
       var initTimestamp = new Date('November 21, 2010 10:00:00');
       datepicker.setTimestamp(initTimestamp.getTime());
 
@@ -43,7 +41,7 @@ describe('MTR Datepicker: When the "disable am pm" option is enabled ', function
       expect(datepickerAmPm).toEqual(expectedAmPmValue);
     });
 
-    it('setHours() should be able to set the hours to 0', function() {
+    it('setHours() should be able to set the hours to 0', function () {
       var initTimestamp = new Date('November 21, 2010 12:12:12');
       datepicker.setTimestamp(initTimestamp.getTime());
 
@@ -57,25 +55,23 @@ describe('MTR Datepicker: When the "disable am pm" option is enabled ', function
       expect(datepickerHour).toEqual(expectedHourValue);
       expect(datepickerAmPm).toEqual(expectedAmPmValue);
     });
-
   });
 
-  describe('click event', function() {
-
+  describe('click event', function () {
     var spyEvent;
     var datepickerElement;
     var arrowUpElement;
+    var arrowDownElement;
 
-    beforeEach(function() {
+    beforeEach(function () {
       datepickerElement = $(datepickerSelector);
 
       arrowUpElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-arrow.up');
       arrowDownElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-arrow.down');
-      inputElement = datepickerElement.find(datepickerSelector + '-input-hours input.mtr-input.hours');
     });
 
-    it('on the up arrow should change 6 to 7', function() {
-       var initTimestamp = new Date('November 21, 2010 06:20:00');
+    it('on the up arrow should change 6 to 7', function () {
+      var initTimestamp = new Date('November 21, 2010 06:20:00');
       datepicker.setTimestamp(initTimestamp.getTime());
 
       var expectedValue = '07';
@@ -91,8 +87,8 @@ describe('MTR Datepicker: When the "disable am pm" option is enabled ', function
       expect(datepickerValue).toBe(expectedValue);
     });
 
-    it('on the up arrow should change 12 to 13', function() {
-       var initTimestamp = new Date('November 21, 2010 12:20:00');
+    it('on the up arrow should change 12 to 13', function () {
+      var initTimestamp = new Date('November 21, 2010 12:20:00');
       datepicker.setTimestamp(initTimestamp.getTime());
 
       var expectedValue = '13';
@@ -108,8 +104,8 @@ describe('MTR Datepicker: When the "disable am pm" option is enabled ', function
       expect(datepickerValue).toBe(expectedValue);
     });
 
-    it('on the up arrow should change 17 to 18', function() {
-       var initTimestamp = new Date('November 21, 2010 17:20:00');
+    it('on the up arrow should change 17 to 18', function () {
+      var initTimestamp = new Date('November 21, 2010 17:20:00');
       datepicker.setTimestamp(initTimestamp.getTime());
 
       var expectedValue = '18';
@@ -125,8 +121,8 @@ describe('MTR Datepicker: When the "disable am pm" option is enabled ', function
       expect(datepickerValue).toBe(expectedValue);
     });
 
-    it('on the up arrow should change 23 to 00', function() {
-       var initTimestamp = new Date('November 21, 2010 23:20:00');
+    it('on the up arrow should change 23 to 00', function () {
+      var initTimestamp = new Date('November 21, 2010 23:20:00');
       datepicker.setTimestamp(initTimestamp.getTime());
 
       var expectedValue = '00';
@@ -142,8 +138,8 @@ describe('MTR Datepicker: When the "disable am pm" option is enabled ', function
       expect(datepickerValue).toBe(expectedValue);
     });
 
-    it('on the down arrow should change 07 to 06', function() {
-       var initTimestamp = new Date('November 21, 2010 07:30:00');
+    it('on the down arrow should change 07 to 06', function () {
+      var initTimestamp = new Date('November 21, 2010 07:30:00');
       datepicker.setTimestamp(initTimestamp.getTime());
 
       var expectedValue = '06';
@@ -159,8 +155,8 @@ describe('MTR Datepicker: When the "disable am pm" option is enabled ', function
       expect(datepickerValue).toBe(expectedValue);
     });
 
-    it('on the down arrow should change 13 to 12', function() {
-       var initTimestamp = new Date('November 21, 2010 13:30:00');
+    it('on the down arrow should change 13 to 12', function () {
+      var initTimestamp = new Date('November 21, 2010 13:30:00');
       datepicker.setTimestamp(initTimestamp.getTime());
 
       var expectedValue = '12';
@@ -176,7 +172,7 @@ describe('MTR Datepicker: When the "disable am pm" option is enabled ', function
       expect(datepickerValue).toBe(expectedValue);
     });
 
-    it('on the down arrow should change 19 to 18', function() {
+    it('on the down arrow should change 19 to 18', function () {
       var initTimestamp = new Date('November 21, 2010 19:30:00');
       datepicker.setTimestamp(initTimestamp.getTime());
 
@@ -193,7 +189,7 @@ describe('MTR Datepicker: When the "disable am pm" option is enabled ', function
       expect(datepickerValue).toBe(expectedValue);
     });
 
-    it('on the down arrow should change 00 to 23', function() {
+    it('on the down arrow should change 00 to 23', function () {
       var initTimestamp = new Date('November 21, 2010 01:30:00');
       datepicker.setTimestamp(initTimestamp.getTime());
 
@@ -210,7 +206,5 @@ describe('MTR Datepicker: When the "disable am pm" option is enabled ', function
       expect(spyEvent).toHaveBeenTriggered();
       expect(datepickerValue).toBe(expectedValue);
     });
-
   });
-
 });
