@@ -218,6 +218,35 @@ describe('MTR Datepicker: Hours ', function () {
       }, transitionBlurDelay);
     });
 
+    it('should change the hour to 05', function (done) {
+      var newHourValue = '05';
+      var expectedHour = '5';
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(inputElement), 'focus');
+      var spyEventBlur = spyOnEvent(jQuery(inputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      inputElement[0].dispatchEvent(inputElementFocusEvent);
+      inputElement.val(newHourValue);
+      inputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      setTimeout(function () {
+        var datepickerHour = datepicker.format('H');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventBlur).toHaveBeenTriggered();
+
+        expect(datepickerHour).toEqual(expectedHour);
+        done();
+      }, transitionBlurDelay);
+    });
+
     it('should NOT change the hour to 15, it should keep the old value', function (done) {
       var newHourValue = '15';
       var expectedHour = datepicker.format('h');
@@ -267,5 +296,7 @@ describe('MTR Datepicker: Hours ', function () {
 
       expect(spyEvent).toHaveBeenTriggered();
     });
+
+    // TODO: Add test to check the changed values on wheel scroll
   })
 });

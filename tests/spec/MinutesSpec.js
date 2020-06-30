@@ -167,4 +167,82 @@ describe('MTR Datepicker: Minutes ', function () {
       expect(inputElement).toHaveAttr('data-old-value', expectedMinutesValue);
     });
   });
+
+  describe('keyboard input', function () {
+    var datepickerElement;
+    var inputElement;
+    var inputActivatorElement;
+    var transitionBlurDelay = 600; // Keep it equal with this one in the code
+
+    beforeEach(function (done) {
+      datepickerElement = jQuery(datepickerSelector);
+
+      inputActivatorElement = datepickerElement.find(datepickerSelector + '-input-minutes .mtr-values');
+      inputElement = datepickerElement.find(datepickerSelector + '-input-minutes input.mtr-input.minutes');
+
+      setTimeout(function () {
+        done();
+      }, transitionBlurDelay * 2);
+    });
+
+    it('should change the minutes to 30', function (done) {
+      var newMinutesValue = 30;
+      var expectedMinutes = '30';
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(inputElement), 'focus');
+      var spyEventBlur = spyOnEvent(jQuery(inputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      inputElement[0].dispatchEvent(inputElementFocusEvent);
+      inputElement.val(newMinutesValue);
+      inputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      setTimeout(function () {
+        var datepickerMinutes = datepicker.format('m');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventBlur).toHaveBeenTriggered();
+
+        expect(datepickerMinutes).toEqual(expectedMinutes);
+        done();
+      }, transitionBlurDelay);
+    });
+
+    // TODO: Test with minutes input with leading zero
+
+    it('should NOT change the minutes to 70, it should keep the old value', function (done) {
+      var newMinutesValue = '70';
+      var expectedMinutes = datepicker.format('mm');
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(inputElement), 'focus');
+      var spyEventBlur = spyOnEvent(jQuery(inputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      inputElement[0].dispatchEvent(inputElementFocusEvent);
+      inputElement.val(newMinutesValue);
+      inputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      expect(spyEventClick).toHaveBeenTriggered();
+      expect(spyEventFocus).toHaveBeenTriggered();
+      expect(spyEventBlur).toHaveBeenTriggered();
+
+      setTimeout(function () {
+        var datepickerMinutes = datepicker.format('mm');
+
+        expect(datepickerMinutes).toEqual(expectedMinutes);
+        done();
+      }, transitionBlurDelay);
+    });
+  });
 });

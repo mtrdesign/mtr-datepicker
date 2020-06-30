@@ -750,6 +750,9 @@ function MtrDatepicker (inputConfig) {
             return;
           }
 
+          // Trim the leading zero
+          newValue = parseInt(newValue);
+
           // If the future detection is ON validate the value again
           var target = elementConfig.name.substring(0, elementConfig.name.length - 1);
           if (elementConfig.name === 'dates') {
@@ -1131,7 +1134,9 @@ function MtrDatepicker (inputConfig) {
         datePicker.setHours(newHours);
         break;
       case 'day': datePicker.setDate(newValue); break;
-      case 'month': datePicker.setMonth(newValue); break;
+      case 'month':
+        datePicker.setMonth(newValue);
+        break;
       case 'year': datePicker.setFullYear(newValue); break;
     }
 
@@ -1371,6 +1376,9 @@ function MtrDatepicker (inputConfig) {
   var setMonth = function (newMonth, preventAnimation) {
     var oldValue = values.date.getMonth();
     var isChangeValid = validateChange('month', newMonth, oldValue);
+
+    // TODO: Validate the number of days in the new month
+    // Currently fails when transition from Mar 30 to Feb
 
     if (!config.validateAfter && !isChangeValid) {
       showInputSliderError(config.references.months);
@@ -1932,7 +1940,7 @@ function MtrDatepicker (inputConfig) {
    * @return {String}
    *
    * M,MM, MMM
-   * d,D
+   * D,DD
    * Y,YY, YYYY
    *
    * h, hh
@@ -1974,6 +1982,7 @@ function MtrDatepicker (inputConfig) {
     input = specialReplace(input, 'A', currentAmPm ? 'AM' : 'PM');
 
     // Months
+    // TODO: Make a special case for month with M (March, May)
     input = specialReplace(input, 'MMM', config.monthsNames[currentMonth - 1]);
     input = specialReplace(input, 'MM', prependZero(currentMonth));
     input = specialReplace(input, 'M', currentMonth);

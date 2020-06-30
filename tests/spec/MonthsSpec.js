@@ -128,13 +128,15 @@ describe('MTR Datepicker: Months ', function () {
       expect(spyEvent).toHaveBeenTriggered();
     });
 
+    // TODO: Test with month including the special char M
+
     /**
      * To be valid the result should be checked using getter, DOM attribute and DOM visible element
      */
-    it('on the down arrow should change the month from Mar to Feb', function () {
-      var initMonthValue = 2;
-      var expectedMonthValue = '1';
-      var expectedMonthName = 'Feb';
+    it('on the down arrow should change the month from Jul to Jun', function () {
+      var initMonthValue = 6;
+      var expectedMonthValue = '5';
+      var expectedMonthName = 'Jun';
 
       datepicker.setMonth(initMonthValue);
 
@@ -151,12 +153,16 @@ describe('MTR Datepicker: Months ', function () {
     /**
      * To be valid the result should be checked using getter, DOM attribute and DOM visible element
      */
-    it('2 times on the down arrow should change the month from Feb to Dec', function () {
-      var initMonthValue = 1;
-      var expectedMonthValue = 11;
-      var expectedMonthName = 'Dec';
+    it('2 times on the down arrow should change the month from Jan to Nov', function () {
+      var initMonthValue = 0;
+      var expectedMonthValue = 10;
+      var expectedMonthName = 'Nov';
+      console.log(datepicker.toString());
 
       datepicker.setMonth(initMonthValue);
+
+      console.log(initMonthValue);
+      console.log(datepicker.toString());
 
       spyEvent = spyOnEvent(arrowDownElement, 'click');
       var clickEvent = createClickEvent();
@@ -169,6 +175,111 @@ describe('MTR Datepicker: Months ', function () {
       expect(datepickerGetterValue).toEqual((expectedMonthValue + 1).toString());
       expect(datepickerGetterName).toEqual(expectedMonthName);
       expect(inputElement).toHaveAttr('data-old-value', expectedMonthValue.toString());
+    });
+  });
+
+  describe('keyboard input', function () {
+    var datepickerElement;
+    var inputElement;
+    var inputActivatorElement;
+    var transitionBlurDelay = 600; // Keep it equal with this one in the code
+
+    beforeEach(function (done) {
+      datepickerElement = jQuery(datepickerSelector);
+
+      inputActivatorElement = datepickerElement.find(datepickerSelector + '-input-months .mtr-values');
+      inputElement = datepickerElement.find(datepickerSelector + '-input-months input.mtr-input.months');
+
+      setTimeout(function () {
+        done();
+      }, transitionBlurDelay * 2);
+    });
+
+    it('should change the month to 4', function (done) {
+      var newMonthValue = 4;
+      var expectedMonth = '4';
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(inputElement), 'focus');
+      var spyEventBlur = spyOnEvent(jQuery(inputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      inputElement[0].dispatchEvent(inputElementFocusEvent);
+      inputElement.val(newMonthValue);
+      inputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      setTimeout(function () {
+        var datepickerMonth = datepicker.format('M');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventBlur).toHaveBeenTriggered();
+
+        expect(datepickerMonth).toEqual(expectedMonth);
+        done();
+      }, transitionBlurDelay);
+    });
+
+    it('should change the month to 06', function (done) {
+      var newMonthValue = '06';
+      var expectedMonth = '6';
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(inputElement), 'focus');
+      var spyEventBlur = spyOnEvent(jQuery(inputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      inputElement[0].dispatchEvent(inputElementFocusEvent);
+      inputElement.val(newMonthValue);
+      inputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      setTimeout(function () {
+        var datepickerMonth = datepicker.format('M');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventBlur).toHaveBeenTriggered();
+
+        expect(datepickerMonth).toEqual(expectedMonth);
+        done();
+      }, transitionBlurDelay);
+    });
+
+    it('should NOT change the month to 15, it should keep the old value', function (done) {
+      var newMonthValue = '15';
+      var expectedMonth = datepicker.format('M');
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(inputElement), 'focus');
+      var spyEventBlur = spyOnEvent(jQuery(inputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      inputElement[0].dispatchEvent(inputElementFocusEvent);
+      inputElement.val(newMonthValue);
+      inputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      expect(spyEventClick).toHaveBeenTriggered();
+      expect(spyEventFocus).toHaveBeenTriggered();
+      expect(spyEventBlur).toHaveBeenTriggered();
+
+      setTimeout(function () {
+        var datepickerMonth = datepicker.format('M');
+
+        expect(datepickerMonth).toEqual(expectedMonth);
+        done();
+      }, transitionBlurDelay);
     });
   });
 });

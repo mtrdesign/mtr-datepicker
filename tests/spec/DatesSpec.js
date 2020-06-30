@@ -167,4 +167,109 @@ describe('MTR Datepicker: Dates ', function () {
       expect(inputElement).toHaveAttr('data-old-value', expectedDateValue.toString());
     });
   });
+
+  describe('keyboard input', function () {
+    var datepickerElement;
+    var inputElement;
+    var inputActivatorElement;
+    var transitionBlurDelay = 600; // Keep it equal with this one in the code
+
+    beforeEach(function (done) {
+      datepickerElement = jQuery(datepickerSelector);
+
+      inputActivatorElement = datepickerElement.find(datepickerSelector + '-input-dates .mtr-values');
+      inputElement = datepickerElement.find(datepickerSelector + '-input-dates input.mtr-input.dates');
+
+      setTimeout(function () {
+        done();
+      }, transitionBlurDelay * 2);
+    });
+
+    it('should change the date to 8', function (done) {
+      var newDateValue = 8;
+      var expectedDate = '08';
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(inputElement), 'focus');
+      var spyEventBlur = spyOnEvent(jQuery(inputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      inputElement[0].dispatchEvent(inputElementFocusEvent);
+      inputElement.val(newDateValue);
+      inputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      setTimeout(function () {
+        var datepickerDate = datepicker.format('DD');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventBlur).toHaveBeenTriggered();
+
+        expect(datepickerDate).toEqual(expectedDate);
+        done();
+      }, transitionBlurDelay);
+    });
+
+    it('should change the date to 06', function (done) {
+      var newDateValue = '06';
+      var expectedDate = '6';
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(inputElement), 'focus');
+      var spyEventBlur = spyOnEvent(jQuery(inputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      inputElement[0].dispatchEvent(inputElementFocusEvent);
+      inputElement.val(newDateValue);
+      inputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      setTimeout(function () {
+        var datepickerDate = datepicker.format('D');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventBlur).toHaveBeenTriggered();
+
+        expect(datepickerDate).toEqual(expectedDate);
+        done();
+      }, transitionBlurDelay);
+    });
+
+    it('should NOT change the date to 48, it should keep the old value', function (done) {
+      var newDateValue = '48';
+      var expectedDate = datepicker.format('D');
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(inputElement), 'focus');
+      var spyEventBlur = spyOnEvent(jQuery(inputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      inputElement[0].dispatchEvent(inputElementFocusEvent);
+      inputElement.val(newDateValue);
+      inputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      expect(spyEventClick).toHaveBeenTriggered();
+      expect(spyEventFocus).toHaveBeenTriggered();
+      expect(spyEventBlur).toHaveBeenTriggered();
+
+      setTimeout(function () {
+        var datepickerDate = datepicker.format('D');
+
+        expect(datepickerDate).toEqual(expectedDate);
+        done();
+      }, transitionBlurDelay);
+    });
+  });
 });
