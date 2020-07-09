@@ -195,4 +195,6 @@ describe('MTR Datepicker: When the "future" option is enabled ', function () {
       }, transitionValidationDelay);
     });
   });
+
+  // TODO: Add keyboard events
 });

@@ -231,5 +231,63 @@ describe('MTR Datepicker: Years ', function () {
         done();
       }, transitionBlurDelay);
     });
+
+    it('should apply the change of the year to 2015 on enter keypress ', function (done) {
+      var newYearValue = 2015;
+      var expectedYear = '2015';
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(inputElement), 'focus');
+      var spyEventKeyup = spyOnEvent(jQuery(inputElement), 'keyup');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var inputElementKeyupEvent = createKeyupEvent(13);
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      inputElement[0].dispatchEvent(inputElementFocusEvent);
+      inputElement.val(newYearValue);
+      inputElement[0].dispatchEvent(inputElementKeyupEvent);
+
+      setTimeout(function () {
+        var datepickerYear = datepicker.format('Y');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventKeyup).toHaveBeenTriggered();
+
+        expect(datepickerYear).toEqual(expectedYear);
+        done();
+      }, transitionBlurDelay + 100);
+    });
+
+    it('should NOT change the year to 3052 on enter keypress, it should keep the old value', function (done) {
+      var newYearValue = '3052';
+      var expectedYear = datepicker.format('Y');
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(inputElement), 'focus');
+      var spyEventKeyup = spyOnEvent(jQuery(inputElement), 'keyup');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var inputElementKeyupEvent = createCustomEvent('keyup');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      inputElement[0].dispatchEvent(inputElementFocusEvent);
+      inputElement.val(newYearValue);
+      inputElement[0].dispatchEvent(inputElementKeyupEvent);
+
+      expect(spyEventClick).toHaveBeenTriggered();
+      expect(spyEventFocus).toHaveBeenTriggered();
+      expect(spyEventKeyup).toHaveBeenTriggered();
+
+      setTimeout(function () {
+        var datepickerYear = datepicker.format('Y');
+
+        expect(datepickerYear).toEqual(expectedYear);
+        done();
+      }, transitionBlurDelay + 100);
+    });
   });
 });

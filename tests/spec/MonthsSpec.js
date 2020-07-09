@@ -277,5 +277,63 @@ describe('MTR Datepicker: Months ', function () {
         done();
       }, transitionBlurDelay);
     });
+
+    it('should apply the change of the months to 07 on enter keypress ', function (done) {
+      var newMonthValue = 7;
+      var expectedMonth = '7';
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(inputElement), 'focus');
+      var spyEventKeyup = spyOnEvent(jQuery(inputElement), 'keyup');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var inputElementKeyupEvent = createKeyupEvent(13);
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      inputElement[0].dispatchEvent(inputElementFocusEvent);
+      inputElement.val(newMonthValue);
+      inputElement[0].dispatchEvent(inputElementKeyupEvent);
+
+      setTimeout(function () {
+        var datepickerMonth = datepicker.format('M');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventKeyup).toHaveBeenTriggered();
+
+        expect(datepickerMonth).toEqual(expectedMonth);
+        done();
+      }, transitionBlurDelay + 100);
+    });
+
+    it('should NOT change the months to 15 on enter keypress, it should keep the old value', function (done) {
+      var newMonthValue = '15';
+      var expectedMonth = datepicker.format('M');
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(inputElement), 'focus');
+      var spyEventKeyup = spyOnEvent(jQuery(inputElement), 'keyup');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var inputElementKeyupEvent = createCustomEvent('keyup');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      inputElement[0].dispatchEvent(inputElementFocusEvent);
+      inputElement.val(newMonthValue);
+      inputElement[0].dispatchEvent(inputElementKeyupEvent);
+
+      expect(spyEventClick).toHaveBeenTriggered();
+      expect(spyEventFocus).toHaveBeenTriggered();
+      expect(spyEventKeyup).toHaveBeenTriggered();
+
+      setTimeout(function () {
+        var datepickerMonth = datepicker.format('M');
+
+        expect(datepickerMonth).toEqual(expectedMonth);
+        done();
+      }, transitionBlurDelay + 100);
+    });
   });
 });

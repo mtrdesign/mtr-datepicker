@@ -275,6 +275,64 @@ describe('MTR Datepicker: Hours ', function () {
         done();
       }, transitionBlurDelay);
     });
+
+    it('should apply the change of the hours to 8 on enter keypress ', function (done) {
+      var newHourValue = 8;
+      var expectedHour = '8';
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(inputElement), 'focus');
+      var spyEventKeyup = spyOnEvent(jQuery(inputElement), 'keyup');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var inputElementKeyupEvent = createKeyupEvent(13);
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      inputElement[0].dispatchEvent(inputElementFocusEvent);
+      inputElement.val(newHourValue);
+      inputElement[0].dispatchEvent(inputElementKeyupEvent);
+
+      setTimeout(function () {
+        var datepickerHour = datepicker.format('h');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventKeyup).toHaveBeenTriggered();
+
+        expect(datepickerHour).toEqual(expectedHour);
+        done();
+      }, transitionBlurDelay + 100);
+    });
+
+    it('should NOT change the hour to 28 on enter keypress, it should keep the old value', function (done) {
+      var newHourValue = '52';
+      var expectedHour = datepicker.format('h');
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(inputElement), 'focus');
+      var spyEventKeyup = spyOnEvent(jQuery(inputElement), 'keyup');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var inputElementKeyupEvent = createCustomEvent('keyup');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      inputElement[0].dispatchEvent(inputElementFocusEvent);
+      inputElement.val(newHourValue);
+      inputElement[0].dispatchEvent(inputElementKeyupEvent);
+
+      expect(spyEventClick).toHaveBeenTriggered();
+      expect(spyEventFocus).toHaveBeenTriggered();
+      expect(spyEventKeyup).toHaveBeenTriggered();
+
+      setTimeout(function () {
+        var datepickerHour = datepicker.format('h');
+
+        expect(datepickerHour).toEqual(expectedHour);
+        done();
+      }, transitionBlurDelay + 100);
+    });
   });
 
   describe('wheel move', function () {

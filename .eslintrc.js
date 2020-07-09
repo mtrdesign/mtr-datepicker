@@ -23,7 +23,8 @@ module.exports = {
     spyOnEvent: true,
     createClickEvent: true,
     createCustomEvent: true,
-    createWheelEvent: true
+    createWheelEvent: true,
+    createKeyupEvent: true
   },
   rules: {
     semi: 'off'

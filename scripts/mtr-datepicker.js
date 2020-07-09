@@ -717,7 +717,7 @@ function MtrDatepicker (inputConfig) {
       // Attach event listeners
       inputValue.addEventListener('blur', function (e) {
         // Blur event has to be called after specific amount of time
-        // because it can be cause from an arrow button. In this case
+        // because it can be caused from an arrow button. In this case
         // we shouldn't apple the blur event body
         setTimeout(function () {
           blurEvent();
@@ -778,6 +778,14 @@ function MtrDatepicker (inputConfig) {
             case 'months': setMonth(newValue); break;
             case 'years': setYear(newValue); break;
           }
+        }
+      }, false);
+
+      // Accept the new values on <Enter>
+      inputValue.addEventListener('keyup', function (e) {
+        if (e.keyCode === 13) {
+          e.preventDefault();
+          inputValue.blur();
         }
       }, false);
 
@@ -1448,7 +1456,15 @@ function MtrDatepicker (inputConfig) {
   };
 
   var getFullTime = function () {
-    return getHours() + ':' + getMinutes() + ' ' + (getIsAm() ? 'AM' : 'PM');
+    var hours = getHours();
+    var minutes = getMinutes();
+    var amPm = getIsAm() ? 'AM' : 'PM';
+
+    if (minutes <= 9) {
+      minutes = '0' + minutes;
+    }
+
+    return hours + ':' + minutes + ' ' + amPm;
   };
 
   var setTimestamp = function (input) {
