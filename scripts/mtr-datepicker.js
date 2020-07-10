@@ -537,9 +537,21 @@ function MtrDatepicker (inputConfig) {
       var rowClearfixDate = document.createElement('div');
       rowClearfixDate.className = 'mtr-clearfix';
 
-      rowDate.appendChild(monthElement);
-      rowDate.appendChild(dateElement);
-      rowDate.appendChild(yearElement);
+      if (Array.isArray(config.datepicker)) {
+        // If provided use the desired order of the date fields
+        config.datepicker.forEach(function (field) {
+          switch (field) {
+            case 'months': rowDate.appendChild(monthElement); break;
+            case 'dates': rowDate.appendChild(dateElement); break;
+            case 'years': rowDate.appendChild(yearElement); break;
+            default: break;
+          }
+        });
+      } else {
+        rowDate.appendChild(monthElement);
+        rowDate.appendChild(dateElement);
+        rowDate.appendChild(yearElement);
+      }
 
       targetElement.appendChild(rowDate);
       targetElement.appendChild(rowClearfixDate);
@@ -790,7 +802,7 @@ function MtrDatepicker (inputConfig) {
       }, false);
 
       // On wheel scroll we should change the value in the input
-      inputValue.addEventListener('wheel ', function (e) {
+      inputValue.addEventListener('wheel', function (e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -1069,7 +1081,9 @@ function MtrDatepicker (inputConfig) {
     // After month change we should recalculate the range of the dates
     setDatesRange(newMonth, newYear);
 
-    if (config.datepicker) {
+    if (config.datepicker && (
+      Array.isArray(config.datepicker) && config.datepicker.indexOf('dates') > -1
+    )) {
       rebuildElementValues(config.references.dates, {
         name: 'dates',
         values: config.defaultValues.dates,

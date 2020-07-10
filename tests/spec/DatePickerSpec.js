@@ -73,4 +73,24 @@ describe('MTR Datepicker: When the "datepicker" option is provided ', function (
       expect(datepickerElement).not.toContainElement(expectedElement);
     });
   });
+
+  describe('when datepicker provides fields order', function () {
+    it('should init the datepicker with the specified order', function () {
+      var datepickerElement = $(datepickerSelector);
+      var expectedDatesElement = datepickerSelector + '-input-dates.mtr-input-slider';
+      var expectedMonthsElement = datepickerSelector + '-input-months.mtr-input-slider';
+      var expectedYearsElement = datepickerSelector + '-input-years.mtr-input-slider';
+
+      var datepicker = new MtrDatepicker({
+        target: 'datepicker',
+        datepicker: ['years', 'months', 'dates']
+      });
+
+      expect(datepickerElement).toContainElement(expectedDatesElement);
+      expect(datepickerElement).toContainElement(expectedMonthsElement);
+      expect(datepickerElement).toContainElement(expectedYearsElement);
+
+      datepicker.destroy();
+    });
+  });
 });

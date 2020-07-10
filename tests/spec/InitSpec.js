@@ -6,7 +6,6 @@ describe('MTR Datepicker: After init', function () {
   beforeEach(function () {
     setBaseFixtures();
 
-    // eslint-disable-next-line no-unused-vars
     datepicker = new MtrDatepicker({
       target: 'datepicker'
     });
@@ -62,5 +61,25 @@ describe('MTR Datepicker: After init', function () {
     var expectedElement = '#' + datepickerSelectorName + '-input-years.mtr-input-slider';
 
     expect(datepickerElement).toContainElement(expectedElement);
+  });
+
+  it('should clear the markup after destroy', function () {
+    var datepickerElement = $(datepickerSelector);
+    var hoursElement = datepickerSelector + '-input-hours.mtr-input-slider';
+    var minutesElement = datepickerSelector + '-input-minutes.mtr-input-slider';
+    var ampmElement = datepickerSelector + '-input-ampm.mtr-input-radio';
+    var datesElement = datepickerSelector + '-input-dates.mtr-input-slider';
+    var monthsElement = datepickerSelector + '-input-months.mtr-input-slider';
+    var yearsElement = datepickerSelector + '-input-years.mtr-input-slider';
+
+    datepicker.destroy();
+
+    expect(datepickerElement.html()).toEqual('');
+    expect(datepickerElement).not.toContainElement(hoursElement);
+    expect(datepickerElement).not.toContainElement(minutesElement);
+    expect(datepickerElement).not.toContainElement(ampmElement);
+    expect(datepickerElement).not.toContainElement(datesElement);
+    expect(datepickerElement).not.toContainElement(monthsElement);
+    expect(datepickerElement).not.toContainElement(yearsElement);
   });
 });

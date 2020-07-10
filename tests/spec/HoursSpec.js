@@ -302,7 +302,7 @@ describe('MTR Datepicker: Hours ', function () {
 
         expect(datepickerHour).toEqual(expectedHour);
         done();
-      }, transitionBlurDelay + 100);
+      }, transitionBlurDelay * 2);
     });
 
     it('should NOT change the hour to 28 on enter keypress, it should keep the old value', function (done) {
@@ -331,7 +331,7 @@ describe('MTR Datepicker: Hours ', function () {
 
         expect(datepickerHour).toEqual(expectedHour);
         done();
-      }, transitionBlurDelay + 100);
+      }, transitionBlurDelay * 2);
     });
   });
 
@@ -343,18 +343,52 @@ describe('MTR Datepicker: Hours ', function () {
     beforeEach(function () {
       datepickerElement = jQuery(datepickerSelector);
 
-      hoursElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-content');
+      hoursElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-content .mtr-values');
     });
 
     it('should be triggered', function () {
-      var wheelEvent = createWheelEvent();
+      var wheelEvent = createWheelEvent(10);
 
-      spyEvent = spyOnEvent(hoursElement, 'DOMMouseScroll');
+      spyEvent = spyOnEvent(hoursElement, 'wheel');
       hoursElement[0].dispatchEvent(wheelEvent);
 
       expect(spyEvent).toHaveBeenTriggered();
     });
 
-    // TODO: Add test to check the changed values on wheel scroll
+    it('should increase the hours when scrolled upwards', function (done) {
+      var expectedHour = new Date(datepicker.getTimestamp() + (3600 * 1000)).getHours() % 12 || 12;
+
+      var wheelEvent = createWheelEvent(-100);
+
+      spyEvent = spyOnEvent(hoursElement, 'wheel');
+      hoursElement[0].dispatchEvent(wheelEvent);
+
+      expect(spyEvent).toHaveBeenTriggered();
+
+      setTimeout(function () {
+        var datepickerHour = datepicker.format('h');
+
+        expect(datepickerHour.toString()).toEqual(expectedHour.toString());
+        done();
+      }, transitionBlurDelay * 2);
+    });
+
+    it('should decrease the hours when scrolled downwards', function (done) {
+      var expectedHour = new Date(datepicker.getTimestamp() - (3600 * 1000)).getHours() % 12 || 12;
+
+      var wheelEvent = createWheelEvent(100);
+
+      spyEvent = spyOnEvent(hoursElement, 'wheel');
+      hoursElement[0].dispatchEvent(wheelEvent);
+
+      expect(spyEvent).toHaveBeenTriggered();
+
+      setTimeout(function () {
+        var datepickerHour = datepicker.format('h');
+
+        expect(datepickerHour).toEqual(expectedHour.toString());
+        done();
+      }, transitionBlurDelay * 2);
+    });
   })
 });

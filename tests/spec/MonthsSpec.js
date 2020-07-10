@@ -304,7 +304,7 @@ describe('MTR Datepicker: Months ', function () {
 
         expect(datepickerMonth).toEqual(expectedMonth);
         done();
-      }, transitionBlurDelay + 100);
+      }, transitionBlurDelay * 2);
     });
 
     it('should NOT change the months to 15 on enter keypress, it should keep the old value', function (done) {
@@ -333,7 +333,7 @@ describe('MTR Datepicker: Months ', function () {
 
         expect(datepickerMonth).toEqual(expectedMonth);
         done();
-      }, transitionBlurDelay + 100);
+      }, transitionBlurDelay * 2);
     });
   });
 });

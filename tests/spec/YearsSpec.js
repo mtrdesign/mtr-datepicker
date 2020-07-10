@@ -258,7 +258,7 @@ describe('MTR Datepicker: Years ', function () {
 
         expect(datepickerYear).toEqual(expectedYear);
         done();
-      }, transitionBlurDelay + 100);
+      }, transitionBlurDelay * 2);
     });
 
     it('should NOT change the year to 3052 on enter keypress, it should keep the old value', function (done) {
@@ -287,7 +287,7 @@ describe('MTR Datepicker: Years ', function () {
 
         expect(datepickerYear).toEqual(expectedYear);
         done();
-      }, transitionBlurDelay + 100);
+      }, transitionBlurDelay * 2);
     });
   });
 });

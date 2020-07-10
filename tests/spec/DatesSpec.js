@@ -2,6 +2,7 @@ describe('MTR Datepicker: Dates ', function () {
   var datepickerSelectorName = 'datepicker';
   var datepickerSelector = '#' + datepickerSelectorName;
   var datepicker;
+  // var transitionBlurDelay = 600; // Keep it equal with this one in the code
 
   beforeEach(function () {
     setBaseFixtures();
@@ -298,7 +299,7 @@ describe('MTR Datepicker: Dates ', function () {
 
         expect(datepickerDate).toEqual(expectedDate);
         done();
-      }, transitionBlurDelay + 100);
+      }, transitionBlurDelay * 2);
     });
 
     it('should NOT change the date to 52 on enter keypress, it should keep the old value', function (done) {
@@ -327,7 +328,66 @@ describe('MTR Datepicker: Dates ', function () {
 
         expect(datepickerDate).toEqual(expectedDate);
         done();
-      }, transitionBlurDelay + 100);
+      }, transitionBlurDelay * 2);
     });
   });
+
+  describe('wheel move', function () {
+    var spyEvent;
+    var datepickerElement;
+    var datesElement;
+
+    beforeEach(function () {
+      datepickerElement = jQuery(datepickerSelector);
+
+      datesElement = datepickerElement.find(datepickerSelector + '-input-dates .mtr-content .mtr-values');
+    });
+
+    it('should be triggered', function () {
+      var wheelEvent = createWheelEvent(100);
+
+      spyEvent = spyOnEvent(datesElement, 'wheel');
+      datesElement[0].dispatchEvent(wheelEvent);
+
+      expect(spyEvent).toHaveBeenTriggered();
+    });
+
+    // TODO: Fix me, the wheel event is not performed
+    // it('should increase the dates when scrolled upwards', function (done) {
+    //   var expectedDate = new Date(datepicker.getTimestamp() + (24 * 3600 * 1000)).getDate().toString();
+
+    //   var wheelEvent = createWheelEvent(-100);
+
+    //   spyEvent = spyOnEvent(datesElement, 'wheel');
+    //   datesElement[0].dispatchEvent(wheelEvent);
+
+    //   expect(spyEvent).toHaveBeenTriggered();
+
+    //   setTimeout(function () {
+    //     var datepickerDate = datepicker.format('D');
+
+    //     expect(datepickerDate.toString()).toEqual(expectedDate.toString());
+    //     done();
+    //   }, transitionBlurDelay * 2);
+    // });
+
+    // TODO: Fix me, the wheel event is not performed
+    // it('should decrease the dates when scrolled downwards', function (done) {
+    //   var expectedDate = new Date(datepicker.getTimestamp() - (24 * 3600 * 1000)).getDate().toString();
+
+    //   var wheelEvent = createWheelEvent(10);
+
+    //   spyEvent = spyOnEvent(datesElement, 'wheel');
+    //   datesElement[0].dispatchEvent(wheelEvent);
+
+    //   expect(spyEvent).toHaveBeenTriggered();
+
+    //   setTimeout(function () {
+    //     var datepickerDate = datepicker.format('D');
+
+    //     expect(datepickerDate).toEqual(expectedDate);
+    //     done();
+    //   }, transitionBlurDelay * 2);
+    // });
+  })
 });

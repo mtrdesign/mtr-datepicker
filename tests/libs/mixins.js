@@ -22,9 +22,11 @@ function createCustomEvent(eventName) {
 	return customEvent;
 }
 
-function createWheelEvent() {
-	var wheelEvent = document.createEvent('MouseEvents', { delta: -10 });
-	wheelEvent.initMouseEvent('DOMMouseScroll', true, true, window, null, 0, 0, 0, 0, false, false, false, false, 0 , null);
+function createWheelEvent(deltaY) {
+	var wheelEvent = document.createEvent('MouseEvents');
+  wheelEvent.initMouseEvent('wheel', true, true);
+  wheelEvent.deltaY = deltaY;
+  wheelEvent.wheelDeltaY = deltaY;
 
 	return wheelEvent;
 }

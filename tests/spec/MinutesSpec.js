@@ -271,7 +271,7 @@ describe('MTR Datepicker: Minutes ', function () {
 
         expect(datepickerMinutes).toEqual(expectedMinutes);
         done();
-      }, transitionBlurDelay + 100);
+      }, transitionBlurDelay * 2);
     });
 
     it('should NOT change the minutes to 78 on enter keypress, it should keep the old value', function (done) {
@@ -300,7 +300,7 @@ describe('MTR Datepicker: Minutes ', function () {
 
         expect(datepickerMinutes).toEqual(expectedMinutes);
         done();
-      }, transitionBlurDelay + 100);
+      }, transitionBlurDelay * 2);
     });
   });
 });
