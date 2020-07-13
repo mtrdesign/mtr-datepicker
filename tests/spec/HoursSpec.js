@@ -339,15 +339,19 @@ describe('MTR Datepicker: Hours ', function () {
     var spyEvent;
     var datepickerElement;
     var hoursElement;
+    var hoursInputElement;
+    var inputActivatorElement;
 
     beforeEach(function () {
       datepickerElement = jQuery(datepickerSelector);
 
-      hoursElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-content .mtr-values');
+      hoursElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-content .mtr-values .mtr-default-value');
+      inputActivatorElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-values');
+      hoursInputElement = datepickerElement.find(datepickerSelector + '-input-hours .mtr-content .mtr-input.hours');
     });
 
     it('should be triggered', function () {
-      var wheelEvent = createWheelEvent(10);
+      var wheelEvent = createWheelEvent(120);
 
       spyEvent = spyOnEvent(hoursElement, 'wheel');
       hoursElement[0].dispatchEvent(wheelEvent);
@@ -358,7 +362,7 @@ describe('MTR Datepicker: Hours ', function () {
     it('should increase the hours when scrolled upwards', function (done) {
       var expectedHour = new Date(datepicker.getTimestamp() + (3600 * 1000)).getHours() % 12 || 12;
 
-      var wheelEvent = createWheelEvent(-100);
+      var wheelEvent = createWheelEvent(120);
 
       spyEvent = spyOnEvent(hoursElement, 'wheel');
       hoursElement[0].dispatchEvent(wheelEvent);
@@ -376,9 +380,10 @@ describe('MTR Datepicker: Hours ', function () {
     it('should decrease the hours when scrolled downwards', function (done) {
       var expectedHour = new Date(datepicker.getTimestamp() - (3600 * 1000)).getHours() % 12 || 12;
 
-      var wheelEvent = createWheelEvent(100);
+      var wheelEvent = createWheelEvent(-120);
 
       spyEvent = spyOnEvent(hoursElement, 'wheel');
+
       hoursElement[0].dispatchEvent(wheelEvent);
 
       expect(spyEvent).toHaveBeenTriggered();
@@ -390,5 +395,67 @@ describe('MTR Datepicker: Hours ', function () {
         done();
       }, transitionBlurDelay * 2);
     });
-  })
+
+    it('should increase the hours when scrolled upwards in the input', function (done) {
+      var expectedHour = new Date(datepicker.getTimestamp() + (3600 * 1000)).getHours() % 12 || 12;
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(hoursInputElement), 'focus');
+      var spyEventWheel = spyOnEvent(hoursInputElement, 'wheel');
+      var spyEventBlur = spyOnEvent(jQuery(hoursInputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var wheelEvent = createWheelEvent(120);
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      hoursInputElement[0].dispatchEvent(inputElementFocusEvent);
+      hoursInputElement[0].dispatchEvent(wheelEvent);
+      hoursInputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      setTimeout(function () {
+        var datepickerHour = datepicker.format('h');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventWheel).toHaveBeenTriggered();
+        expect(spyEventBlur).toHaveBeenTriggered();
+
+        expect(datepickerHour).toEqual(expectedHour.toString());
+        done();
+      }, transitionBlurDelay * 2);
+    });
+
+    it('should decrease the hours when scrolled downwards in the input', function (done) {
+      var expectedHour = new Date(datepicker.getTimestamp() - (3600 * 1000)).getHours() % 12 || 12;
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(hoursInputElement), 'focus');
+      var spyEventWheel = spyOnEvent(hoursInputElement, 'wheel');
+      var spyEventBlur = spyOnEvent(jQuery(hoursInputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var wheelEvent = createWheelEvent(-120);
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      hoursInputElement[0].dispatchEvent(inputElementFocusEvent);
+      hoursInputElement[0].dispatchEvent(wheelEvent);
+      hoursInputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      setTimeout(function () {
+        var datepickerHour = datepicker.format('h');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventWheel).toHaveBeenTriggered();
+        expect(spyEventBlur).toHaveBeenTriggered();
+
+        expect(datepickerHour).toEqual(expectedHour.toString());
+        done();
+      }, transitionBlurDelay * 2);
+    });
+  });
 });

@@ -2,6 +2,7 @@ describe('MTR Datepicker: Months ', function () {
   var datepickerSelectorName = 'datepicker';
   var datepickerSelector = '#' + datepickerSelectorName;
   var datepicker;
+  var transitionBlurDelay = 600; // Keep it equal with this one in the code
 
   beforeEach(function () {
     setBaseFixtures();
@@ -336,4 +337,127 @@ describe('MTR Datepicker: Months ', function () {
       }, transitionBlurDelay * 2);
     });
   });
+
+  describe('wheel move', function () {
+    var spyEvent;
+    var datepickerElement;
+    var monthsElement;
+    var inputActivatorElement;
+    var monthsInputElement;
+
+    beforeEach(function () {
+      datepickerElement = jQuery(datepickerSelector);
+
+      monthsElement = datepickerElement.find(datepickerSelector + '-input-months .mtr-content .mtr-values .mtr-default-value');
+      inputActivatorElement = datepickerElement.find(datepickerSelector + '-input-months .mtr-values');
+      monthsInputElement = datepickerElement.find(datepickerSelector + '-input-months .mtr-content .mtr-input.months');
+    });
+
+    it('should be triggered', function () {
+      var wheelEvent = createWheelEvent(120);
+
+      spyEvent = spyOnEvent(monthsElement, 'wheel');
+      monthsElement[0].dispatchEvent(wheelEvent);
+
+      expect(spyEvent).toHaveBeenTriggered();
+    });
+
+    it('should increase the months when scrolled upwards', function (done) {
+      var expectedMonth = (new Date(datepicker.getTimestamp() + (31 * 24 * 3600 * 1000)).getMonth() + 1).toString();
+
+      var wheelEvent = createWheelEvent(120);
+
+      spyEvent = spyOnEvent(monthsElement, 'wheel');
+      monthsElement[0].dispatchEvent(wheelEvent);
+
+      expect(spyEvent).toHaveBeenTriggered();
+
+      setTimeout(function () {
+        var datepickerMonth = datepicker.format('M');
+
+        expect(datepickerMonth).toEqual(expectedMonth.toString());
+        done();
+      }, transitionBlurDelay * 2);
+    });
+
+    it('should decrease the months when scrolled downwards', function (done) {
+      var expectedMonth = (new Date(datepicker.getTimestamp() - (31 * 24 * 3600 * 1000)).getMonth() + 1).toString();
+
+      var wheelEvent = createWheelEvent(-120);
+
+      spyEvent = spyOnEvent(monthsElement, 'wheel');
+      monthsElement[0].dispatchEvent(wheelEvent);
+
+      expect(spyEvent).toHaveBeenTriggered();
+
+      setTimeout(function () {
+        var datepickerMonth = datepicker.format('M');
+
+        expect(datepickerMonth).toEqual(expectedMonth);
+        done();
+      }, transitionBlurDelay * 2);
+    });
+
+    it('should increase the months when scrolled upwards in the input', function (done) {
+      var expectedMonth = new Date(datepicker.getTimestamp() + (31 * 24 * 3600 * 1000)).getMonth().toString();
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(monthsInputElement), 'focus');
+      var spyEventWheel = spyOnEvent(monthsInputElement, 'wheel');
+      var spyEventBlur = spyOnEvent(jQuery(monthsInputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var wheelEvent = createWheelEvent(120);
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      monthsInputElement[0].dispatchEvent(inputElementFocusEvent);
+      monthsInputElement[0].dispatchEvent(wheelEvent);
+      monthsInputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      setTimeout(function () {
+        var datepickerMonth = datepicker.format('M');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventWheel).toHaveBeenTriggered();
+        expect(spyEventBlur).toHaveBeenTriggered();
+
+        expect(datepickerMonth).toEqual(expectedMonth);
+        done();
+      }, transitionBlurDelay * 2);
+    });
+
+    it('should decrease the months when scrolled downwards in the input', function (done) {
+      var expectedMonth = new Date(datepicker.getTimestamp() - (31 * 24 * 3600 * 1000)).getMonth().toString();
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(monthsInputElement), 'focus');
+      var spyEventWheel = spyOnEvent(monthsInputElement, 'wheel');
+      var spyEventBlur = spyOnEvent(jQuery(monthsInputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var wheelEvent = createWheelEvent(-120);
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      monthsInputElement[0].dispatchEvent(inputElementFocusEvent);
+      monthsInputElement[0].dispatchEvent(wheelEvent);
+      monthsInputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      setTimeout(function () {
+        var datepickerMonth = datepicker.format('M');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventWheel).toHaveBeenTriggered();
+        expect(spyEventBlur).toHaveBeenTriggered();
+
+        expect(datepickerMonth).toEqual(expectedMonth);
+        done();
+      }, transitionBlurDelay * 2);
+    });
+  })
 });

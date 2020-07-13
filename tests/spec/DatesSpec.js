@@ -2,7 +2,7 @@ describe('MTR Datepicker: Dates ', function () {
   var datepickerSelectorName = 'datepicker';
   var datepickerSelector = '#' + datepickerSelectorName;
   var datepicker;
-  // var transitionBlurDelay = 600; // Keep it equal with this one in the code
+  var transitionBlurDelay = 600; // Keep it equal with this one in the code
 
   beforeEach(function () {
     setBaseFixtures();
@@ -336,15 +336,19 @@ describe('MTR Datepicker: Dates ', function () {
     var spyEvent;
     var datepickerElement;
     var datesElement;
+    var inputActivatorElement;
+    var datesInputElement;
 
     beforeEach(function () {
       datepickerElement = jQuery(datepickerSelector);
 
-      datesElement = datepickerElement.find(datepickerSelector + '-input-dates .mtr-content .mtr-values');
+      datesElement = datepickerElement.find(datepickerSelector + '-input-dates .mtr-content .mtr-values .mtr-default-value-name');
+      inputActivatorElement = datepickerElement.find(datepickerSelector + '-input-dates .mtr-values');
+      datesInputElement = datepickerElement.find(datepickerSelector + '-input-dates .mtr-content .mtr-input.dates');
     });
 
     it('should be triggered', function () {
-      var wheelEvent = createWheelEvent(100);
+      var wheelEvent = createWheelEvent(120);
 
       spyEvent = spyOnEvent(datesElement, 'wheel');
       datesElement[0].dispatchEvent(wheelEvent);
@@ -352,42 +356,102 @@ describe('MTR Datepicker: Dates ', function () {
       expect(spyEvent).toHaveBeenTriggered();
     });
 
-    // TODO: Fix me, the wheel event is not performed
-    // it('should increase the dates when scrolled upwards', function (done) {
-    //   var expectedDate = new Date(datepicker.getTimestamp() + (24 * 3600 * 1000)).getDate().toString();
+    it('should increase the dates when scrolled upwards', function (done) {
+      var expectedDate = new Date(datepicker.getTimestamp() + (24 * 3600 * 1000)).getDate().toString();
 
-    //   var wheelEvent = createWheelEvent(-100);
+      var wheelEvent = createWheelEvent(120);
 
-    //   spyEvent = spyOnEvent(datesElement, 'wheel');
-    //   datesElement[0].dispatchEvent(wheelEvent);
+      spyEvent = spyOnEvent(datesElement, 'wheel');
+      datesElement[0].dispatchEvent(wheelEvent);
 
-    //   expect(spyEvent).toHaveBeenTriggered();
+      expect(spyEvent).toHaveBeenTriggered();
 
-    //   setTimeout(function () {
-    //     var datepickerDate = datepicker.format('D');
+      setTimeout(function () {
+        var datepickerDate = datepicker.format('D');
 
-    //     expect(datepickerDate.toString()).toEqual(expectedDate.toString());
-    //     done();
-    //   }, transitionBlurDelay * 2);
-    // });
+        expect(datepickerDate.toString()).toEqual(expectedDate.toString());
+        done();
+      }, transitionBlurDelay * 2);
+    });
 
-    // TODO: Fix me, the wheel event is not performed
-    // it('should decrease the dates when scrolled downwards', function (done) {
-    //   var expectedDate = new Date(datepicker.getTimestamp() - (24 * 3600 * 1000)).getDate().toString();
+    it('should decrease the dates when scrolled downwards', function (done) {
+      var expectedDate = new Date(datepicker.getTimestamp() - (24 * 3600 * 1000)).getDate().toString();
 
-    //   var wheelEvent = createWheelEvent(10);
+      var wheelEvent = createWheelEvent(-120);
 
-    //   spyEvent = spyOnEvent(datesElement, 'wheel');
-    //   datesElement[0].dispatchEvent(wheelEvent);
+      spyEvent = spyOnEvent(datesElement, 'wheel');
+      datesElement[0].dispatchEvent(wheelEvent);
 
-    //   expect(spyEvent).toHaveBeenTriggered();
+      expect(spyEvent).toHaveBeenTriggered();
 
-    //   setTimeout(function () {
-    //     var datepickerDate = datepicker.format('D');
+      setTimeout(function () {
+        var datepickerDate = datepicker.format('D');
 
-    //     expect(datepickerDate).toEqual(expectedDate);
-    //     done();
-    //   }, transitionBlurDelay * 2);
-    // });
-  })
+        expect(datepickerDate).toEqual(expectedDate);
+        done();
+      }, transitionBlurDelay * 2);
+    });
+
+    it('should increase the date when scrolled upwards in the input', function (done) {
+      var expectedDate = new Date(datepicker.getTimestamp() + (24 * 3600 * 1000)).getDate().toString();
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(datesInputElement), 'focus');
+      var spyEventWheel = spyOnEvent(datesInputElement, 'wheel');
+      var spyEventBlur = spyOnEvent(jQuery(datesInputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var wheelEvent = createWheelEvent(120);
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      datesInputElement[0].dispatchEvent(inputElementFocusEvent);
+      datesInputElement[0].dispatchEvent(wheelEvent);
+      datesInputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      setTimeout(function () {
+        var datepickerDate = datepicker.format('D');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventWheel).toHaveBeenTriggered();
+        expect(spyEventBlur).toHaveBeenTriggered();
+
+        expect(datepickerDate).toEqual(expectedDate);
+        done();
+      }, transitionBlurDelay * 2);
+    });
+
+    it('should decrease the date when scrolled downwards in the input', function (done) {
+      var expectedDate = new Date(datepicker.getTimestamp() - (24 * 3600 * 1000)).getDate().toString();
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(datesInputElement), 'focus');
+      var spyEventWheel = spyOnEvent(datesInputElement, 'wheel');
+      var spyEventBlur = spyOnEvent(jQuery(datesInputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var wheelEvent = createWheelEvent(-120);
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      datesInputElement[0].dispatchEvent(inputElementFocusEvent);
+      datesInputElement[0].dispatchEvent(wheelEvent);
+      datesInputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      setTimeout(function () {
+        var datepickerDate = datepicker.format('D');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventWheel).toHaveBeenTriggered();
+        expect(spyEventBlur).toHaveBeenTriggered();
+
+        expect(datepickerDate).toEqual(expectedDate);
+        done();
+      }, transitionBlurDelay * 2);
+    });
+  });
 });

@@ -2,6 +2,7 @@ describe('MTR Datepicker: Years ', function () {
   var datepickerSelectorName = 'datepicker';
   var datepickerSelector = '#' + datepickerSelectorName;
   var datepicker;
+  var transitionBlurDelay = 600; // Keep it equal with this one in the code
 
   beforeEach(function () {
     setBaseFixtures();
@@ -286,6 +287,129 @@ describe('MTR Datepicker: Years ', function () {
         var datepickerYear = datepicker.format('Y');
 
         expect(datepickerYear).toEqual(expectedYear);
+        done();
+      }, transitionBlurDelay * 2);
+    });
+  });
+
+  describe('wheel move', function () {
+    var spyEvent;
+    var datepickerElement;
+    var yearsElement;
+    var inputActivatorElement;
+    var yearsInputElement;
+
+    beforeEach(function () {
+      datepickerElement = jQuery(datepickerSelector);
+
+      yearsElement = datepickerElement.find(datepickerSelector + '-input-years .mtr-content .mtr-values .mtr-default-value');
+      inputActivatorElement = datepickerElement.find(datepickerSelector + '-input-years .mtr-values');
+      yearsInputElement = datepickerElement.find(datepickerSelector + '-input-years .mtr-content .mtr-input.years');
+    });
+
+    it('should be triggered', function () {
+      var wheelEvent = createWheelEvent(120);
+
+      spyEvent = spyOnEvent(yearsElement, 'wheel');
+      yearsElement[0].dispatchEvent(wheelEvent);
+
+      expect(spyEvent).toHaveBeenTriggered();
+    });
+
+    it('should increase the years when scrolled upwards', function (done) {
+      var expectedYears = new Date(datepicker.getTimestamp() + (365 * 24 * 3600 * 1000)).getFullYear().toString();
+
+      var wheelEvent = createWheelEvent(120);
+
+      spyEvent = spyOnEvent(yearsElement, 'wheel');
+      yearsElement[0].dispatchEvent(wheelEvent);
+
+      expect(spyEvent).toHaveBeenTriggered();
+
+      setTimeout(function () {
+        var datepickerYears = datepicker.format('Y');
+
+        expect(datepickerYears).toEqual(expectedYears.toString());
+        done();
+      }, transitionBlurDelay * 2);
+    });
+
+    it('should decrease the years when scrolled downwards', function (done) {
+      var expectedYears = new Date(datepicker.getTimestamp() - (365 * 24 * 3600 * 1000)).getFullYear().toString();
+
+      var wheelEvent = createWheelEvent(-120);
+
+      spyEvent = spyOnEvent(yearsElement, 'wheel');
+      yearsElement[0].dispatchEvent(wheelEvent);
+
+      expect(spyEvent).toHaveBeenTriggered();
+
+      setTimeout(function () {
+        var datepickerYears = datepicker.format('Y');
+
+        expect(datepickerYears).toEqual(expectedYears);
+        done();
+      }, transitionBlurDelay * 2);
+    });
+
+    it('should increase the year when scrolled upwards in the input', function (done) {
+      var expectedYears = new Date(datepicker.getTimestamp() + (365 * 24 * 3600 * 1000)).getFullYear().toString();
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(yearsInputElement), 'focus');
+      var spyEventWheel = spyOnEvent(yearsInputElement, 'wheel');
+      var spyEventBlur = spyOnEvent(jQuery(yearsInputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var wheelEvent = createWheelEvent(120);
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      yearsInputElement[0].dispatchEvent(inputElementFocusEvent);
+      yearsInputElement[0].dispatchEvent(wheelEvent);
+      yearsInputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      setTimeout(function () {
+        var datepickerYear = datepicker.format('Y');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventWheel).toHaveBeenTriggered();
+        expect(spyEventBlur).toHaveBeenTriggered();
+
+        expect(datepickerYear).toEqual(expectedYears);
+        done();
+      }, transitionBlurDelay * 2);
+    });
+
+    it('should decrease the year when scrolled downwards in the input', function (done) {
+      var expectedYears = new Date(datepicker.getTimestamp() - (365 * 24 * 3600 * 1000)).getFullYear().toString();
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(yearsInputElement), 'focus');
+      var spyEventWheel = spyOnEvent(yearsInputElement, 'wheel');
+      var spyEventBlur = spyOnEvent(jQuery(yearsInputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var wheelEvent = createWheelEvent(-120);
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      yearsInputElement[0].dispatchEvent(inputElementFocusEvent);
+      yearsInputElement[0].dispatchEvent(wheelEvent);
+      yearsInputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      setTimeout(function () {
+        var datepickerYear = datepicker.format('Y');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventWheel).toHaveBeenTriggered();
+        expect(spyEventBlur).toHaveBeenTriggered();
+
+        expect(datepickerYear).toEqual(expectedYears);
         done();
       }, transitionBlurDelay * 2);
     });

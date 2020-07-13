@@ -2,6 +2,7 @@ describe('MTR Datepicker: Minutes ', function () {
   var datepickerSelectorName = 'datepicker';
   var datepickerSelector = '#' + datepickerSelectorName;
   var datepicker;
+  var transitionBlurDelay = 600; // Keep it equal with this one in the code
 
   beforeEach(function () {
     setBaseFixtures();
@@ -297,6 +298,129 @@ describe('MTR Datepicker: Minutes ', function () {
 
       setTimeout(function () {
         var datepickerMinutes = datepicker.format('mm');
+
+        expect(datepickerMinutes).toEqual(expectedMinutes);
+        done();
+      }, transitionBlurDelay * 2);
+    });
+  });
+
+  describe('wheel move', function () {
+    var spyEvent;
+    var datepickerElement;
+    var minutesElement;
+    var inputActivatorElement;
+    var minutesInputElement;
+
+    beforeEach(function () {
+      datepickerElement = jQuery(datepickerSelector);
+
+      minutesElement = datepickerElement.find(datepickerSelector + '-input-minutes .mtr-content .mtr-values .mtr-default-value');
+      inputActivatorElement = datepickerElement.find(datepickerSelector + '-input-minutes .mtr-values');
+      minutesInputElement = datepickerElement.find(datepickerSelector + '-input-minutes .mtr-content .mtr-input.minutes');
+    });
+
+    it('should be triggered', function () {
+      var wheelEvent = createWheelEvent(120);
+
+      spyEvent = spyOnEvent(minutesElement, 'wheel');
+      minutesElement[0].dispatchEvent(wheelEvent);
+
+      expect(spyEvent).toHaveBeenTriggered();
+    });
+
+    it('should increase the minutes when scrolled upwards', function (done) {
+      var expectedMinutes = new Date(datepicker.getTimestamp() + (10 * 60 * 1000)).getMinutes().toString();
+
+      var wheelEvent = createWheelEvent(120);
+
+      spyEvent = spyOnEvent(minutesElement, 'wheel');
+      minutesElement[0].dispatchEvent(wheelEvent);
+
+      expect(spyEvent).toHaveBeenTriggered();
+
+      setTimeout(function () {
+        var datepickerMinutes = datepicker.format('m');
+
+        expect(datepickerMinutes.toString()).toEqual(expectedMinutes.toString());
+        done();
+      }, transitionBlurDelay * 2);
+    });
+
+    it('should decrease the minutes when scrolled downwards', function (done) {
+      var expectedMinutes = new Date(datepicker.getTimestamp() - (10 * 60 * 1000)).getMinutes().toString();
+
+      var wheelEvent = createWheelEvent(-120);
+
+      spyEvent = spyOnEvent(minutesElement, 'wheel');
+      minutesElement[0].dispatchEvent(wheelEvent);
+
+      expect(spyEvent).toHaveBeenTriggered();
+
+      setTimeout(function () {
+        var datepickerMinutes = datepicker.format('m');
+
+        expect(datepickerMinutes).toEqual(expectedMinutes);
+        done();
+      }, transitionBlurDelay * 2);
+    });
+
+    it('should increase the minutes when scrolled upwards in the input', function (done) {
+      var expectedMinutes = new Date(datepicker.getTimestamp() + (10 * 60 * 1000)).getMinutes().toString();
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(minutesInputElement), 'focus');
+      var spyEventWheel = spyOnEvent(minutesInputElement, 'wheel');
+      var spyEventBlur = spyOnEvent(jQuery(minutesInputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var wheelEvent = createWheelEvent(120);
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      minutesInputElement[0].dispatchEvent(inputElementFocusEvent);
+      minutesInputElement[0].dispatchEvent(wheelEvent);
+      minutesInputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      setTimeout(function () {
+        var datepickerMinutes = datepicker.format('m');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventWheel).toHaveBeenTriggered();
+        expect(spyEventBlur).toHaveBeenTriggered();
+
+        expect(datepickerMinutes).toEqual(expectedMinutes);
+        done();
+      }, transitionBlurDelay * 2);
+    });
+
+    it('should decrease the minutes when scrolled downwards in the input', function (done) {
+      var expectedMinutes = new Date(datepicker.getTimestamp() - (10 * 60 * 1000)).getMinutes().toString();
+
+      var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
+      var spyEventFocus = spyOnEvent(jQuery(minutesInputElement), 'focus');
+      var spyEventWheel = spyOnEvent(minutesInputElement, 'wheel');
+      var spyEventBlur = spyOnEvent(jQuery(minutesInputElement), 'blur');
+
+      var clickEvent = createClickEvent();
+      var inputElementFocusEvent = createCustomEvent('focus');
+      var wheelEvent = createWheelEvent(-120);
+      var inputElementBlurEvent = createCustomEvent('blur');
+
+      inputActivatorElement[0].dispatchEvent(clickEvent);
+      minutesInputElement[0].dispatchEvent(inputElementFocusEvent);
+      minutesInputElement[0].dispatchEvent(wheelEvent);
+      minutesInputElement[0].dispatchEvent(inputElementBlurEvent);
+
+      setTimeout(function () {
+        var datepickerMinutes = datepicker.format('m');
+
+        expect(spyEventClick).toHaveBeenTriggered();
+        expect(spyEventFocus).toHaveBeenTriggered();
+        expect(spyEventWheel).toHaveBeenTriggered();
+        expect(spyEventBlur).toHaveBeenTriggered();
 
         expect(datepickerMinutes).toEqual(expectedMinutes);
         done();
