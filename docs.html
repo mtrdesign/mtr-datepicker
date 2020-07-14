@@ -302,6 +302,27 @@ var myDatepicker = new MtrDatepicker(config);
 &lt;/script&gt;
             </code></pre>
 
+
+            <br />
+            <h3 id="api-init-reorder-datepicker">Change date picker order</h3>
+            <p>
+              If you want you can change the order of the Date Picker fields easily.
+              Just initialize your datepicker with the <code>datepicker</code> parameter and
+              control provide the date related fields in the exact order you want to be rendered.
+            </p>
+
+            <pre><code>
+&lt;div id="reorder-datepicker-mtr-datepicker"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  var config = {
+    target: 'reorder-datepicker-mtr-datepicker',
+    datepicker: ['dates', 'months', 'years']
+  };
+  var myDatepicker = new MtrDatepicker(config);
+&lt;/script&gt;
+            </code></pre>
+
             <br />
             <h3 id="api-init-disable-timepicker">Disable time picker</h3>
             <p>
@@ -686,6 +707,7 @@ Waiting...
                 <li><a href="#api-init-smart-ampm"> &nbsp; Smart AM/PM switching</a></li>
                 <li><a href="#api-init-disable-ampm"> &nbsp; Disable AM/PM (24 hours time format)</a></li>
                 <li><a href="#api-init-disable-datepicker"> &nbsp; Disable date picker</a></li>
+                <li><a href="#api-init-reorder-datepicker"> &nbsp; Change date picker order</a></li>
                 <li><a href="#api-init-disable-timepicker"> &nbsp; Disable time picker</a></li>
               <li><a href="#api-output">Output</a></li>
                 <li><a href="#api-output-format"> &nbsp; format()</a></li>

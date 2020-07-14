@@ -1,10 +1,7 @@
-describe('MTR Datepicker: AM/PM ', function() {
-
-  var datepickerSelectorName = 'datepicker';
-  var datepickerSelector = '#' + datepickerSelectorName;
+describe('MTR Datepicker: AM/PM ', function () {
   var datepicker;
 
-  beforeEach(function() {
+  beforeEach(function () {
     setBaseFixtures();
 
     datepicker = new MtrDatepicker({
@@ -12,12 +9,12 @@ describe('MTR Datepicker: AM/PM ', function() {
     });
   });
 
-  function setBaseFixtures() {
-    var datepickerFixture = setFixtures('<div id="datepicker"></div>');
+  function setBaseFixtures () {
+    setFixtures('<div id="datepicker"></div>');
   }
 
-  describe('getter', function() {
-    it('format("a") should return the current state AM/PM', function() {
+  describe('getter', function () {
+    it('format("a") should return the current state AM/PM', function () {
       var currentDate = new Date();
       var currentHours = currentDate.getHours();
       var currentDatepickerHours = datepicker.format('H');
@@ -34,20 +31,17 @@ describe('MTR Datepicker: AM/PM ', function() {
 
       if (currentHours >= 0 && currentHours <= 11) {
         expectedAmPm = 'am';
-      }
-      else if (currentHours >= 12 && currentHours <= 23) {
+      } else if (currentHours >= 12 && currentHours <= 23) {
         expectedAmPm = 'pm';
       }
 
       expect(datepickerAmPm).toEqual(expectedAmPm);
       expect(currentDatepickerHours).toEqual(currentHours.toString());
     });
-
   });
 
-  describe('setter', function() {
-
-    it('setAmPm(1) should set the 10PM to 10AM', function() {
+  describe('setter', function () {
+    it('setAmPm(1) should set the 10PM to 10AM', function () {
       var expectedValue = '10 AM';
 
       datepicker.setHours(22);
@@ -58,7 +52,7 @@ describe('MTR Datepicker: AM/PM ', function() {
       expect(datepickerValue).toEqual(expectedValue);
     });
 
-    it('setAmPm(0) should set the 8AM to 8PM', function() {
+    it('setAmPm(0) should set the 8AM to 8PM', function () {
       var expectedValue = '08 PM';
 
       datepicker.setHours(8);
@@ -68,23 +62,5 @@ describe('MTR Datepicker: AM/PM ', function() {
 
       expect(datepickerValue).toEqual(expectedValue);
     });
-
   });
-
-  describe('click event', function() {
-
-    var spyEvent;
-    var datepickerElement;
-    var arrowUpElement;
-
-    beforeEach(function() {
-      datepickerElement = $(datepickerSelector);
-
-      arrowUpElement = datepickerElement.find(datepickerSelector + '-input-minutes .mtr-arrow.up');
-      arrowDownElement = datepickerElement.find(datepickerSelector + '-input-minutes .mtr-arrow.down');
-      inputElement = datepickerElement.find(datepickerSelector + '-input-minutes input.mtr-input.minutes');
-    });
-
-  });
-
 });

@@ -537,9 +537,21 @@ function MtrDatepicker (inputConfig) {
       var rowClearfixDate = document.createElement('div');
       rowClearfixDate.className = 'mtr-clearfix';
 
-      rowDate.appendChild(monthElement);
-      rowDate.appendChild(dateElement);
-      rowDate.appendChild(yearElement);
+      if (Array.isArray(config.datepicker)) {
+        // If provided use the desired order of the date fields
+        config.datepicker.forEach(function (field) {
+          switch (field) {
+            case 'months': rowDate.appendChild(monthElement); break;
+            case 'dates': rowDate.appendChild(dateElement); break;
+            case 'years': rowDate.appendChild(yearElement); break;
+            default: break;
+          }
+        });
+      } else {
+        rowDate.appendChild(monthElement);
+        rowDate.appendChild(dateElement);
+        rowDate.appendChild(yearElement);
+      }
 
       targetElement.appendChild(rowDate);
       targetElement.appendChild(rowClearfixDate);
@@ -717,7 +729,7 @@ function MtrDatepicker (inputConfig) {
       // Attach event listeners
       inputValue.addEventListener('blur', function (e) {
         // Blur event has to be called after specific amount of time
-        // because it can be cause from an arrow button. In this case
+        // because it can be caused from an arrow button. In this case
         // we shouldn't apple the blur event body
         setTimeout(function () {
           blurEvent();
@@ -781,8 +793,16 @@ function MtrDatepicker (inputConfig) {
         }
       }, false);
 
+      // Accept the new values on <Enter>
+      inputValue.addEventListener('keyup', function (e) {
+        if (e.keyCode === 13) {
+          e.preventDefault();
+          inputValue.blur();
+        }
+      }, false);
+
       // On wheel scroll we should change the value in the input
-      inputValue.addEventListener('wheel ', function (e) {
+      inputValue.addEventListener('wheel', function (e) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -1061,7 +1081,9 @@ function MtrDatepicker (inputConfig) {
     // After month change we should recalculate the range of the dates
     setDatesRange(newMonth, newYear);
 
-    if (config.datepicker) {
+    if (config.datepicker && (
+      Array.isArray(config.datepicker) && config.datepicker.indexOf('dates') > -1
+    )) {
       rebuildElementValues(config.references.dates, {
         name: 'dates',
         values: config.defaultValues.dates,
@@ -1448,7 +1470,15 @@ function MtrDatepicker (inputConfig) {
   };
 
   var getFullTime = function () {
-    return getHours() + ':' + getMinutes() + ' ' + (getIsAm() ? 'AM' : 'PM');
+    var hours = getHours();
+    var minutes = getMinutes();
+    var amPm = getIsAm() ? 'AM' : 'PM';
+
+    if (minutes <= 9) {
+      minutes = '0' + minutes;
+    }
+
+    return hours + ':' + minutes + ' ' + amPm;
   };
 
   var setTimestamp = function (input) {
