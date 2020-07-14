@@ -399,7 +399,7 @@ describe('MTR Datepicker: Months ', function () {
     });
 
     it('should increase the months when scrolled upwards in the input', function (done) {
-      var expectedMonth = new Date(datepicker.getTimestamp() + (31 * 24 * 3600 * 1000)).getMonth().toString();
+      var expectedMonth = (new Date(datepicker.getTimestamp() + (31 * 24 * 3600 * 1000)).getMonth() + 1).toString();
 
       var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
       var spyEventFocus = spyOnEvent(jQuery(monthsInputElement), 'focus');
@@ -426,11 +426,11 @@ describe('MTR Datepicker: Months ', function () {
 
         expect(datepickerMonth).toEqual(expectedMonth);
         done();
-      }, transitionBlurDelay * 2);
+      }, transitionBlurDelay);
     });
 
     it('should decrease the months when scrolled downwards in the input', function (done) {
-      var expectedMonth = new Date(datepicker.getTimestamp() - (31 * 24 * 3600 * 1000)).getMonth().toString();
+      var expectedMonth = (new Date(datepicker.getTimestamp() - (31 * 24 * 3600 * 1000)).getMonth() + 1).toString();
 
       var spyEventClick = spyOnEvent(jQuery(inputActivatorElement), 'click');
       var spyEventFocus = spyOnEvent(jQuery(monthsInputElement), 'focus');
@@ -457,7 +457,7 @@ describe('MTR Datepicker: Months ', function () {
 
         expect(datepickerMonth).toEqual(expectedMonth);
         done();
-      }, transitionBlurDelay * 2);
+      }, transitionBlurDelay);
     });
   })
 });

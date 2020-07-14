@@ -1,6 +1,14 @@
 
 # Changelog
 
+## 0.3.11 - 2020-07-14
+
+    
+- Fixed minutes output when the value is less than 10
+- Added a way to apply the changed of the input after an enter key press
+- Added ability to control the order of the date fields
+- Other minor bugs fixes and improvements
+
 ## 0.3.10 - 2020-06-30
 
 - Added ability to toggle the date/time picker elements
